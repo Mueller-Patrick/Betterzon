@@ -1,6 +1,6 @@
 # Betterzon
-Website: https://betterzon.xyz
-Blog: https://blog.betterzon.xyz
+Website: https://betterzon.xyz<br>
+Blog: https://blog.betterzon.xyz<br>
 Wiki: https://github.com/Mueller-Patrick/Betterzon/wiki
 
 # Project Status
