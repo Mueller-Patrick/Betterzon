@@ -23,6 +23,7 @@ speed-measure-plugin*.json
 .settings/
 *.sublime-workspace
 *.iml
+Betterzon.iml
 
 # IDE - VSCode
 .vscode/*
