@@ -52,4 +52,16 @@ public class PriceAlarm {
   @Then("^the price alarm should be removed from the database$")
   public void the_price_alarm_should_be_removed_from_the_database() throws Exception {
   }
+
+  @Then("^a popup should open where the user can edit the alarm$")
+  public void a_popup_should_open_where_the_user_can_edit_the_alarm() throws Exception {
+  }
+
+  @When("^the user clicks on the \"([^\"]*)\" button$")
+  public void the_user_clicks_on_the_button(String arg1) throws Exception {
+  }
+
+  @Then("^the price alarm should be updated in the database$")
+  public void the_price_alarm_should_be_updated_in_the_database() throws Exception {
+  }
 }

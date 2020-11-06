@@ -18,3 +18,11 @@ Feature: Price Alarms
     Then a popup should open asking the user to confirm the removal
     When the user confirms the removal of the price alarm
     Then the price alarm should be removed from the database
+
+  Scenario: Edit a price alarm
+    Given the user is on the price alarm list page
+    And the user is logged in
+    When the user clicks on the "edit" button next to a price alarm
+    Then a popup should open where the user can edit the alarm
+    When the user clicks on the "save changes" button
+    Then the price alarm should be updated in the database
