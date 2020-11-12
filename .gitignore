@@ -15,7 +15,7 @@ chrome-profiler-events*.json
 speed-measure-plugin*.json
 
 # IDEs and editors
-/.idea
+/.idea/*
 .project
 .classpath
 .c9/
@@ -23,6 +23,9 @@ speed-measure-plugin*.json
 .settings/
 *.sublime-workspace
 *.iml
+
+# Include IntelliJ modules
+!/.idea/modules.xml
 
 # IDE - VSCode
 .vscode/*
