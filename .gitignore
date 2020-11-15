@@ -8,7 +8,7 @@
 /bazel-out
 
 # dependencies
-/node_modules
+**/node_modules/
 
 # profiling files
 chrome-profiler-events*.json
@@ -23,6 +23,9 @@ speed-measure-plugin*.json
 .settings/
 *.sublime-workspace
 *.iml
+!Frontend.iml
+!Backend.iml
+!CucumberTests.iml
 
 # Include IntelliJ modules
 !/.idea/modules.xml
