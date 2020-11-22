@@ -52,3 +52,6 @@ testem.log
 .DS_Store
 Thumbs.db
 /CucumberTests/target/
+
+# Env files
+.env
