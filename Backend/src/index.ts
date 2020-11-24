@@ -7,6 +7,8 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import { productsRouter } from "./products/products.router";
+import { errorHandler } from "./middleware/error.middleware";
+import {notFoundHandler} from "./middleware/notFound.middleware";
 
 dotenv.config();
 
@@ -32,6 +34,9 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 app.use("/products", productsRouter);
+
+app.use(errorHandler);
+app.use(notFoundHandler);
 
 
 /**
