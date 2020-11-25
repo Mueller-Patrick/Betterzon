@@ -1,3 +1,15 @@
+import * as dotenv from 'dotenv';
+dotenv.config();
+
+const mariadb = require('mariadb');
+const pool = mariadb.createPool({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
+    connectionLimit: 5
+});
+
 /**
  * Data Model Interfaces
  */
@@ -61,6 +73,18 @@ const products: Products = {
  */
 
 export const findAll = async (): Promise<Products> => {
+    let conn;
+    try {
+        conn = await pool.getConnection();
+        const rows = await conn.query("SELECT * FROM products");
+        console.log(rows); //[ {val: 1}, meta: ... ]
+
+    } catch (err) {
+        throw err;
+    } finally {
+        if (conn) return conn.end();
+    }
+
     return products;
 };
 
