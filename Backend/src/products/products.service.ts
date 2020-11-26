@@ -74,18 +74,23 @@ const products: Products = {
 
 export const findAll = async (): Promise<Products> => {
     let conn;
+    let prodRows = [];
     try {
         conn = await pool.getConnection();
-        const rows = await conn.query("SELECT * FROM products");
-        console.log(rows); //[ {val: 1}, meta: ... ]
+        const rows = await conn.query("SELECT product_id, name FROM products WHERE product_id = ?", 1);
+        for(let row in rows){
+            if(row !== 'meta'){
+                prodRows.push(rows[row]);
+            }
+        }
 
     } catch (err) {
         throw err;
     } finally {
-        if (conn) return conn.end();
+        if (conn) conn.end();
     }
 
-    return products;
+    return prodRows;
 };
 
 export const find = async (id: number): Promise<Product> => {
