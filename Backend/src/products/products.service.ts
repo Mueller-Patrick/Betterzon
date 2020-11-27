@@ -77,7 +77,7 @@ export const findAll = async (): Promise<Products> => {
     let prodRows = [];
     try {
         conn = await pool.getConnection();
-        const rows = await conn.query("SELECT product_id, name FROM products WHERE product_id = ?", 1);
+        const rows = await conn.query("SELECT product_id, name FROM products");
         for(let row in rows){
             if(row !== 'meta'){
                 prodRows.push(rows[row]);
@@ -94,21 +94,61 @@ export const findAll = async (): Promise<Products> => {
 };
 
 export const find = async (id: number): Promise<Product> => {
-    const record: Product = products[id];
+    let conn;
+    let prod: any;
+    try {
+        conn = await pool.getConnection();
+        const rows = await conn.query("SELECT product_id, name FROM products WHERE product_id = ?", id);
+        for(let row in rows){
+            if(row !== 'meta'){
+                prod = rows[row];
+            }
+        }
 
-    if (record) {
-        return record;
+    } catch (err) {
+        throw err;
+    } finally {
+        if (conn) conn.end();
     }
 
-    throw new Error("No record found");
+    return prod;
+};
+
+export const findBySearchTerm = async (term: string): Promise<Products> => {
+    let conn;
+    let prodRows = [];
+    try {
+        conn = await pool.getConnection();
+        term = '%' + term + '%';
+        const rows = await conn.query("SELECT product_id, name FROM products WHERE name LIKE ?", term);
+        for(let row in rows){
+            if(row !== 'meta'){
+                prodRows.push(rows[row]);
+            }
+        }
+
+    } catch (err) {
+        console.log(err);
+        throw err;
+    } finally {
+        if (conn) conn.end();
+    }
+
+    return prodRows;
 };
 
 export const create = async (newItem: Product): Promise<void> => {
-    const product_id = new Date().valueOf();
-    products[product_id] = {
-        ...newItem,
-        product_id
-    };
+    let conn;
+    try {
+        conn = await pool.getConnection();
+        // TODO adjust query
+        await conn.query("SELECT product_id, name FROM products WHERE product_id = ?");
+
+    } catch (err) {
+        throw err;
+    } finally {
+        if (conn) conn.end();
+    }
 };
 
 export const update = async (updatedItem: Product): Promise<void> => {

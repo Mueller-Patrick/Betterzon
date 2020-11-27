@@ -36,10 +36,34 @@ productsRouter.get('/', async (req: Request, res: Response) => {
 productsRouter.get('/:id', async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
 
+    if(!id){
+        res.status(400).send('Missing parameters.');
+        return;
+    }
+
     try {
         const product: Product = await ProductService.find(id);
 
         res.status(200).send(product);
+    } catch (e) {
+        res.status(404).send(e.message);
+    }
+});
+
+// GET items/:name
+
+productsRouter.get('/search/:term', async (req: Request, res: Response) => {
+    const term: string = req.params.term;
+
+    if(!term){
+        res.status(400).send('Missing parameters.');
+        return;
+    }
+
+    try {
+        const products: Products = await ProductService.findBySearchTerm(term);
+
+        res.status(200).send(products);
     } catch (e) {
         res.status(404).send(e.message);
     }
