@@ -2,13 +2,17 @@
  * Required External Modules
  */
 
-import * as dotenv from "dotenv";
-import express from "express";
-import cors from "cors";
-import helmet from "helmet";
-import { productsRouter } from "./products/products.router";
-import { errorHandler } from "./middleware/error.middleware";
-import {notFoundHandler} from "./middleware/notFound.middleware";
+import * as dotenv from 'dotenv';
+import express from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
+import {productsRouter} from './models/products/products.router';
+import {categoriesRouter} from './models/categories/categories.router';
+import {manufacturersRouter} from './models/manufacturers/manufacturers.router';
+import {pricesRouter} from './models/prices/prices.router';
+import {vendorsRouter} from './models/vendors/vendors.router';
+import {errorHandler} from './middleware/error.middleware';
+import {notFoundHandler} from './middleware/notFound.middleware';
 
 dotenv.config();
 
@@ -33,7 +37,11 @@ const app = express();
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
-app.use("/products", productsRouter);
+app.use('/products', productsRouter);
+app.use('/categories', categoriesRouter);
+app.use('/manufacturers', manufacturersRouter);
+app.use('/prices', pricesRouter);
+app.use('/vendors', vendorsRouter);
 
 app.use(errorHandler);
 app.use(notFoundHandler);
