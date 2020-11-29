@@ -28,7 +28,7 @@ export const findAll = async (): Promise<Products> => {
     let prodRows = [];
     try {
         conn = await pool.getConnection();
-        const rows = await conn.query('SELECT product_id, name, asin FROM products');
+        const rows = await conn.query('SELECT product_id, name, asin, is_active, short_description, long_description, image_guid, date_added, last_modified, manufacturer_id, selling_rank, category_id FROM products');
         for (let row in rows) {
             if (row !== 'meta') {
                 let prod: Product = {
@@ -50,6 +50,15 @@ export const findAll = async (): Promise<Products> => {
                 prod.product_id = sqlProd.product_id;
                 prod.name = sqlProd.name;
                 prod.asin = sqlProd.asin;
+                prod.is_active = sqlProd.is_active;
+                prod.short_description = sqlProd.short_description;
+                prod.long_description = sqlProd.long_description;
+                prod.image_guid = sqlProd.image_guid;
+                prod.date_added = sqlProd.date_added;
+                prod.last_modified = sqlProd.last_modified;
+                prod.manufacturer_id = sqlProd.manufacturer_id;
+                prod.selling_rank = sqlProd.selling_rank;
+                prod.category_id = sqlProd.category_id;
                 prodRows.push(prod);
             }
         }
@@ -70,7 +79,7 @@ export const find = async (id: number): Promise<Product> => {
     let prod: any;
     try {
         conn = await pool.getConnection();
-        const rows = await conn.query('SELECT product_id, name FROM products WHERE product_id = ?', id);
+        const rows = await conn.query('SELECT product_id, name, asin, is_active, short_description, long_description, image_guid, date_added, last_modified, manufacturer_id, selling_rank, category_id FROM products WHERE product_id = ?', id);
         for (let row in rows) {
             if (row !== 'meta') {
                 prod = rows[row];
@@ -94,7 +103,7 @@ export const findBySearchTerm = async (term: string): Promise<Products> => {
     try {
         conn = await pool.getConnection();
         term = '%' + term + '%';
-        const rows = await conn.query('SELECT product_id, name FROM products WHERE name LIKE ?', term);
+        const rows = await conn.query('SELECT product_id, name, asin, is_active, short_description, long_description, image_guid, date_added, last_modified, manufacturer_id, selling_rank, category_id FROM products WHERE name LIKE ?', term);
         for (let row in rows) {
             if (row !== 'meta') {
                 prodRows.push(rows[row]);
