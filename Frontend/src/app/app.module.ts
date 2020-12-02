@@ -1,22 +1,29 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {HttpClientModule} from '@angular/common/http';
+import {NgModule} from '@angular/core';
 
-import { AppComponent } from './app.component';
-import { HelloWorldComponent } from './hello-world/hello-world.component';
+import {AppComponent} from './app.component';
+import {AppRouting} from './app.routing';
+import {ProductListComponent} from './product-list/product-list.component';
+import { LandingpageComponent } from './landingpage/landingpage.component';
 import { ProductDetailPageComponent } from './product-detail-page/product-detail-page.component';
-import { FooterComponent } from './components/footer/footer.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HelloWorldComponent,
-    ProductDetailPageComponent,
-    FooterComponent
-  ],
-  imports: [
-    BrowserModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        ProductListComponent,
+        LandingpageComponent,
+        ProductDetailPageComponent,
+        FooterComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRouting,
+        HttpClientModule
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
