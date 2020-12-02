@@ -4,10 +4,11 @@ import {RouterModule, Routes} from '@angular/router';
 import {AppComponent} from './app.component';
 import {ProductListComponent} from './product-list/product-list.component';
 import {LandingpageComponent} from './landingpage/landingpage.component';
+import {ProductDetailPageComponent} from './product-detail-page/product-detail-page.component';
 
 const routes: Routes = [
     {path: '', component: LandingpageComponent},
-    {path: 'pdp', component: ProductListComponent}
+    {path: 'product', component: ProductDetailPageComponent}
 ];
 
 @NgModule({
