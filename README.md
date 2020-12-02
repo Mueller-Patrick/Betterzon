@@ -1,5 +1,5 @@
 # Betterzon
-Website: https://betterzon.xyz<br>
+Website: https://www.betterzon.xyz<br>
 Blog: https://blog.betterzon.xyz<br>
 Wiki: https://github.com/Mueller-Patrick/Betterzon/wiki
 
