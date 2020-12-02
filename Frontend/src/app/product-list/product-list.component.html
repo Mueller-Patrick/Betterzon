@@ -1,4 +1,4 @@
 <meta charset="UTF-8">
-<p *ngFor="let product of products">
+<p class="productItem"  *ngFor="let product of products" (click)="clickedProduct(product)">
     {{product.name}}
 </p>

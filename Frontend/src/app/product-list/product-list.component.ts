@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import axios, {AxiosInterceptorManager, AxiosRequestConfig, AxiosResponse} from 'axios';
-import process from 'process';
 import {ApiService} from '../api.service';
 import {Product} from '../models/product';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-product-list',
@@ -12,7 +11,10 @@ import {Product} from '../models/product';
 export class ProductListComponent implements OnInit {
     products: Product[];
 
-    constructor(private apiService: ApiService) {
+    constructor(
+        private apiService: ApiService,
+        private router: Router
+    ) {
     }
 
     ngOnInit(): void {
@@ -21,6 +23,10 @@ export class ProductListComponent implements OnInit {
 
     getProducts(): void {
         this.apiService.getProducts().subscribe(products => this.products = products);
+    }
+
+    clickedProduct(product: Product): void {
+        this.router.navigate([('/helloworld/' + product.product_id)]);
     }
 
 }
