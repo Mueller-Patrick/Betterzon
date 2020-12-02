@@ -3,19 +3,19 @@ import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
-import {HelloWorldComponent} from './hello-world/hello-world.component';
-import {AppRoutingModule} from './app-routing.module';
+import {AppRouting} from './app.routing';
 import {ProductListComponent} from './product-list/product-list.component';
+import { LandingpageComponent } from './landingpage/landingpage.component';
 
 @NgModule({
     declarations: [
         AppComponent,
-        HelloWorldComponent,
-        ProductListComponent
+        ProductListComponent,
+        LandingpageComponent
     ],
     imports: [
         BrowserModule,
-        AppRoutingModule,
+        AppRouting,
         HttpClientModule
     ],
     providers: [],

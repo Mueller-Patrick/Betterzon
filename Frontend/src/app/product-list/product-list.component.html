@@ -2,3 +2,6 @@
 <p class="productItem"  *ngFor="let product of products" (click)="clickedProduct(product)">
     {{product.name}}
 </p>
+<div *ngIf="showProductPicture">
+    Test
+</div>

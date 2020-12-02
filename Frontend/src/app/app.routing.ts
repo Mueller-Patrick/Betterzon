@@ -1,13 +1,12 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
-import {HelloWorldComponent} from './hello-world/hello-world.component';
 import {AppComponent} from './app.component';
 import {ProductListComponent} from './product-list/product-list.component';
+import {LandingpageComponent} from './landingpage/landingpage.component';
 
 const routes: Routes = [
-    {path: '', component: AppComponent},
-    {path: 'helloworld', component: HelloWorldComponent},
+    {path: '', component: LandingpageComponent},
     {path: 'pdp', component: ProductListComponent}
 ];
 
@@ -20,5 +19,5 @@ const routes: Routes = [
         RouterModule
     ]
 })
-export class AppRoutingModule {
+export class AppRouting {
 }
