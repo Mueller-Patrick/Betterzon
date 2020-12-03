@@ -1,7 +1,12 @@
 <meta charset="UTF-8">
-<p class="productItem"  *ngFor="let product of products" (click)="clickedProduct(product)">
-    {{product.name}}
-</p>
-<div *ngIf="showProductPicture">
-    Test
+<div class="productItem" *ngFor="let product of products" (click)="clickedProduct(product)">
+    <div *ngIf="showProductPicture">
+        {{product.image_guid}}
+    </div>
+    <div>
+        {{product.name}}
+    </div>
+    <div>
+        567
+    </div>
 </div>

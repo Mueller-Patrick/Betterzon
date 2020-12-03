@@ -3,4 +3,7 @@
     border-color: dimgrey;
     border-radius: .5em;
     padding: .25em;
+    margin: auto;
+    margin-bottom: .5em;
+    max-width: 50em;
 }

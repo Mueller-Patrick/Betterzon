@@ -35,7 +35,7 @@ export class ProductListComponent implements OnInit {
     }
 
     clickedProduct(product: Product): void {
-        this.router.navigate([('/helloworld/' + product.product_id)]);
+        this.router.navigate([('/product/' + product.product_id)]);
     }
 
 }
