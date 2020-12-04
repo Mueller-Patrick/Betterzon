@@ -12,6 +12,7 @@ export class ProductListComponent implements OnInit {
     products: Product[];
     @Input() numberOfProducts: number;
     @Input() showProductPicture: boolean;
+    type: string;
 
     constructor(
         private apiService: ApiService,
@@ -21,6 +22,7 @@ export class ProductListComponent implements OnInit {
 
     ngOnInit(): void {
         this.getProducts();
+        console.log(this.showProductPicture);
 
         if (!this.numberOfProducts) {
             this.numberOfProducts = 10;
@@ -28,6 +30,9 @@ export class ProductListComponent implements OnInit {
         if (!this.showProductPicture) {
             this.showProductPicture = false;
         }
+        this.type = 'PLP';
+
+        console.log(this.showProductPicture);
     }
 
     getProducts(): void {
