@@ -4,10 +4,11 @@ import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {AppRouting} from './app.routing';
-import {ProductListComponent} from './product-list/product-list.component';
-import { LandingpageComponent } from './landingpage/landingpage.component';
-import { ProductDetailPageComponent } from './product-detail-page/product-detail-page.component';
-import { FooterComponent } from './footer/footer.component';
+import {ProductListComponent} from './components/product-list/product-list.component';
+import { LandingpageComponent } from './components/landingpage/landingpage.component';
+import { ProductDetailPageComponent } from './components/product-detail-page/product-detail-page.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
 
 @NgModule({
     declarations: [
@@ -15,7 +16,8 @@ import { FooterComponent } from './footer/footer.component';
         ProductListComponent,
         LandingpageComponent,
         ProductDetailPageComponent,
-        FooterComponent
+        FooterComponent,
+        ProductDetailsComponent
     ],
     imports: [
         BrowserModule,
