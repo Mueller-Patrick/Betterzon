@@ -111,12 +111,8 @@ export class ProductDetailsComponent implements OnInit {
         const amazonPrice = this.currentAmazonPrice?.price_in_cents;
         const lowestPrice = this.currentlyLowestPrice?.price_in_cents;
 
-        const percentage = amazonPrice / lowestPrice;
+        const percentage = ((amazonPrice / lowestPrice) - 1) * 100;
 
-        if (percentage < 1) {
-            return -Math.round(percentage);
-        } else {
-            return +Math.round(percentage);
-        }
+        return Math.round(percentage);
     }
 }
