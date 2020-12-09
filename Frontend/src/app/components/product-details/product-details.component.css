@@ -4,11 +4,11 @@
     margin: auto;
     margin-bottom: .5em;
     display: grid;
-    grid-template-columns: 20% 50% 30%;
+    grid-template-columns: 20% 25% 25% 30%;
     grid-template-areas:
-    'image title priceChart'
-    'image description priceChart'
-    'image priceAlarm bestPrice';
+    'image title title priceChart'
+    'image description description priceChart'
+    'image priceAlarm bestPrice blank';
 }
 
 /* Image div */
@@ -54,6 +54,7 @@
     grid-area: priceAlarm;
     border-style: solid;
     border-color: dimgrey;
+    border-radius: 5px;
     padding: .25em;
     margin: auto;
 }
@@ -63,6 +64,7 @@
     grid-area: bestPrice;
     border-style: solid;
     border-color: dimgrey;
+    border-radius: 5px;
     padding: .25em;
     margin: auto;
 }

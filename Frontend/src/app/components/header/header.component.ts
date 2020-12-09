@@ -1,15 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+    searchInput: string;
 
-  constructor() { }
+    constructor(
+        private router: Router
+    ) {
+    }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
+
+    clickedLogo(): void {
+        this.router.navigate([('/')]);
+    }
+
+    startedSearch(): void {
+        this.redirectTo('/search', {queryParams: {q: this.searchInput}});
+    }
+
+    redirectTo(uri: string, queryParams: object): void {
+        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
+            this.router.navigate([uri], queryParams));
+    }
 
 }

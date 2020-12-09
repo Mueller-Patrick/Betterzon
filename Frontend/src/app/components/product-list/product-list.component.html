@@ -1,4 +1,6 @@
-<meta charset="UTF-8">
+<div *ngIf="products.length==0">
+    No Products found!
+</div>
 <div class="productItem" *ngFor="let product of products" (click)="clickedProduct(product)">
     <div class="productImageContainer" *ngIf="showProductPicture===true">
         <img class="productImage" src="https://www.mueller-patrick.tech/betterzon/images/{{product.image_guid}}.jpg"/>

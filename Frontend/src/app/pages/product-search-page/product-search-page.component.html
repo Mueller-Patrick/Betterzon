@@ -1,3 +1,6 @@
 <app-header></app-header>
-<app-product-list numberOfProducts="20" [showProductPicture]="true"></app-product-list>
+<div id="mainComponents">
+    <app-product-list numberOfProducts="20" [showProductPicture]="true" searchQuery="{{searchTerm}}"
+                      type="search"></app-product-list>
+</div>
 <app-footer></app-footer>

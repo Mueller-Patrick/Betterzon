@@ -13,6 +13,8 @@ import {NgApexchartsModule} from 'ng-apexcharts';
 import { ProductSearchPageComponent } from './pages/product-search-page/product-search-page.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NewestPricesListComponent } from './components/newest-prices-list/newest-prices-list.component';
+import {FormsModule} from '@angular/forms';
+import { PageNotFoundPageComponent } from './pages/page-not-found-page/page-not-found-page.component';
 
 @NgModule({
     declarations: [
@@ -24,13 +26,15 @@ import { NewestPricesListComponent } from './components/newest-prices-list/newes
         ProductDetailsComponent,
         ProductSearchPageComponent,
         HeaderComponent,
-        NewestPricesListComponent
+        NewestPricesListComponent,
+        PageNotFoundPageComponent
     ],
     imports: [
         BrowserModule,
         AppRouting,
         HttpClientModule,
-        NgApexchartsModule
+        NgApexchartsModule,
+        FormsModule
     ],
     providers: [],
     bootstrap: [AppComponent]

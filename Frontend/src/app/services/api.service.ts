@@ -19,8 +19,16 @@ export class ApiService {
     getProduct(id): Observable<Product> {
         try {
             const prod = this.http.get<Product>((this.apiUrl + '/products/' + id));
-            console.log(prod);
             return prod;
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+    getProductsByQuery(query): Observable<Product[]> {
+        try {
+            const prods = this.http.get<Product[]>((this.apiUrl + '/products/search/' + query));
+            return prods;
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
@@ -29,7 +37,6 @@ export class ApiService {
     getProducts(): Observable<Product[]> {
         try {
             const prods = this.http.get<Product[]>((this.apiUrl + '/products'));
-            console.log(prods);
             return prods;
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);

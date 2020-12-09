@@ -6,11 +6,13 @@ import {ProductListComponent} from './components/product-list/product-list.compo
 import {LandingpageComponent} from './pages/landingpage/landingpage.component';
 import {ProductDetailPageComponent} from './pages/product-detail-page/product-detail-page.component';
 import {ProductSearchPageComponent} from './pages/product-search-page/product-search-page.component';
+import {PageNotFoundPageComponent} from './pages/page-not-found-page/page-not-found-page.component';
 
 const routes: Routes = [
     {path: '', component: LandingpageComponent},
     {path: 'search', component: ProductSearchPageComponent},
-    {path: 'product/:id', component: ProductDetailPageComponent}
+    {path: 'product/:id', component: ProductDetailPageComponent},
+    {path: '**', component: PageNotFoundPageComponent}
 ];
 
 @NgModule({
