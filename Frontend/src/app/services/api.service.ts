@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import process from 'process';
 import {Product} from '../models/product';
 import {Price} from '../models/price';
 import {Observable, of} from 'rxjs';
+import {Vendor} from '../models/vendor';
 
 @Injectable({
     providedIn: 'root'
@@ -46,8 +47,53 @@ export class ApiService {
     getPrices(): Observable<Price[]> {
         try {
             const prices = this.http.get<Price[]>((this.apiUrl + '/prices'));
-            console.log(prices);
             return prices;
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+    getLowestPrices(productId): Observable<Price[]> {
+        try {
+            let params = new HttpParams();
+            params = params.append('product', productId);
+            params = params.append('type', 'lowest');
+            const prices = this.http.get<Price[]>((this.apiUrl + '/prices'), {params});
+            return prices;
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+    getAmazonPrice(productId): Observable<Price> {
+        try {
+            let params = new HttpParams();
+            params = params.append('product', productId);
+            params = params.append('vendor', '1');
+            params = params.append('type', 'newest');
+            const price = this.http.get<Price>((this.apiUrl + '/prices'), {params});
+            return price;
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+    getCurrentPricePerVendor(productId): Observable<Price[]> {
+        try {
+            let params = new HttpParams();
+            params = params.append('product', productId);
+            params = params.append('type', 'newest');
+            const prices = this.http.get<Price[]>((this.apiUrl + '/prices'), {params});
+            return prices;
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+    getVendors(): Observable<Vendor[]> {
+        try {
+            const vendors = this.http.get<Vendor[]>((this.apiUrl + '/vendors'));
+            return vendors;
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }

@@ -8,6 +8,8 @@ import {
     ApexXAxis,
     ApexTitleSubtitle, ApexStroke
 } from 'ng-apexcharts';
+import {Price} from '../../models/price';
+import {Vendor} from '../../models/vendor';
 
 export type ChartOptions = {
     series: ApexAxisChartSeries;
@@ -25,6 +27,11 @@ export type ChartOptions = {
 export class ProductDetailsComponent implements OnInit {
     @Input() productId: number;
     product: Product;
+    lowestPrices: Price[];
+    currentlyLowestPrice: Price;
+    currentAmazonPrice: Price;
+    vendors: Vendor[] = [];
+    vendorMap = {};
     @ViewChild('chart') chart: ChartComponent;
     public chartOptions: ChartOptions;
 
@@ -35,19 +42,53 @@ export class ProductDetailsComponent implements OnInit {
 
     ngOnInit(): void {
         this.getProduct();
-        this.getChartData();
+        this.getVendors();
+        this.getPrices();
     }
 
     getProduct(): void {
         this.apiService.getProduct(this.productId).subscribe(product => this.product = product);
     }
 
+    getPrices(): void {
+        // Lowest prices
+        this.apiService.getLowestPrices(this.productId).subscribe(
+            prices => {
+                this.lowestPrices = prices;
+                this.currentlyLowestPrice = prices[prices.length - 1];
+
+                // Update charts
+                this.getChartData();
+            });
+
+        // Amazon price
+        this.apiService.getAmazonPrice(this.productId).subscribe(price => {
+            this.currentAmazonPrice = price[0];
+        });
+    }
+
+    getVendors(): void {
+        this.apiService.getVendors().subscribe(vendors => {
+            this.vendors = vendors;
+            this.vendors.forEach(vendor => {
+                this.vendorMap[vendor.vendor_id] = vendor;
+            });
+        });
+    }
+
     getChartData(): void {
+        const prices = [];
+        const categs = [];
+        this.lowestPrices?.forEach(price => {
+            prices.push(price.price_in_cents / 100);
+            categs.push(new Date(price.timestamp).toDateString());
+        });
+
         this.chartOptions = {
             series: [
                 {
                     name: 'Lowest Price',
-                    data: [1061.20, 1060, 1070, 1040, 1061.20, 1061, 1100, 1070, 1061.20]
+                    data: prices
                 }
             ],
             chart: {
@@ -58,7 +99,7 @@ export class ProductDetailsComponent implements OnInit {
                 text: 'Lowest price'
             },
             xaxis: {
-                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep']
+                categories: categs
             },
             stroke: {
                 curve: 'stepline'
@@ -66,4 +107,16 @@ export class ProductDetailsComponent implements OnInit {
         };
     }
 
+    getAmazonPriceDifference(): number {
+        const amazonPrice = this.currentAmazonPrice?.price_in_cents;
+        const lowestPrice = this.currentlyLowestPrice?.price_in_cents;
+
+        const percentage = amazonPrice / lowestPrice;
+
+        if (percentage < 1) {
+            return -Math.round(percentage);
+        } else {
+            return +Math.round(percentage);
+        }
+    }
 }

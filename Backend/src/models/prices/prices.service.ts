@@ -123,16 +123,16 @@ export const findByType = async (product: string, type: string): Promise<Prices>
                 'PARTITION BY p.vendor_id ' +
                 'ORDER BY p.timestamp DESC) AS rk ' +
                 'FROM prices p ' +
-                'WHERE product_id = ?) ' +
+                'WHERE product_id = ? AND vendor_id != 1) ' +
                 'SELECT s.* ' +
                 'FROM summary s ' +
                 'WHERE s.rk = 1 '), product);
         } else if (type === 'lowest') {
             // Used to get the lowest prices for this product over a period of time
-            rows = await conn.query('SELECT price_id, product_id, vendor_id, MIN(price_in_cents) as price_in_cents, timestamp FROM prices WHERE product_id = ? GROUP BY DAY(timestamp) ORDER BY timestamp', product);
+            rows = await conn.query('SELECT price_id, product_id, vendor_id, MIN(price_in_cents) as price_in_cents, timestamp FROM prices WHERE product_id = ? AND vendor_id != 1 GROUP BY DAY(timestamp) ORDER BY timestamp', product);
         } else {
             // If no type is given, return all prices for this product
-            rows = await conn.query('SELECT price_id, product_id, vendor_id, price_in_cents, timestamp FROM prices WHERE product_id = ?', product);
+            rows = await conn.query('SELECT price_id, product_id, vendor_id, price_in_cents, timestamp FROM prices WHERE product_id = ? AND vendor_id != 1', product);
         }
 
         for (let row in rows) {

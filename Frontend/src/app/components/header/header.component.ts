@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 
 @Component({
@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
     searchInput: string;
+    @Input() showSearch: boolean;
 
     constructor(
         private router: Router
@@ -15,6 +16,9 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        if (!this.showSearch) {
+            this.showSearch = false;
+        }
     }
 
     clickedLogo(): void {

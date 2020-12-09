@@ -1,5 +1,18 @@
-<app-header></app-header>
+<app-header [showSearch]="false"></app-header>
 <div id="mainComponents">
-    <app-product-list numberOfProducts="20" [showProductPicture]="true"></app-product-list>
+    <div id="searchContainer">
+        <input type="text" [(ngModel)]="searchInput" placeholder="Search" (keyup.enter)="startedSearch()">
+    </div>
+    <div id="productListsContainer">
+        <div id="popularSearchesList">
+            <h2>Popular Searches</h2>
+            <app-product-list numberOfProducts="3" [showProductPicture]="true"
+                              type="popularSearches"></app-product-list>
+        </div>
+        <div id="bestDealsList">
+            <h2>Best Deals</h2>
+            <app-product-list numberOfProducts="3" [showProductPicture]="true" type="bestDeals"></app-product-list>
+        </div>
+    </div>
 </div>
 <app-footer></app-footer>

@@ -1,3 +1,14 @@
 <div class="priceList">
-    PriceList
+    <table>
+        <tr>
+            <th>Vendor</th>
+            <th>Current price</th>
+            <th>Visit</th>
+        </tr>
+        <tr *ngFor="let price of prices">
+            <td>{{vendorMap[price.vendor_id]?.name}}</td>
+            <td>{{price.price_in_cents / 100}}€</td>
+            <td><a href="https://www.amazon.com">Visit Shop</a></td>
+        </tr>
+    </table>
 </div>

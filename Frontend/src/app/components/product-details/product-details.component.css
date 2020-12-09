@@ -21,7 +21,7 @@
 .productImage {
     max-width: 300px;
     max-height: 300px;
-    display:block;
+    display: block;
     margin: auto;
     position: absolute;
     top: 0;
@@ -57,14 +57,27 @@
     border-radius: 5px;
     padding: .25em;
     margin: auto;
+    font-size: 1.5em;
 }
 
-/* Best price div */
-.bestPrice {
+/* Best price container div */
+.bestPriceContainer {
     grid-area: bestPrice;
+}
+
+/* best price div */
+.bestPrice {
     border-style: solid;
     border-color: dimgrey;
     border-radius: 5px;
     padding: .25em;
     margin: auto;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+/* amazon price div */
+.amazonPrice {
+    margin-top: .5em;
+    text-align: center;
 }
