@@ -106,6 +106,86 @@ export const findByProduct = async (product: number): Promise<Prices> => {
     return priceRows;
 };
 
+export const findByType = async (product: string, type: string): Promise<Prices> => {
+    let conn;
+    let priceRows = [];
+    try {
+        conn = await pool.getConnection();
+        let rows = [];
+        if (type === 'newest') {
+            // Used to get the newest price for this product per vendor
+            rows = await conn.query(('WITH summary AS ( ' +
+                'SELECT p.product_id, ' +
+                'p.vendor_id, ' +
+                'p.price_in_cents, ' +
+                'p.timestamp, ' +
+                'ROW_NUMBER() OVER( ' +
+                'PARTITION BY p.vendor_id ' +
+                'ORDER BY p.timestamp DESC) AS rk ' +
+                'FROM prices p ' +
+                'WHERE product_id = ?) ' +
+                'SELECT s.* ' +
+                'FROM summary s ' +
+                'WHERE s.rk = 1 '), product);
+        } else if (type === 'lowest') {
+            // Used to get the lowest prices for this product over a period of time
+            rows = await conn.query('SELECT price_id, product_id, vendor_id, MIN(price_in_cents) as price_in_cents, timestamp FROM prices WHERE product_id = ? GROUP BY DAY(timestamp) ORDER BY timestamp', product);
+        } else {
+            // If no type is given, return all prices for this product
+            rows = await conn.query('SELECT price_id, product_id, vendor_id, price_in_cents, timestamp FROM prices WHERE product_id = ?', product);
+        }
+
+        for (let row in rows) {
+            if (row !== 'meta') {
+                priceRows.push(rows[row]);
+            }
+        }
+
+    } catch (err) {
+        throw err;
+    } finally {
+        if (conn) {
+            conn.end();
+        }
+    }
+
+    return priceRows;
+};
+
+export const findByVendor = async (product: string, vendor: string, type: string): Promise<Prices> => {
+    let conn;
+    let priceRows = [];
+    try {
+        conn = await pool.getConnection();
+        let rows = [];
+        if (type === 'newest') {
+            // Used to get the newest price for this product and vendor
+            rows = await conn.query('SELECT price_id, product_id, vendor_id, price_in_cents, timestamp FROM prices WHERE product_id = ? AND vendor_id = ? ORDER BY timestamp DESC LIMIT 1', [product, vendor]);
+        } else if (type === 'lowest') {
+            // Used to get the lowest prices for this product and vendor in all time
+            rows = await conn.query('SELECT price_id, product_id, vendor_id, MIN(price_in_cents) as price_in_cents, timestamp FROM prices WHERE product_id = ? AND vendor_id = ? LIMIT 1', [product, vendor]);
+        } else {
+            // If no type is given, return all prices for this product and vendor
+            rows = await conn.query('SELECT price_id, product_id, vendor_id, price_in_cents, timestamp FROM prices WHERE product_id = ? AND vendor_id = ?', [product, vendor]);
+        }
+
+        for (let row in rows) {
+            if (row !== 'meta') {
+                priceRows.push(rows[row]);
+            }
+        }
+
+    } catch (err) {
+        throw err;
+    } finally {
+        if (conn) {
+            conn.end();
+        }
+    }
+
+    return priceRows;
+};
+
 // export const create = async (newItem: Product): Promise<void> => {
 //     let conn;
 //     try {
