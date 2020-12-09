@@ -1,0 +1,42 @@
+.header {
+    width: auto;
+    background-color: dimgrey;
+    color: white;
+    text-align: center;
+    padding: .25em;
+}
+
+#headerContent {
+    display: flex;
+}
+
+.logo {
+    position: relative;
+    margin-left: 50%;
+}
+
+.searchBox {
+    position: relative;
+    margin: auto;
+    margin-left: 25%;
+}
+
+.searchBox input {
+    width: 100%;
+    padding: .25em;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.profileIcon {
+    position: relative;
+    margin: auto;
+    margin-left: 10%;
+}
+
+.icon-3d {
+    padding: 10px;
+    color: #fff;
+}
