@@ -1,0 +1,36 @@
+<div class="productItem">
+    <div class="productImageContainer">
+        <img class="productImage" src="https://www.mueller-patrick.tech/betterzon/images/{{product.image_guid}}.jpg"/>
+    </div>
+    <div class="productTitle">
+        <b>{{product?.name}}</b>
+    </div>
+    <div class="priceChart">
+        <div style="text-align:center">
+            <apx-chart
+                [series]="chartOptions.series"
+                [chart]="chartOptions.chart"
+                [xaxis]="chartOptions.xaxis"
+                [title]="chartOptions.title"
+            ></apx-chart>
+        </div>
+    </div>
+    <div class="productDescription">
+        <div>
+            {{product?.short_description}}
+        </div>
+    </div>
+    <div class="priceAlarm">
+        Set Price Alarm
+    </div>
+    <div class="bestPriceContainer">
+        <div class="bestPrice">
+            Best price: {{currentlyLowestPrice?.price_in_cents / 100}}€ at
+            vendor {{vendorMap[currentlyLowestPrice.vendor_id]?.name}}!
+        </div>
+        <div class="amazonPrice">
+            Amazon-price: {{currentAmazonPrice?.price_in_cents / 100}}€ (<span
+            *ngIf="getAmazonPriceDifference()>0">+</span>{{getAmazonPriceDifference()}}%)
+        </div>
+    </div>
+</div>

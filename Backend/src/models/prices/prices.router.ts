@@ -23,7 +23,20 @@ export const pricesRouter = express.Router();
 
 pricesRouter.get('/', async (req: Request, res: Response) => {
     try {
-        const prices: Prices = await PriceService.findAll();
+        let prices: Prices = [];
+        const product = req.query.product;
+        const vendor = req.query.vendor;
+        const type = req.query.type;
+
+        if (product) {
+            if (vendor) {
+                prices = await PriceService.findByVendor(<string> product, <string> vendor, <string> type);
+            } else {
+                prices = await PriceService.findByType(<string> product, <string> type);
+            }
+        } else {
+            prices = await PriceService.findAll();
+        }
 
         res.status(200).send(prices);
     } catch (e) {
@@ -49,26 +62,6 @@ pricesRouter.get('/:id', async (req: Request, res: Response) => {
         res.status(404).send(e.message);
     }
 });
-
-// GET items/:name
-
-pricesRouter.get('/products/:id', async (req: Request, res: Response) => {
-    const id: number = parseInt(req.params.id, 10);
-
-    if (!id) {
-        res.status(400).send('Missing parameters.');
-        return;
-    }
-
-    try {
-        const prices: Prices = await PriceService.findByProduct(id);
-
-        res.status(200).send(prices);
-    } catch (e) {
-        res.status(404).send(e.message);
-    }
-});
-
 
 // POST items/
 

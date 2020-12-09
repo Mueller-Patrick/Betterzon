@@ -1,0 +1,14 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<header class="header">
+    <div id="headerContent" class='wrap'>
+        <div class="logo">
+            <img src="assets/images/Betterzon.svg" alt="Betterzon Logo" width="50px" (click)="clickedLogo()">
+        </div>
+        <div class="searchBox">
+            <input *ngIf="showSearch===true" type="text" [(ngModel)]="searchInput" placeholder="Search" (keyup.enter)="startedSearch()">
+        </div>
+        <div class="profileIcon">
+            Profile
+        </div>
+    </div>
+</header>

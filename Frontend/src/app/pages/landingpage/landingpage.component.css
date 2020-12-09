@@ -1,0 +1,50 @@
+#mainComponents {
+    margin: 5em;
+    margin-top: .5em;
+    margin-bottom: .5em;
+}
+
+#productListsContainer {
+    display: grid;
+    grid-template-areas:
+    'search search'
+    'popularSearches bestDeals';
+    grid-template-columns: 50% 50%;
+}
+
+#searchContainer {
+    position: relative;
+    grid-area: search;
+    height: 10em;
+}
+
+#searchContainer input {
+    position: relative;
+    font-size: 1.5em;
+    padding: .25em;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin: auto;
+    -ms-transform: translateY(50%);
+    transform: translateY(2.5em);
+}
+
+#popularSearchesList {
+    grid-area: popularSearches;
+    padding: .5em;
+}
+
+#popularSearchesList h2 {
+    text-align: center;
+}
+
+#bestDealsList {
+    grid-area: bestDeals;
+    padding: .5em;
+}
+
+#bestDealsList h2 {
+    text-align: center;
+}
