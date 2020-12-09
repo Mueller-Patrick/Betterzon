@@ -16,6 +16,16 @@ export class ApiService {
     ) {
     }
 
+    getProduct(id): Observable<Product> {
+        try {
+            const prod = this.http.get<Product>((this.apiUrl + '/products/' + id));
+            console.log(prod);
+            return prod;
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
     getProducts(): Observable<Product[]> {
         try {
             const prods = this.http.get<Product[]>((this.apiUrl + '/products'));

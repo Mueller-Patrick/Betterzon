@@ -1,7 +1,20 @@
 <meta charset="UTF-8">
-<p class="productItem"  *ngFor="let product of products" (click)="clickedProduct(product)">
-    {{product.name}}
-</p>
-<div *ngIf="showProductPicture">
-    Test
+<div class="productItem" *ngFor="let product of products" (click)="clickedProduct(product)">
+    <div class="productImageContainer" *ngIf="showProductPicture===true">
+        <img class="productImage" src="https://www.mueller-patrick.tech/betterzon/images/{{product.image_guid}}.jpg"/>
+    </div>
+    <div class="productTitle">
+        <b>{{product.name}}</b>
+    </div>
+    <div class="productPrice">
+        5€
+    </div>
+    <div class="productDescription">
+        <div *ngIf="product.short_description.length > 300">
+            {{product.short_description.substring(0, 300) + "..."}}
+        </div>
+        <div *ngIf="product.short_description.length <= 300">
+            {{product.short_description}}
+        </div>
+    </div>
 </div>

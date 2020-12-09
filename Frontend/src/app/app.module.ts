@@ -5,10 +5,14 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {AppRouting} from './app.routing';
 import {ProductListComponent} from './components/product-list/product-list.component';
-import { LandingpageComponent } from './components/landingpage/landingpage.component';
-import { ProductDetailPageComponent } from './components/product-detail-page/product-detail-page.component';
+import { LandingpageComponent } from './pages/landingpage/landingpage.component';
+import { ProductDetailPageComponent } from './pages/product-detail-page/product-detail-page.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import {NgApexchartsModule} from 'ng-apexcharts';
+import { ProductSearchPageComponent } from './pages/product-search-page/product-search-page.component';
+import { HeaderComponent } from './components/header/header.component';
+import { NewestPricesListComponent } from './components/newest-prices-list/newest-prices-list.component';
 
 @NgModule({
     declarations: [
@@ -17,12 +21,16 @@ import { ProductDetailsComponent } from './components/product-details/product-de
         LandingpageComponent,
         ProductDetailPageComponent,
         FooterComponent,
-        ProductDetailsComponent
+        ProductDetailsComponent,
+        ProductSearchPageComponent,
+        HeaderComponent,
+        NewestPricesListComponent
     ],
     imports: [
         BrowserModule,
         AppRouting,
-        HttpClientModule
+        HttpClientModule,
+        NgApexchartsModule
     ],
     providers: [],
     bootstrap: [AppComponent]

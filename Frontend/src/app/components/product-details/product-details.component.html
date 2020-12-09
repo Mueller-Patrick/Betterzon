@@ -1,1 +1,30 @@
-<p>product-details works!</p>
+<meta charset="UTF-8">
+<div class="productItem">
+    <div class="productImageContainer">
+        <img class="productImage" src="https://www.mueller-patrick.tech/betterzon/images/{{product.image_guid}}.jpg"/>
+    </div>
+    <div class="productTitle">
+        <b>{{product.name}}</b>
+    </div>
+    <div class="priceChart">
+        <div style="text-align:center">
+            <apx-chart
+                [series]="chartOptions.series"
+                [chart]="chartOptions.chart"
+                [xaxis]="chartOptions.xaxis"
+                [title]="chartOptions.title"
+            ></apx-chart>
+        </div>
+    </div>
+    <div class="productDescription">
+        <div>
+            {{product.short_description}}
+        </div>
+    </div>
+    <div class="priceAlarm">
+        Set Price Alarm
+    </div>
+    <div class="bestPrice">
+        5€
+    </div>
+</div>

@@ -12,6 +12,7 @@ export class ProductListComponent implements OnInit {
     products: Product[];
     @Input() numberOfProducts: number;
     @Input() showProductPicture: boolean;
+    type: string;
 
     constructor(
         private apiService: ApiService,
@@ -28,6 +29,7 @@ export class ProductListComponent implements OnInit {
         if (!this.showProductPicture) {
             this.showProductPicture = false;
         }
+        this.type = 'PLP';
     }
 
     getProducts(): void {
@@ -35,7 +37,7 @@ export class ProductListComponent implements OnInit {
     }
 
     clickedProduct(product: Product): void {
-        this.router.navigate([('/helloworld/' + product.product_id)]);
+        this.router.navigate([('/product/' + product.product_id)]);
     }
 
 }
