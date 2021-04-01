@@ -19,7 +19,7 @@ export const categoriesRouter = express.Router();
  * Controller Definitions
  */
 
-// GET items/
+// GET categories/
 
 categoriesRouter.get('/', async (req: Request, res: Response) => {
     try {
@@ -31,7 +31,7 @@ categoriesRouter.get('/', async (req: Request, res: Response) => {
     }
 });
 
-// GET items/:id
+// GET categories/:id
 
 categoriesRouter.get('/:id', async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
@@ -50,7 +50,7 @@ categoriesRouter.get('/:id', async (req: Request, res: Response) => {
     }
 });
 
-// GET items/:name
+// GET categories/search/:term
 
 categoriesRouter.get('/search/:term', async (req: Request, res: Response) => {
     const term: string = req.params.term;
