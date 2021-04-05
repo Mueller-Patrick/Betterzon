@@ -15,6 +15,8 @@ import {HeaderComponent} from './components/header/header.component';
 import {NewestPricesListComponent} from './components/newest-prices-list/newest-prices-list.component';
 import {FormsModule} from '@angular/forms';
 import {PageNotFoundPageComponent} from './pages/page-not-found-page/page-not-found-page.component';
+import { ImprintComponent } from './pages/imprint/imprint.component';
+import { PrivacyComponent } from './pages/privacy/privacy.component';
 
 @NgModule({
     declarations: [
@@ -27,7 +29,9 @@ import {PageNotFoundPageComponent} from './pages/page-not-found-page/page-not-fo
         ProductSearchPageComponent,
         HeaderComponent,
         NewestPricesListComponent,
-        PageNotFoundPageComponent
+        PageNotFoundPageComponent,
+        ImprintComponent,
+        PrivacyComponent
     ],
     imports: [
         BrowserModule,
