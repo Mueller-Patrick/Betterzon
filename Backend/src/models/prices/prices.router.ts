@@ -19,7 +19,7 @@ export const pricesRouter = express.Router();
  * Controller Definitions
  */
 
-// GET items/
+// GET prices/
 
 pricesRouter.get('/', async (req: Request, res: Response) => {
     try {
@@ -44,7 +44,7 @@ pricesRouter.get('/', async (req: Request, res: Response) => {
     }
 });
 
-// GET items/:id
+// GET prices/:id
 
 pricesRouter.get('/:id', async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
@@ -58,6 +58,25 @@ pricesRouter.get('/:id', async (req: Request, res: Response) => {
         const price: Price = await PriceService.find(id);
 
         res.status(200).send(price);
+    } catch (e) {
+        res.status(404).send(e.message);
+    }
+});
+
+// GET prices/bestDeals
+
+pricesRouter.get('/bestDeals/:amount', async (req: Request, res: Response) => {
+    const amount: number = parseInt(req.params.amount, 10);
+
+    if (!amount) {
+        res.status(400).send('Missing parameters.');
+        return;
+    }
+
+    try {
+        const prices: Prices = await PriceService.getBestDeals(amount);
+
+        res.status(200).send(prices);
     } catch (e) {
         res.status(404).send(e.message);
     }

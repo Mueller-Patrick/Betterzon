@@ -186,6 +186,100 @@ export const findByVendor = async (product: string, vendor: string, type: string
     return priceRows;
 };
 
+export const getBestDeals = async (amount: number): Promise<Prices> => {
+    let conn;
+    let priceRows = [];
+    try {
+        conn = await pool.getConnection();
+
+        let allPrices: Record<number, Price[]> = {};
+
+        // Get newest prices for every product at every vendor
+
+        const rows = await conn.query(
+            'WITH summary AS (\n' +
+            '    SELECT p.product_id,\n' +
+            '           p.vendor_id,\n' +
+            '           p.price_in_cents,\n' +
+            '           p.timestamp,\n' +
+            '           ROW_NUMBER() OVER(\n' +
+            '               PARTITION BY p.product_id, p.vendor_id\n' +
+            '               ORDER BY p.timestamp DESC) AS rk\n' +
+            '    FROM prices p)\n' +
+            'SELECT s.*\n' +
+            'FROM summary s\n' +
+            'WHERE s.rk = 1');
+
+        // Write returned values to allPrices map with product id as key and a list of prices as value
+        for (let row in rows) {
+            if (row !== 'meta') {
+                if (!allPrices[parseInt(rows[row].product_id)]) {
+                    allPrices[parseInt(rows[row].product_id)] = [];
+                }
+
+                allPrices[parseInt(rows[row].product_id)].push(rows[row]);
+            }
+        }
+
+        // Iterate over all prices to find the products with the biggest difference between amazon and other vendor
+        let deals = [];
+        for (let productId in Object.keys(allPrices)) {
+            if (allPrices[productId]) {
+                let pricesForProd = allPrices[productId];
+
+                // Get amazon price and lowest price from other vendor
+                let amazonPrice = {} as Price;
+                let lowestPrice = {} as Price;
+                pricesForProd.forEach(function(price, priceIndex) {
+                    if (price.vendor_id === 1) {
+                        amazonPrice = price;
+                    } else {
+                        if (!lowestPrice.price_in_cents || lowestPrice.price_in_cents > price.price_in_cents) {
+                            lowestPrice = price;
+                        }
+                    }
+                });
+
+                // Create deal object and add it to list
+                let deal = {
+                    'product_id': lowestPrice.product_id,
+                    'vendor_id': lowestPrice.vendor_id,
+                    'price_in_cents': lowestPrice.price_in_cents,
+                    'timestamp' :lowestPrice.timestamp,
+                    'amazonDifference': (amazonPrice.price_in_cents - lowestPrice.price_in_cents),
+                    'amazonDifferencePercent': ((1 - (lowestPrice.price_in_cents / amazonPrice.price_in_cents)) * 100),
+                };
+
+                // Push only deals were the amazon price is actually higher
+                if(deal.amazonDifferencePercent > 0) {
+                    deals.push(deal);
+                }
+            }
+        }
+
+        // Sort to have the best deals on the top
+        deals.sort((a, b) => a.amazonDifferencePercent < b.amazonDifferencePercent ? 1 : -1);
+
+        // Return only as many records as requested or the maximum amount of found deals, whatever is less
+        let maxAmt = Math.min(amount, deals.length);
+
+        for (let dealIndex = 0; dealIndex < maxAmt; dealIndex++){
+            //console.log(deals[dealIndex]);
+            priceRows.push(deals[dealIndex] as Price);
+        }
+
+    } catch (err) {
+        console.log(err);
+        throw err;
+    } finally {
+        if (conn) {
+            conn.end();
+        }
+    }
+
+    return priceRows;
+};
+
 // export const create = async (newItem: Product): Promise<void> => {
 //     let conn;
 //     try {
