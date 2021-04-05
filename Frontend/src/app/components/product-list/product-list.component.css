@@ -53,3 +53,8 @@
 .productDescription {
     grid-area: description;
 }
+
+.productItem:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
