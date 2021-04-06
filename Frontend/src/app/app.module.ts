@@ -15,6 +15,7 @@ import {HeaderComponent} from './components/header/header.component';
 import {NewestPricesListComponent} from './components/newest-prices-list/newest-prices-list.component';
 import {FormsModule} from '@angular/forms';
 import {PageNotFoundPageComponent} from './pages/page-not-found-page/page-not-found-page.component';
+//import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
     declarations: [
@@ -34,7 +35,8 @@ import {PageNotFoundPageComponent} from './pages/page-not-found-page/page-not-fo
         AppRouting,
         HttpClientModule,
         NgApexchartsModule,
-        FormsModule
+        FormsModule,
+        //MatMenuModule
     ],
     providers: [],
     bootstrap: [AppComponent]
