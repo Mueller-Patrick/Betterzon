@@ -19,7 +19,7 @@ export const productsRouter = express.Router();
  * Controller Definitions
  */
 
-// GET items/
+// GET products/
 
 productsRouter.get('/', async (req: Request, res: Response) => {
     try {
@@ -31,7 +31,7 @@ productsRouter.get('/', async (req: Request, res: Response) => {
     }
 });
 
-// GET items/:id
+// GET products/:id
 
 productsRouter.get('/:id', async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
@@ -50,7 +50,7 @@ productsRouter.get('/:id', async (req: Request, res: Response) => {
     }
 });
 
-// GET items/:name
+// GET products/search/:term
 
 productsRouter.get('/search/:term', async (req: Request, res: Response) => {
     const term: string = req.params.term;
@@ -68,6 +68,8 @@ productsRouter.get('/search/:term', async (req: Request, res: Response) => {
         res.status(404).send(e.message);
     }
 });
+
+// GET products/bestDeals
 
 
 // POST items/
