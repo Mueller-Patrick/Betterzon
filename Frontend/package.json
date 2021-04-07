@@ -21,8 +21,10 @@
         "@angular/platform-browser-dynamic": "^10.2.3",
         "@angular/router": "^10.2.3",
         "apexcharts": "^3.22.3",
+        "cookieconsent": "^3.1.1",
         "ng": "0.0.0",
         "ng-apexcharts": "^1.5.6",
+        "ngx-cookieconsent": "^2.2.3",
         "rxjs": "~6.6.0",
         "tslib": "^2.0.3",
         "zone.js": "~0.10.2"
