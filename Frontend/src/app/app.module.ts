@@ -48,7 +48,7 @@ const cookieConfig: NgcCookieConsentConfig = {
     },
     content: {
         // Custom message
-        //message: 'By using our site, you acknowledge that you have read and understand our ',
+        // message: 'By using our site, you acknowledge that you have read and understand our ',
 
         whatAreCookiesLink: 'Learn more',
         whatAreCookiesHref: 'https://www.cookiesandyou.com/',
