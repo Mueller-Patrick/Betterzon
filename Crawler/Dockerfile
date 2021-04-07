@@ -17,4 +17,4 @@ EXPOSE 22026
 
 # Start API
 RUN echo 'Starting API'
-CMD ["python3", "main.py"]
+CMD ["python3", "api.py"]
