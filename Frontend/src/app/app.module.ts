@@ -15,6 +15,50 @@ import {HeaderComponent} from './components/header/header.component';
 import {NewestPricesListComponent} from './components/newest-prices-list/newest-prices-list.component';
 import {FormsModule} from '@angular/forms';
 import {PageNotFoundPageComponent} from './pages/page-not-found-page/page-not-found-page.component';
+import {MatMenuModule} from '@angular/material/menu';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {ImprintComponent} from './pages/imprint/imprint.component';
+import {PrivacyComponent} from './pages/privacy/privacy.component';
+import {NgcCookieConsentModule, NgcCookieConsentConfig} from 'ngx-cookieconsent';
+
+// For cookie popup
+const cookieConfig: NgcCookieConsentConfig = {
+    cookie: {
+        domain: 'betterzon.xyz'
+    },
+    palette: {
+        popup: {
+            background: '#000'
+        },
+        button: {
+            background: '#f1d600'
+        }
+    },
+    theme: 'edgeless',
+    type: 'opt-out',
+    layout: 'my-custom-layout',
+    layouts: {
+        'my-custom-layout': '{{messagelink}}{{compliance}}'
+    },
+    elements: {
+        messagelink: `
+    <span id="cookieconsent:desc" class="cc-message">{{message}}
+      <a aria-label="learn more about cookies" tabindex="0" class="cc-link" href="{{whatAreCookiesHref}}" target="_blank">{{whatAreCookiesLink}}</a>
+      <a aria-label="learn more about our privacy policy" tabindex="1" class="cc-link" href="{{privacyPolicyHref}}" target="_blank">{{privacyPolicyLink}}</a>
+    </span>
+    `,
+    },
+    content: {
+        // Custom message
+        // message: 'By using our site, you acknowledge that you have read and understand our ',
+
+        whatAreCookiesLink: 'Learn more',
+        whatAreCookiesHref: 'https://www.cookiesandyou.com/',
+
+        privacyPolicyLink: 'Privacy Policy',
+        privacyPolicyHref: '/datenschutz',
+    }
+};
 
 @NgModule({
     declarations: [
@@ -27,14 +71,19 @@ import {PageNotFoundPageComponent} from './pages/page-not-found-page/page-not-fo
         ProductSearchPageComponent,
         HeaderComponent,
         NewestPricesListComponent,
-        PageNotFoundPageComponent
+        PageNotFoundPageComponent,
+        ImprintComponent,
+        PrivacyComponent
     ],
     imports: [
         BrowserModule,
         AppRouting,
         HttpClientModule,
         NgApexchartsModule,
-        FormsModule
+        FormsModule,
+        MatMenuModule,
+        BrowserAnimationsModule,
+        NgcCookieConsentModule.forRoot(cookieConfig)
     ],
     providers: [],
     bootstrap: [AppComponent]

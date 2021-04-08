@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Backend/Backend.iml" filepath="$PROJECT_DIR$/Backend/Backend.iml" />
       <module fileurl="file://$PROJECT_DIR$/Betterzon.iml" filepath="$PROJECT_DIR$/Betterzon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Crawler/Crawler.iml" filepath="$PROJECT_DIR$/Crawler/Crawler.iml" />
       <module fileurl="file://$PROJECT_DIR$/CucumberTests/CucumberTests.iml" filepath="$PROJECT_DIR$/CucumberTests/CucumberTests.iml" />
       <module fileurl="file://$PROJECT_DIR$/Frontend/Frontend.iml" filepath="$PROJECT_DIR$/Frontend/Frontend.iml" />
     </modules>

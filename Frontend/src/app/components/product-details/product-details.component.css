@@ -81,3 +81,8 @@
     margin-top: .5em;
     text-align: center;
 }
+
+.priceAlarm:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}

@@ -15,6 +15,10 @@
     margin-left: 50%;
 }
 
+.logo:hover {
+    cursor: pointer;
+}
+
 .searchBox {
     position: relative;
     margin: auto;
@@ -34,6 +38,10 @@
     position: relative;
     margin: auto;
     margin-left: 10%;
+}
+
+.profileIcon:hover {
+    cursor: pointer;
 }
 
 .icon-3d {
