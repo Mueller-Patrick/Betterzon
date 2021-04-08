@@ -15,6 +15,8 @@ import {HeaderComponent} from './components/header/header.component';
 import {NewestPricesListComponent} from './components/newest-prices-list/newest-prices-list.component';
 import {FormsModule} from '@angular/forms';
 import {PageNotFoundPageComponent} from './pages/page-not-found-page/page-not-found-page.component';
+import {MatMenuModule} from '@angular/material/menu';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {ImprintComponent} from './pages/imprint/imprint.component';
 import {PrivacyComponent} from './pages/privacy/privacy.component';
 import {NgcCookieConsentModule, NgcCookieConsentConfig} from 'ngx-cookieconsent';
@@ -79,6 +81,8 @@ const cookieConfig: NgcCookieConsentConfig = {
         HttpClientModule,
         NgApexchartsModule,
         FormsModule,
+        MatMenuModule,
+        BrowserAnimationsModule,
         NgcCookieConsentModule.forRoot(cookieConfig)
     ],
     providers: [],
