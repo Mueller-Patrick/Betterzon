@@ -40,3 +40,20 @@ def getShopsToCrawl() -> [int]:
     vendor_ids = list(map(lambda x: x[0], cur.fetchall()))
 
     return vendor_ids
+
+def getProductsToCrawl() -> [int]:
+    """
+    Queries the list of product IDs and returns them
+    :return: The list of IDs
+    """
+    conn = __getConnection__()
+    cur = conn.cursor()
+
+    query = 'SELECT product_id FROM products'
+
+    cur.execute(query)
+
+    # Extract the IDs from the returned tuples into a list
+    product_ids = list(map(lambda x: x[0], cur.fetchall()))
+
+    return product_ids
