@@ -25,7 +25,7 @@ def __getConnection__() -> pymysql.Connection:
         return
 
 
-def getProductsForShop(vendor_id: int) -> [{}]:
+def getProductsForVendor(vendor_id: int) -> [{}]:
     """
     Queries the product links for all products of the given shop
     :param vendor_id: The vendor / shop to query products for
@@ -43,8 +43,27 @@ def getProductsForShop(vendor_id: int) -> [{}]:
 
     return products
 
+def getProductLinksForProduct(product_id: int) -> [{}]:
+    """
+    Queries all the product links for the given product
+    :param product_id: The product to query data for
+    :return: A list of product objects, each having the following parameters:
+                product_id, vendor_id, url
+    """
+    conn = __getConnection__()
+    cur = conn.cursor()
 
-def insertShopData(data_to_insert: [tuple]) -> bool:
+    query = 'SELECT vendor_id, url FROM product_links WHERE product_id = %s'
+
+    cur.execute(query, (product_id,))
+
+    products = list(map(lambda x: {'product_id': product_id, 'vendor_id': x[0], 'url': x[1]}, cur.fetchall()))
+
+    return products
+
+
+
+def insertData(data_to_insert: [tuple]) -> bool:
     """
     Inserts the given list of tuples into the DB
     :param dataToInsert: A list of tuples, where each tuple has to contain product id, vendor id and the price
