@@ -43,7 +43,7 @@ def getProductsForVendor(vendor_id: int) -> [{}]:
 
     return products
 
-def getProductLinksForProduct(product_id: int) -> [{}]:
+def getProductLinksForProduct(product_id: int) -> [dict]:
     """
     Queries all the product links for the given product
     :param product_id: The product to query data for
