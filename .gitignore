@@ -27,6 +27,7 @@ speed-measure-plugin*.json
 !Backend.iml
 !CucumberTests.iml
 !Crawler.iml
+!Crawler-Loadbalancer.iml
 
 # Include IntelliJ modules
 !/.idea/modules.xml
