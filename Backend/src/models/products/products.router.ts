@@ -69,6 +69,25 @@ productsRouter.get('/search/:term', async (req: Request, res: Response) => {
     }
 });
 
+// GET products/list/[1,2,3]
+
+productsRouter.get('/list/:ids', async (req: Request, res: Response) => {
+    const ids: [number] = JSON.parse(req.params.ids);
+
+    if (!ids) {
+        res.status(400).send('Missing parameters.');
+        return;
+    }
+
+    try {
+        const products: Products = await ProductService.findList(ids);
+
+        res.status(200).send(products);
+    } catch (e) {
+        res.status(404).send(e.message);
+    }
+});
+
 // GET products/bestDeals
 
 

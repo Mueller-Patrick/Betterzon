@@ -122,6 +122,29 @@ export const findBySearchTerm = async (term: string): Promise<Products> => {
     return prodRows;
 };
 
+export const findList = async (ids: [number]): Promise<Products> => {
+    let conn;
+    let prodRows = [];
+    try {
+        conn = await pool.getConnection();
+        const rows = await conn.query('SELECT product_id, name, asin, is_active, short_description, long_description, image_guid, date_added, last_modified, manufacturer_id, selling_rank, category_id FROM products WHERE product_id IN (?)', [ids]);
+        for (let row in rows) {
+            if (row !== 'meta') {
+                prodRows.push(rows[row]);
+            }
+        }
+
+    } catch (err) {
+        throw err;
+    } finally {
+        if (conn) {
+            conn.end();
+        }
+    }
+
+    return prodRows;
+};
+
 // export const create = async (newItem: Product): Promise<void> => {
 //     let conn;
 //     try {
