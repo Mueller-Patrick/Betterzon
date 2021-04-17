@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Product} from '../../models/product';
 import {Router} from '@angular/router';
 import {ApiService} from '../../services/api.service';
+import {Deal} from '../../models/deal';
 
 @Component({
     selector: 'app-landing-carousel',
@@ -11,7 +12,7 @@ import {ApiService} from '../../services/api.service';
 export class LandingCarouselComponent implements OnInit {
 
     products: Product[] = [];
-
+    deals: Deal[] = [];
     @Input() showProductPicture: boolean;
 
     constructor(
@@ -23,10 +24,35 @@ export class LandingCarouselComponent implements OnInit {
     ngOnInit(): void {
         this.loadParams();
         this.getProducts();
+        this.getBestDeals();
     }
 
     getProducts(): void {
         this.apiService.getProducts().subscribe(products => this.products = products);
+    }
+
+    getBestDeals(): void {
+        this.apiService.getBestDealPrices(5).subscribe(prices => {
+            const productIds: number[] = [];
+            const priceMap = {};
+
+            prices.forEach(price => {
+                productIds.push(price.product_id);
+                priceMap[price.product_id] = price;
+            });
+
+            this.apiService.getProductsByIds(productIds).subscribe(products => {
+                products.forEach(thisProduct => {
+                    const deal: Deal = {
+                        product: thisProduct,
+                        price: priceMap[thisProduct.product_id]
+                    };
+                    this.deals.push(deal);
+                });
+
+                console.log(this.deals);
+            });
+        });
     }
 
     loadParams(): void {

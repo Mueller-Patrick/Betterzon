@@ -4,4 +4,7 @@ export interface Price {
     vendor_id: number;
     price_in_cents: number;
     timestamp: Date;
+    // Only for deals
+    amazonDifference?: number;
+    amazonDifferencePercent?: number;
 }

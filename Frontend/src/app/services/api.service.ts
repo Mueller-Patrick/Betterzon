@@ -5,6 +5,7 @@ import {Product} from '../models/product';
 import {Price} from '../models/price';
 import {Observable, of} from 'rxjs';
 import {Vendor} from '../models/vendor';
+import {Deal} from '../models/deal';
 
 @Injectable({
     providedIn: 'root'
@@ -30,6 +31,24 @@ export class ApiService {
         try {
             const prods = this.http.get<Product[]>((this.apiUrl + '/products/search/' + query));
             return prods;
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+    getBestDealPrices(amount): Observable<Price[]> {
+        try {
+            const prices = this.http.get<Price[]>((this.apiUrl + '/prices/bestDeals/' + amount));
+            return prices;
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+    getProductsByIds(ids): Observable<Product[]> {
+        try {
+            const products = this.http.get<Product[]>((this.apiUrl + '/products/list/' + ids));
+            return products;
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
