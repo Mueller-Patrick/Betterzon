@@ -1,16 +1,13 @@
 <ngb-carousel>
-    <div class="productItem" *ngFor="let product of products" (click)="clickedProduct(product)">
-        dsfdsgdfgkldfmgföld
-        <ng-template ngbSlide>
-            <div class="picsum-img-wrapper">
-                <img class="productImage" src="https://picsum.photos/id/944/900/500"/>
-            </div>
-            <div class="carousel-caption">
-                <h3>First slide label</h3>
-                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-            </div>
-        </ng-template>
-    </div>
+    <ng-template *ngFor="let product of products" ngbSlide>
+        <div class="picsum-img-wrapper">
+            <img class="productImage" src="https://picsum.photos/id/944/900/500"/>
+        </div>
+        <div class="carousel-caption">
+            <h3>First slide label</h3>
+            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+        </div>
+    </ng-template>
 </ngb-carousel>
 
 

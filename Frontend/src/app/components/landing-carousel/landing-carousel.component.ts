@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Product} from "../../models/product";
-import {Router} from "@angular/router";
-import {ApiService} from "../../services/api.service";
+import {Product} from '../../models/product';
+import {Router} from '@angular/router';
+import {ApiService} from '../../services/api.service';
 
 @Component({
     selector: 'app-landing-carousel',
@@ -27,7 +27,6 @@ export class LandingCarouselComponent implements OnInit {
 
     getProducts(): void {
         this.apiService.getProducts().subscribe(products => this.products = products);
-        console.log(this.products);
     }
 
     loadParams(): void {
