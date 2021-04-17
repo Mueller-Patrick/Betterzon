@@ -49,8 +49,6 @@ export class LandingCarouselComponent implements OnInit {
                     };
                     this.deals.push(deal);
                 });
-
-                console.log(this.deals);
             });
         });
     }
