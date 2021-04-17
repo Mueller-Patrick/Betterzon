@@ -19,6 +19,8 @@ import {MatMenuModule} from '@angular/material/menu';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ImprintComponent } from './pages/imprint/imprint.component';
 import { PrivacyComponent } from './pages/privacy/privacy.component';
+import { LandingCarouselComponent } from './components/landing-carousel/landing-carousel.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     declarations: [
@@ -33,7 +35,8 @@ import { PrivacyComponent } from './pages/privacy/privacy.component';
         NewestPricesListComponent,
         PageNotFoundPageComponent,
         ImprintComponent,
-        PrivacyComponent
+        PrivacyComponent,
+        LandingCarouselComponent
     ],
     imports: [
         BrowserModule,
@@ -42,7 +45,8 @@ import { PrivacyComponent } from './pages/privacy/privacy.component';
         NgApexchartsModule,
         FormsModule,
         MatMenuModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        NgbModule
     ],
     providers: [],
     bootstrap: [AppComponent]

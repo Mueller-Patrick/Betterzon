@@ -1,20 +1,13 @@
 <ngb-carousel>
     <div class="productItem" *ngFor="let product of products" (click)="clickedProduct(product)">
+        dsfdsgdfgkldfmgföld
         <ng-template ngbSlide>
             <div class="picsum-img-wrapper">
-                <div class="productImageContainer" *ngIf="showProductPicture===true">
-                    <img class="productImage" src="https://www.mueller-patrick.tech/betterzon/images/{{product.image_guid}}.jpg"/>
-                </div>
+                <img class="productImage" src="https://picsum.photos/id/944/900/500"/>
             </div>
             <div class="carousel-caption">
-                <div class="productDescription">
-                    <div *ngIf="product.short_description.length > 300">
-                        {{product.short_description.substring(0, 300) + "..."}}
-                    </div>
-                    <div *ngIf="product.short_description.length <= 300">
-                        {{product.short_description}}
-                    </div>
-                </div>
+                <h3>First slide label</h3>
+                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
             </div>
         </ng-template>
     </div>
