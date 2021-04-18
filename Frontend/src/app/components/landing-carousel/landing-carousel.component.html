@@ -1,11 +1,15 @@
 <ngb-carousel>
-    <ng-template *ngFor="let product of products" ngbSlide>
+       <ng-template *ngFor="let deal of deals" ngbSlide>
         <div class="picsum-img-wrapper">
-            <img class="productImage" src="https://picsum.photos/id/944/900/500"/>
+            <img class="productImage" width="600" heith="450" src="https://www.mueller-patrick.tech/betterzon/images/{{deal.product.image_guid}}.jpg"/>
         </div>
         <div class="carousel-caption">
-            <h3>First slide label</h3>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+            <div *ngIf="deal.product.short_description.length > 300">
+                {{deal.product.short_description.substring(0, 300) + "..."}}
+            </div>
+            <div *ngIf="deal.product.short_description.length <= 300">
+                {{deal.product.short_description}}
+            </div>
         </div>
     </ng-template>
 </ngb-carousel>
