@@ -21,7 +21,6 @@ export const usersRouter = express.Router();
  */
 
 // POST users/register
-
 usersRouter.post('/register', async (req: Request, res: Response) => {
     try {
         const username: string = req.body.username;

@@ -58,7 +58,7 @@ export const createUser = async (username: string, password: string, email: stri
         await conn.commit();
 
         // Get session id of the created user
-        let sessionId: number = -1
+        let sessionId: number = -1;
         for (const row in sessionIdRes) {
             if (row !== 'meta' && sessionIdRes[row].session_id != null) {
                 sessionId = sessionIdRes[row].session_id;
@@ -112,6 +112,22 @@ export const checkUsernameAndEmail = async (username: string, email: string): Pr
             messages: [],
             codes: []
         };
+
+        const usernameRegex = RegExp('^[a-zA-Z0-9\\-\\_]{4,20}$'); // Can contain a-z, A-Z, 0-9, -, _ and has to be 4-20 chars long
+        if (!usernameRegex.test(username)) {
+            // Username doesn't match requirements
+            res.hasProblems = true;
+            res.messages.push('Invalid username');
+            res.codes.push(1);
+        }
+
+        const emailRegex = RegExp('^[a-zA-Z0-9\\-\\_.]{1,30}\\@[a-zA-Z0-9\\-.]{1,20}\\.[a-z]{1,20}$'); // Normal email regex, user@betterzon.xyz
+        if (!emailRegex.test(email)) {
+            // Username doesn't match requirements
+            res.hasProblems = true;
+            res.messages.push('Invalid email');
+            res.codes.push(2);
+        }
 
         if (usernameRes.length > 0) {
             // Username is a duplicate
