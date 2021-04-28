@@ -1,0 +1,141 @@
+import * as dotenv from 'dotenv';
+import * as bcrypt from 'bcrypt';
+import {Guid} from 'guid-typescript';
+
+
+dotenv.config();
+
+const mariadb = require('mariadb');
+const pool = mariadb.createPool({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
+    connectionLimit: 5
+});
+
+/**
+ * Data Model Interfaces
+ */
+
+import {User} from './user.interface';
+import {Users} from './users.interface';
+import {Session} from './session.interface';
+
+
+/**
+ * Service Methods
+ */
+
+/**
+ * Creates a user record in the database, also creates a session. Returns the session if successful.
+ */
+export const createUser = async (username: string, password: string, email: string, ip: string): Promise<Session> => {
+    let conn;
+    try {
+        // Hash password and generate + hash session key
+        const pwHash = bcrypt.hashSync('123', 10);
+        const sessionKey = Guid.create().toString();
+        const sessionKeyHash = bcrypt.hashSync(sessionKey, 10);
+
+        // Create user entry in SQL
+        conn = await pool.getConnection();
+        const userQuery = 'INSERT INTO users (username, email, bcrypt_password_hash) VALUES (?, ?, ?) RETURNING user_id';
+        const userIdRes = await conn.query(userQuery, [username, email, pwHash]);
+        await conn.commit();
+
+        // Get user id of the created user
+        let userId: number = -1;
+        for (const row in userIdRes) {
+            if (row !== 'meta' && userIdRes[row].user_id != null) {
+                userId = userIdRes[row].user_id;
+            }
+        }
+
+        // Create session
+        const sessionQuery = 'INSERT INTO sessions (user_id, session_key_hash, createdDate, lastLogin, validUntil, validDays, last_IP) VALUES (?,?,NOW(),NOW(),DATE_ADD(NOW(), INTERVAL 30 DAY),30,?) RETURNING session_id';
+        const sessionIdRes = await conn.query(sessionQuery, [userId, sessionKeyHash, ip]);
+        await conn.commit();
+
+        // Get session id of the created user
+        let sessionId: number = -1
+        for (const row in sessionIdRes) {
+            if (row !== 'meta' && sessionIdRes[row].session_id != null) {
+                sessionId = sessionIdRes[row].session_id;
+            }
+        }
+
+        return {
+            session_id: sessionId,
+            session_key: sessionKey,
+            session_key_hash: '',
+            last_IP: ip
+        };
+
+    } catch (err) {
+        throw err;
+    } finally {
+        if (conn) {
+            conn.end();
+        }
+    }
+
+    return {} as Session;
+};
+
+/**
+ * Used in the checkUsernameAndEmail method as return value
+ */
+export interface Status {
+    hasProblems: boolean;
+    messages: string[];
+    codes: number[]; // 0 = all good, 1 = wrong username, 2 = wrong email, 3 = server error
+}
+
+/**
+ * Checks if the given username and email are not used yet by another user
+ * @param username The username to check
+ * @param email The email to check
+ */
+export const checkUsernameAndEmail = async (username: string, email: string): Promise<Status> => {
+    let conn;
+    try {
+        // Create user entry in SQL
+        conn = await pool.getConnection();
+        const usernameQuery = 'SELECT username FROM users WHERE username = ?';
+        const emailQuery = 'SELECT email FROM users WHERE email = ?';
+        const usernameRes = await conn.query(usernameQuery, username);
+        const emailRes = await conn.query(emailQuery, email);
+
+        let res: Status = {
+            hasProblems: false,
+            messages: [],
+            codes: []
+        };
+
+        if (usernameRes.length > 0) {
+            // Username is a duplicate
+            res.hasProblems = true;
+            res.messages.push('Duplicate username');
+            res.codes.push(1);
+        }
+
+        if (emailRes.length > 0) {
+            // Email is a duplicate
+            res.hasProblems = true;
+            res.messages.push('Duplicate email');
+            res.codes.push(2);
+        }
+
+        return res;
+
+    } catch (err) {
+        throw err;
+    } finally {
+        if (conn) {
+            conn.end();
+        }
+    }
+
+    return {hasProblems: true, messages: ['Internal server error'], codes: [3]};
+};
