@@ -7,6 +7,9 @@
         <div class="searchBox">
             <input *ngIf="showSearch===true" type="text" [(ngModel)]="searchInput" placeholder="Search" (keyup.enter)="startedSearch()">
         </div>
+        <div class="slider">
+            <mat-slide-toggle color="primary">dark me</mat-slide-toggle>
+        </div>
         <div class="profileIcon">
             <button mat-button [matMenuTriggerFor]="menu">Menu</button>
             <mat-menu #menu="matMenu">

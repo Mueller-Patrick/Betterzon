@@ -16,10 +16,19 @@ import {NewestPricesListComponent} from './components/newest-prices-list/newest-
 import {FormsModule} from '@angular/forms';
 import {PageNotFoundPageComponent} from './pages/page-not-found-page/page-not-found-page.component';
 import {MatMenuModule} from '@angular/material/menu';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ImprintComponent} from './pages/imprint/imprint.component';
 import {PrivacyComponent} from './pages/privacy/privacy.component';
 import {NgcCookieConsentModule, NgcCookieConsentConfig} from 'ngx-cookieconsent';
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import { TopBarComponent } from './components/top-bar/top-bar.component';
+import {RouterModule} from "@angular/router";
+import {MatButtonModule} from '@angular/material/button';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
+
 
 // For cookie popup
 const cookieConfig: NgcCookieConsentConfig = {
@@ -73,7 +82,8 @@ const cookieConfig: NgcCookieConsentConfig = {
         NewestPricesListComponent,
         PageNotFoundPageComponent,
         ImprintComponent,
-        PrivacyComponent
+        PrivacyComponent,
+        TopBarComponent
     ],
     imports: [
         BrowserModule,
@@ -83,7 +93,17 @@ const cookieConfig: NgcCookieConsentConfig = {
         FormsModule,
         MatMenuModule,
         BrowserAnimationsModule,
-        NgcCookieConsentModule.forRoot(cookieConfig)
+        NgcCookieConsentModule.forRoot(cookieConfig),
+        MatSlideToggleModule,
+        MatButtonModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatListModule,
+        MatButtonModule,
+        MatIconModule,
+        RouterModule.forRoot([
+            { path: '', component: LandingpageComponent },
+        ]),
     ],
     providers: [],
     bootstrap: [AppComponent]
