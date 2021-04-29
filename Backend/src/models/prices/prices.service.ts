@@ -195,7 +195,6 @@ export const getBestDeals = async (amount: number): Promise<Prices> => {
         let allPrices: Record<number, Price[]> = {};
 
         // Get newest prices for every product at every vendor
-
         const rows = await conn.query(
             'WITH summary AS (\n' +
             '    SELECT p.product_id,\n' +
@@ -222,10 +221,11 @@ export const getBestDeals = async (amount: number): Promise<Prices> => {
         }
 
         // Iterate over all prices to find the products with the biggest difference between amazon and other vendor
-        let deals = [];
-        for (let productId in Object.keys(allPrices)) {
-            if (allPrices[productId]) {
-                let pricesForProd = allPrices[productId];
+        let deals: Price[] = [];
+
+        Object.keys(allPrices).forEach(productId => {
+            if (allPrices[parseInt(productId)]) {
+                let pricesForProd = allPrices[parseInt(productId)];
 
                 // Get amazon price and lowest price from other vendor
                 let amazonPrice = {} as Price;
@@ -234,6 +234,7 @@ export const getBestDeals = async (amount: number): Promise<Prices> => {
                     if (price.vendor_id === 1) {
                         amazonPrice = price;
                     } else {
+                        // If there is no lowest price yet or the price of the current iteration is lower, set / replace it
                         if (!lowestPrice.price_in_cents || lowestPrice.price_in_cents > price.price_in_cents) {
                             lowestPrice = price;
                         }
@@ -245,31 +246,95 @@ export const getBestDeals = async (amount: number): Promise<Prices> => {
                     'product_id': lowestPrice.product_id,
                     'vendor_id': lowestPrice.vendor_id,
                     'price_in_cents': lowestPrice.price_in_cents,
-                    'timestamp' :lowestPrice.timestamp,
+                    'timestamp': lowestPrice.timestamp,
                     'amazonDifference': (amazonPrice.price_in_cents - lowestPrice.price_in_cents),
                     'amazonDifferencePercent': ((1 - (lowestPrice.price_in_cents / amazonPrice.price_in_cents)) * 100),
                 };
 
                 // Push only deals were the amazon price is actually higher
-                if(deal.amazonDifferencePercent > 0) {
-                    deals.push(deal);
+                if (deal.amazonDifferencePercent > 0) {
+                    deals.push(deal as Price);
                 }
             }
-        }
+        });
 
         // Sort to have the best deals on the top
-        deals.sort((a, b) => a.amazonDifferencePercent < b.amazonDifferencePercent ? 1 : -1);
+        deals.sort((a, b) => a.amazonDifferencePercent! < b.amazonDifferencePercent! ? 1 : -1);
 
         // Return only as many records as requested or the maximum amount of found deals, whatever is less
         let maxAmt = Math.min(amount, deals.length);
 
-        for (let dealIndex = 0; dealIndex < maxAmt; dealIndex++){
+        for (let dealIndex = 0; dealIndex < maxAmt; dealIndex++) {
             //console.log(deals[dealIndex]);
             priceRows.push(deals[dealIndex] as Price);
         }
 
     } catch (err) {
         console.log(err);
+        throw err;
+    } finally {
+        if (conn) {
+            conn.end();
+        }
+    }
+
+    return priceRows;
+};
+
+/**
+ * Get the lowest, latest, non-amazon price for each given product
+ * @param ids the ids of the products
+ */
+export const findListByProducts = async (productIds: [number]): Promise<Prices> => {
+    let conn;
+    let priceRows: Price[] = [];
+    try {
+        conn = await pool.getConnection();
+
+        let allPrices: Record<number, Price[]> = {};
+
+        // Get newest prices for every given product at every vendor
+        const rows = await conn.query(
+            'WITH summary AS (\n' +
+            '    SELECT p.product_id,\n' +
+            '           p.vendor_id,\n' +
+            '           p.price_in_cents,\n' +
+            '           p.timestamp,\n' +
+            '           ROW_NUMBER() OVER(\n' +
+            '               PARTITION BY p.product_id, p.vendor_id\n' +
+            '               ORDER BY p.timestamp DESC) AS rk\n' +
+            '    FROM prices p' +
+            '    WHERE p.product_id IN (?)' +
+            '    AND p.vendor_id != 1)\n' +
+            'SELECT s.*\n' +
+            'FROM summary s\n' +
+            'WHERE s.rk = 1', [productIds]);
+
+        // Write returned values to allPrices map with product id as key and a list of prices as value
+        for (let row in rows) {
+            if (row !== 'meta') {
+                if (!allPrices[parseInt(rows[row].product_id)]) {
+                    allPrices[parseInt(rows[row].product_id)] = [];
+                }
+
+                allPrices[parseInt(rows[row].product_id)].push(rows[row]);
+            }
+        }
+
+        // Iterate over all products to find lowest price
+        Object.keys(allPrices).forEach(productId => {
+            if (allPrices[parseInt(productId)]) {
+                let pricesForProd = allPrices[parseInt(productId)];
+
+                // Sort ascending by price so index 0 has the lowest price
+                pricesForProd.sort((a, b) => a.price_in_cents > b.price_in_cents ? 1 : -1);
+
+                // Push the lowest price to the return list
+                priceRows.push(pricesForProd[0]);
+            }
+        });
+
+    } catch (err) {
         throw err;
     } finally {
         if (conn) {
