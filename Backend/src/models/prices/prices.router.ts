@@ -82,6 +82,25 @@ pricesRouter.get('/bestDeals/:amount', async (req: Request, res: Response) => {
     }
 });
 
+// GET prices/byProduct/list/[]
+
+pricesRouter.get('/byProduct/list/:ids', async (req: Request, res: Response) => {
+    const productIds: [number] = JSON.parse(req.params.ids);
+
+    if (!productIds) {
+        res.status(400).send('Missing parameters.');
+        return;
+    }
+
+    try {
+        const prices: Prices = await PriceService.findListByProducts(productIds);
+
+        res.status(200).send(prices);
+    } catch (e) {
+        res.status(404).send(e.message);
+    }
+});
+
 // POST items/
 
 // pricesRouter.post('/', async (req: Request, res: Response) => {
