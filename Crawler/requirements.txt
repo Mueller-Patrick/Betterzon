@@ -2,3 +2,4 @@ pymysql
 flask
 flask-sqlalchemy
 flask_restful
+scrapy
