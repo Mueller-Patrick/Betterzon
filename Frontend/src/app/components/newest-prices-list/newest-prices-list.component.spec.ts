@@ -8,10 +8,22 @@ import {ApiService} from "../../services/api.service";
 
 class MockApiService extends AbstractMockObservableService {
     getCurrentPricePerVendor() {
+        this.content = [];
         return this;
     }
 
     getVendors() {
+        const vendor = {
+            vendor_id: 1,
+            name: 'Max Mustermann',
+            streetname: 'Musterstraße 69',
+            zip_code: '12345',
+            city: 'Musterhausen',
+            country_code: 'DE',
+            phone: '+49 123 4567890',
+            website: 'https://www.amazon.de',
+        };
+        this.content = [vendor];
         return this;
     }
 }
