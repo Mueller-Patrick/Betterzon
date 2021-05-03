@@ -81,3 +81,32 @@ usersRouter.post('/login', async (req: Request, res: Response) => {
         res.status(404).send(e.message);
     }
 });
+
+// POST users/checkSessionValid
+usersRouter.post('/checkSessionValid', async (req: Request, res: Response) => {
+    try {
+        const sessionId: string = req.body.sessionId;
+        const sessionKey: string = req.body.sessionKey;
+        const ip: string = req.connection.remoteAddress ?? '';
+
+        if (!sessionId || !sessionKey) {
+            // Missing
+            res.status(400).send(JSON.stringify({message: 'Missing parameters'}));
+            return;
+        }
+
+        // Update the user entry and create a session
+        const user: User = await UserService.checkSession(sessionId, sessionKey, ip);
+
+        if(!user.user_id) {
+            // Error logging in, probably wrong username / password
+            res.status(401).send(JSON.stringify({messages: ["Invalid session"], codes: [5]}));
+            return;
+        }
+
+        // Send the session details back to the user
+        res.status(201).send(user);
+    } catch (e) {
+        res.status(404).send(e.message);
+    }
+});
