@@ -20,19 +20,18 @@ export const vendorsRouter = express.Router();
  */
 
 // GET items/
-
 vendorsRouter.get('/', async (req: Request, res: Response) => {
     try {
         const vendors: Vendors = await VendorService.findAll();
 
         res.status(200).send(vendors);
     } catch (e) {
-        res.status(404).send(e.message);
+        console.log('Error handling a request: ' + e.message);
+        res.status(500).send(JSON.stringify({"message": "Internal Server Error. Try again later."}));
     }
 });
 
 // GET items/:id
-
 vendorsRouter.get('/:id', async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
 
@@ -46,12 +45,12 @@ vendorsRouter.get('/:id', async (req: Request, res: Response) => {
 
         res.status(200).send(vendor);
     } catch (e) {
-        res.status(404).send(e.message);
+        console.log('Error handling a request: ' + e.message);
+        res.status(500).send(JSON.stringify({"message": "Internal Server Error. Try again later."}));
     }
 });
 
 // GET items/:name
-
 vendorsRouter.get('/search/:term', async (req: Request, res: Response) => {
     const term: string = req.params.term;
 
@@ -65,48 +64,7 @@ vendorsRouter.get('/search/:term', async (req: Request, res: Response) => {
 
         res.status(200).send(vendors);
     } catch (e) {
-        res.status(404).send(e.message);
+        console.log('Error handling a request: ' + e.message);
+        res.status(500).send(JSON.stringify({"message": "Internal Server Error. Try again later."}));
     }
 });
-
-
-// POST items/
-
-// vendorsRouter.post('/', async (req: Request, res: Response) => {
-//     try {
-//         const category: Category = req.body.category;
-//
-//         await CategoryService.create(category);
-//
-//         res.sendStatus(201);
-//     } catch (e) {
-//         res.status(404).send(e.message);
-//     }
-// });
-//
-// // PUT items/
-//
-// vendorsRouter.put('/', async (req: Request, res: Response) => {
-//     try {
-//         const category: Category = req.body.category;
-//
-//         await CategoryService.update(category);
-//
-//         res.sendStatus(200);
-//     } catch (e) {
-//         res.status(500).send(e.message);
-//     }
-// });
-//
-// // DELETE items/:id
-//
-// vendorsRouter.delete('/:id', async (req: Request, res: Response) => {
-//     try {
-//         const id: number = parseInt(req.params.id, 10);
-//         await CategoryService.remove(id);
-//
-//         res.sendStatus(200);
-//     } catch (e) {
-//         res.status(500).send(e.message);
-//     }
-// });

@@ -20,19 +20,18 @@ export const categoriesRouter = express.Router();
  */
 
 // GET categories/
-
 categoriesRouter.get('/', async (req: Request, res: Response) => {
     try {
         const categories: Categories = await CategoryService.findAll();
 
         res.status(200).send(categories);
     } catch (e) {
-        res.status(404).send(e.message);
+        console.log('Error handling a request: ' + e.message);
+        res.status(500).send(JSON.stringify({"message": "Internal Server Error. Try again later."}));
     }
 });
 
 // GET categories/:id
-
 categoriesRouter.get('/:id', async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
 
@@ -46,12 +45,12 @@ categoriesRouter.get('/:id', async (req: Request, res: Response) => {
 
         res.status(200).send(category);
     } catch (e) {
-        res.status(404).send(e.message);
+        console.log('Error handling a request: ' + e.message);
+        res.status(500).send(JSON.stringify({"message": "Internal Server Error. Try again later."}));
     }
 });
 
 // GET categories/search/:term
-
 categoriesRouter.get('/search/:term', async (req: Request, res: Response) => {
     const term: string = req.params.term;
 
@@ -65,48 +64,7 @@ categoriesRouter.get('/search/:term', async (req: Request, res: Response) => {
 
         res.status(200).send(categories);
     } catch (e) {
-        res.status(404).send(e.message);
+        console.log('Error handling a request: ' + e.message);
+        res.status(500).send(JSON.stringify({"message": "Internal Server Error. Try again later."}));
     }
 });
-
-
-// POST items/
-
-// categoriesRouter.post('/', async (req: Request, res: Response) => {
-//     try {
-//         const category: Category = req.body.category;
-//
-//         await CategoryService.create(category);
-//
-//         res.sendStatus(201);
-//     } catch (e) {
-//         res.status(404).send(e.message);
-//     }
-// });
-//
-// // PUT items/
-//
-// categoriesRouter.put('/', async (req: Request, res: Response) => {
-//     try {
-//         const category: Category = req.body.category;
-//
-//         await CategoryService.update(category);
-//
-//         res.sendStatus(200);
-//     } catch (e) {
-//         res.status(500).send(e.message);
-//     }
-// });
-//
-// // DELETE items/:id
-//
-// categoriesRouter.delete('/:id', async (req: Request, res: Response) => {
-//     try {
-//         const id: number = parseInt(req.params.id, 10);
-//         await CategoryService.remove(id);
-//
-//         res.sendStatus(200);
-//     } catch (e) {
-//         res.status(500).send(e.message);
-//     }
-// });
