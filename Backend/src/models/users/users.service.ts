@@ -34,7 +34,7 @@ export const createUser = async (username: string, password: string, email: stri
     let conn;
     try {
         // Hash password and generate + hash session key
-        const pwHash = bcrypt.hashSync('123', 10);
+        const pwHash = bcrypt.hashSync(password, 10);
         const sessionKey = Guid.create().toString();
         const sessionKeyHash = bcrypt.hashSync(sessionKey, 10);
 
@@ -57,7 +57,74 @@ export const createUser = async (username: string, password: string, email: stri
         const sessionIdRes = await conn.query(sessionQuery, [userId, sessionKeyHash, ip]);
         await conn.commit();
 
-        // Get session id of the created user
+        // Get session id of the created session
+        let sessionId: number = -1;
+        for (const row in sessionIdRes) {
+            if (row !== 'meta' && sessionIdRes[row].session_id != null) {
+                sessionId = sessionIdRes[row].session_id;
+            }
+        }
+
+        return {
+            session_id: sessionId,
+            session_key: sessionKey,
+            session_key_hash: '',
+            last_IP: ip
+        };
+
+    } catch (err) {
+        throw err;
+    } finally {
+        if (conn) {
+            conn.end();
+        }
+    }
+
+    return {} as Session;
+};
+
+/**
+ * Checks if the given credentials are valid and creates a new session if they are.
+ * Returns the session information in case of a successful login
+ */
+export const login = async (username: string, password: string, ip: string): Promise<Session> => {
+    let conn;
+    try {
+        // Get saved password hash
+        conn = await pool.getConnection();
+        const query = "SELECT user_id, bcrypt_password_hash FROM users WHERE username = ?"
+        const userRows = await conn.query(query, username);
+        let savedHash = '';
+        let userId = -1;
+        for (const row in userRows) {
+            if (row !== 'meta' && userRows[row].user_id != null) {
+                savedHash = userRows[row].bcrypt_password_hash;
+                userId = userRows[row].user_id;
+            }
+        }
+
+        // Check for correct password
+        if(!bcrypt.compareSync(password, savedHash)) {
+            // Wrong password, return invalid
+            return {} as Session;
+        }
+        // Password is valid, continue
+
+        // Generate + hash session key
+        const sessionKey = Guid.create().toString();
+        const sessionKeyHash = bcrypt.hashSync(sessionKey, 10);
+
+        // Update user entry in SQL
+        const userQuery = 'UPDATE users SET last_login_date = NOW()';
+        const userIdRes = await conn.query(userQuery);
+        await conn.commit();
+
+        // Create session
+        const sessionQuery = 'INSERT INTO sessions (user_id, session_key_hash, createdDate, lastLogin, validUntil, validDays, last_IP) VALUES (?,?,NOW(),NOW(),DATE_ADD(NOW(), INTERVAL 30 DAY),30,?) RETURNING session_id';
+        const sessionIdRes = await conn.query(sessionQuery, [userId, sessionKeyHash, ip]);
+        await conn.commit();
+
+        // Get session id of the created session
         let sessionId: number = -1;
         for (const row in sessionIdRes) {
             if (row !== 'meta' && sessionIdRes[row].session_id != null) {
@@ -89,7 +156,7 @@ export const createUser = async (username: string, password: string, email: stri
 export interface Status {
     hasProblems: boolean;
     messages: string[];
-    codes: number[]; // 0 = all good, 1 = wrong username, 2 = wrong email, 3 = server error
+    codes: number[]; // 0 = all good, 1 = wrong username, 2 = wrong email, 3 = server error, 4 = wrong password
 }
 
 /**
