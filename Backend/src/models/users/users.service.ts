@@ -92,7 +92,7 @@ export const login = async (username: string, password: string, ip: string): Pro
     try {
         // Get saved password hash
         conn = await pool.getConnection();
-        const query = "SELECT user_id, bcrypt_password_hash FROM users WHERE username = ?"
+        const query = 'SELECT user_id, bcrypt_password_hash FROM users WHERE username = ?';
         const userRows = await conn.query(query, username);
         let savedHash = '';
         let userId = -1;
@@ -104,7 +104,7 @@ export const login = async (username: string, password: string, ip: string): Pro
         }
 
         // Check for correct password
-        if(!bcrypt.compareSync(password, savedHash)) {
+        if (!bcrypt.compareSync(password, savedHash)) {
             // Wrong password, return invalid
             return {} as Session;
         }
@@ -151,12 +151,91 @@ export const login = async (username: string, password: string, ip: string): Pro
 };
 
 /**
+ * Checks if the given session information are valid and returns the user information if they are
+ */
+export const checkSession = async (sessionId: string, sessionKey: string, ip: string): Promise<User> => {
+    let conn;
+    try {
+        // Get saved session key hash
+        conn = await pool.getConnection();
+        const query = 'SELECT user_id, session_key_hash, validUntil FROM sessions WHERE session_id = ?';
+        const sessionRows = await conn.query(query, sessionId);
+        let savedHash = '';
+        let userId = -1;
+        let validUntil = new Date();
+        for (const row in sessionRows) {
+            if (row !== 'meta' && sessionRows[row].user_id != null) {
+                savedHash = sessionRows[row].session_key_hash;
+                userId = sessionRows[row].user_id;
+                validUntil = sessionRows[row].validUntil;
+            }
+        }
+
+        // Check for correct key
+        if (!bcrypt.compareSync(sessionKey, savedHash)) {
+            // Wrong key, return invalid
+            return {} as User;
+        }
+        // Key is valid, continue
+
+        // Check if the session is still valid
+        if(validUntil <= new Date()) {
+            // Session expired, return invalid
+            return {} as User;
+        }
+        // Session still valid, continue
+
+        // Update session entry in SQL
+        const updateSessionsQuery = 'UPDATE sessions SET lastLogin = NOW(), last_IP = ? WHERE session_id = ?';
+        const updateUsersQuery = 'UPDATE users SET last_login_date = NOW() WHERE user_id = ?';
+        const userIdRes = await conn.query(updateSessionsQuery, [ip, sessionId]);
+        await conn.query(updateUsersQuery, userId);
+        await conn.commit();
+
+        // Get the other required user information and update the user
+        const userQuery = "SELECT user_id, username, email, registration_date, last_login_date FROM users WHERE user_id = ?";
+        const userRows = await conn.query(userQuery, userId);
+        let username = '';
+        let email = '';
+        let registrationDate = new Date();
+        let lastLoginDate = new Date();
+        for (const row in userRows) {
+            if (row !== 'meta' && userRows[row].user_id != null) {
+                username = userRows[row].username;
+                email = userRows[row].email;
+                registrationDate = userRows[row].registration_date;
+                lastLoginDate = userRows[row].last_login_date;
+            }
+        }
+
+        // Everything is fine, return user information
+        return {
+            user_id: userId,
+            username: username,
+            email: email,
+            password_hash: '',
+            registration_date: registrationDate,
+            last_login_date: lastLoginDate
+        };
+
+    } catch (err) {
+        throw err;
+    } finally {
+        if (conn) {
+            conn.end();
+        }
+    }
+
+    return {} as User;
+};
+
+/**
  * Used in the checkUsernameAndEmail method as return value
  */
 export interface Status {
     hasProblems: boolean;
     messages: string[];
-    codes: number[]; // 0 = all good, 1 = wrong username, 2 = wrong email, 3 = server error, 4 = wrong password
+    codes: number[]; // 0 = all good, 1 = wrong username, 2 = wrong email, 3 = server error, 4 = wrong password, 5 = wrong session
 }
 
 /**
