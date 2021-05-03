@@ -26,7 +26,7 @@ usersRouter.post('/register', async (req: Request, res: Response) => {
         const username: string = req.body.username;
         const password: string = req.body.password;
         const email: string = req.body.email;
-        const ip: string = req.connection.remoteAddress?? '';
+        const ip: string = req.connection.remoteAddress ?? '';
 
         if (!username || !password || !email) {
             // Missing
@@ -45,6 +45,35 @@ usersRouter.post('/register', async (req: Request, res: Response) => {
 
         // Create the user and a session
         const session: Session = await UserService.createUser(username, password, email, ip);
+
+        // Send the session details back to the user
+        res.status(201).send(session);
+    } catch (e) {
+        res.status(404).send(e.message);
+    }
+});
+
+// POST users/login
+usersRouter.post('/login', async (req: Request, res: Response) => {
+    try {
+        const username: string = req.body.username;
+        const password: string = req.body.password;
+        const ip: string = req.connection.remoteAddress ?? '';
+
+        if (!username || !password) {
+            // Missing
+            res.status(400).send(JSON.stringify({message: 'Missing parameters'}));
+            return;
+        }
+
+        // Update the user entry and create a session
+        const session: Session = await UserService.login(username, password, ip);
+
+        if(!session.session_id) {
+            // Error logging in, probably wrong username / password
+            res.status(401).send(JSON.stringify({messages: ["Wrong username and / or password"], codes: [1, 4]}));
+            return;
+        }
 
         // Send the session details back to the user
         res.status(201).send(session);
