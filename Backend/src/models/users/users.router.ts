@@ -49,7 +49,8 @@ usersRouter.post('/register', async (req: Request, res: Response) => {
         // Send the session details back to the user
         res.status(201).send(session);
     } catch (e) {
-        res.status(404).send(e.message);
+        console.log('Error handling a request: ' + e.message);
+        res.status(500).send(JSON.stringify({"message": "Internal Server Error. Try again later."}));
     }
 });
 
@@ -78,7 +79,8 @@ usersRouter.post('/login', async (req: Request, res: Response) => {
         // Send the session details back to the user
         res.status(201).send(session);
     } catch (e) {
-        res.status(404).send(e.message);
+        console.log('Error handling a request: ' + e.message);
+        res.status(500).send(JSON.stringify({"message": "Internal Server Error. Try again later."}));
     }
 });
 
@@ -107,6 +109,7 @@ usersRouter.post('/checkSessionValid', async (req: Request, res: Response) => {
         // Send the session details back to the user
         res.status(201).send(user);
     } catch (e) {
-        res.status(404).send(e.message);
+        console.log('Error handling a request: ' + e.message);
+        res.status(500).send(JSON.stringify({"message": "Internal Server Error. Try again later."}));
     }
 });
