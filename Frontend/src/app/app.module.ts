@@ -28,6 +28,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
+import { BottomBarComponent } from './components/bottom-bar/bottom-bar.component';
 
 
 // For cookie popup
@@ -83,7 +84,8 @@ const cookieConfig: NgcCookieConsentConfig = {
         PageNotFoundPageComponent,
         ImprintComponent,
         PrivacyComponent,
-        TopBarComponent
+        TopBarComponent,
+        BottomBarComponent
     ],
     imports: [
         BrowserModule,
