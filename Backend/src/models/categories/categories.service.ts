@@ -23,6 +23,9 @@ import {Categories} from './categories.interface';
  * Service Methods
  */
 
+/**
+ * Fetches and returns all known categories
+ */
 export const findAll = async (): Promise<Categories> => {
     let conn;
     let categRows = [];
@@ -54,6 +57,10 @@ export const findAll = async (): Promise<Categories> => {
     return categRows;
 };
 
+/**
+ * Fetches and returns the category with the specified id
+ * @param id The id of the category to fetch
+ */
 export const find = async (id: number): Promise<Category> => {
     let conn;
     let categ: any;
@@ -77,6 +84,10 @@ export const find = async (id: number): Promise<Category> => {
     return categ;
 };
 
+/**
+ * Fetches and returns all categories that match the search term
+ * @param term the term to match
+ */
 export const findBySearchTerm = async (term: string): Promise<Categories> => {
     let conn;
     let categRows = [];
@@ -100,36 +111,3 @@ export const findBySearchTerm = async (term: string): Promise<Categories> => {
 
     return categRows;
 };
-
-// export const create = async (newItem: Product): Promise<void> => {
-//     let conn;
-//     try {
-//         conn = await pool.getConnection();
-//         await conn.query("");
-//
-//     } catch (err) {
-//         throw err;
-//     } finally {
-//         if (conn) conn.end();
-//     }
-// };
-//
-// export const update = async (updatedItem: Product): Promise<void> => {
-//     if (models.products[updatedItem.product_id]) {
-//         models.products[updatedItem.product_id] = updatedItem;
-//         return;
-//     }
-//
-//     throw new Error("No record found to update");
-// };
-//
-// export const remove = async (id: number): Promise<void> => {
-//     const record: Product = models.products[id];
-//
-//     if (record) {
-//         delete models.products[id];
-//         return;
-//     }
-//
-//     throw new Error("No record found to delete");
-// };
