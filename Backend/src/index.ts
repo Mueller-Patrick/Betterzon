@@ -13,6 +13,7 @@ import {pricesRouter} from './models/prices/prices.router';
 import {vendorsRouter} from './models/vendors/vendors.router';
 import {errorHandler} from './middleware/error.middleware';
 import {notFoundHandler} from './middleware/notFound.middleware';
+import {usersRouter} from './models/users/users.router';
 
 dotenv.config();
 
@@ -41,6 +42,7 @@ app.use('/products', productsRouter);
 app.use('/categories', categoriesRouter);
 app.use('/manufacturers', manufacturersRouter);
 app.use('/prices', pricesRouter);
+app.use('/users', usersRouter);
 app.use('/vendors', vendorsRouter);
 
 app.use(errorHandler);

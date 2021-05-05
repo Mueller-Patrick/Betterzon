@@ -20,15 +20,15 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ImprintComponent} from './pages/imprint/imprint.component';
 import {PrivacyComponent} from './pages/privacy/privacy.component';
 import {NgcCookieConsentModule, NgcCookieConsentConfig} from 'ngx-cookieconsent';
-import {MatSlideToggleModule} from "@angular/material/slide-toggle";
-import { TopBarComponent } from './components/top-bar/top-bar.component';
-import {RouterModule} from "@angular/router";
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {TopBarComponent} from './components/top-bar/top-bar.component';
+import {RouterModule} from '@angular/router';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
-import { BottomBarComponent } from './components/bottom-bar/bottom-bar.component';
+import {BottomBarComponent} from './components/bottom-bar/bottom-bar.component';
 
 
 // For cookie popup
@@ -104,7 +104,7 @@ const cookieConfig: NgcCookieConsentConfig = {
         MatButtonModule,
         MatIconModule,
         RouterModule.forRoot([
-            { path: '', component: LandingpageComponent },
+            {path: '', component: LandingpageComponent},
         ]),
     ],
     providers: [],

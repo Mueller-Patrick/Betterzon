@@ -17,7 +17,7 @@ export class FooterComponent implements OnInit {
   }
 
   navigateImprint(): void {
-      this.router.navigate([('/impressum/')]);
+      this.router.navigate([('/impressum')]);
   }
 
 }
