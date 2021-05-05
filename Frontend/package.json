@@ -26,11 +26,12 @@
         "@ng-bootstrap/ng-bootstrap": "^8.0.4",
         "apexcharts": "^3.22.3",
         "bootstrap": "^4.5.0",
+        "cookieconsent": "^3.1.1",
         "karma-firefox-launcher": "^2.1.0",
         "ng": "0.0.0",
         "ng-apexcharts": "^1.5.6",
-        "ngx-cookieconsent": "^2.2.3",
         "ngx-bootstrap": "^6.2.0",
+        "ngx-cookieconsent": "^2.2.3",
         "rxjs": "~6.6.0",
         "tslib": "^2.0.3",
         "zone.js": "~0.10.2"
