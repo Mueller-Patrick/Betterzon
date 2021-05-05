@@ -47,7 +47,7 @@ export class ProductDetailsComponent implements OnInit {
     }
 
     getProduct(): void {
-        this.apiService.getProduct(this.productId).subscribe(product => this.product = product);
+        this.apiService.getProduct(this.productId).subscribe(product => {this.product = product});
     }
 
     getPrices(): void {
