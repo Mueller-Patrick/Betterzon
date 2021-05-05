@@ -50,7 +50,7 @@ manufacturersRouter.get('/:id', async (req: Request, res: Response) => {
     }
 });
 
-// GET items/:name
+// GET items/:term
 manufacturersRouter.get('/search/:term', async (req: Request, res: Response) => {
     const term: string = req.params.term;
 
