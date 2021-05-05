@@ -4,6 +4,7 @@
 **/dist
 /tmp
 /out-tsc
+**/coverage
 # Only exists if Bazel was run
 /bazel-out
 
@@ -27,6 +28,7 @@ speed-measure-plugin*.json
 !Backend.iml
 !CucumberTests.iml
 !Crawler.iml
+!Crawler-Loadbalancer.iml
 
 # Include IntelliJ modules
 !/.idea/modules.xml
