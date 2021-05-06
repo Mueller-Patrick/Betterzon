@@ -23,6 +23,9 @@ import {Products} from './products.interface';
  * Service Methods
  */
 
+/**
+ * Fetches and returns all known products
+ */
 export const findAll = async (): Promise<Products> => {
     let conn;
     let prodRows = [];
@@ -74,6 +77,10 @@ export const findAll = async (): Promise<Products> => {
     return prodRows;
 };
 
+/**
+ * Fetches and returns the product with the specified id
+ * @param id The id of the product to fetch
+ */
 export const find = async (id: number): Promise<Product> => {
     let conn;
     let prod: any;
@@ -97,6 +104,10 @@ export const find = async (id: number): Promise<Product> => {
     return prod;
 };
 
+/**
+ * Fetches and returns all products that match the search term
+ * @param term the term to match
+ */
 export const findBySearchTerm = async (term: string): Promise<Products> => {
     let conn;
     let prodRows = [];
@@ -122,6 +133,10 @@ export const findBySearchTerm = async (term: string): Promise<Products> => {
     return prodRows;
 };
 
+/**
+ * Fetches and returns the product details for the given list of product ids
+ * @param ids The list of product ids to fetch the details for
+ */
 export const findList = async (ids: [number]): Promise<Products> => {
     let conn;
     let prodRows = [];
@@ -144,36 +159,3 @@ export const findList = async (ids: [number]): Promise<Products> => {
 
     return prodRows;
 };
-
-// export const create = async (newItem: Product): Promise<void> => {
-//     let conn;
-//     try {
-//         conn = await pool.getConnection();
-//         await conn.query("");
-//
-//     } catch (err) {
-//         throw err;
-//     } finally {
-//         if (conn) conn.end();
-//     }
-// };
-//
-// export const update = async (updatedItem: Product): Promise<void> => {
-//     if (models.products[updatedItem.product_id]) {
-//         models.products[updatedItem.product_id] = updatedItem;
-//         return;
-//     }
-//
-//     throw new Error("No record found to update");
-// };
-//
-// export const remove = async (id: number): Promise<void> => {
-//     const record: Product = models.products[id];
-//
-//     if (record) {
-//         delete models.products[id];
-//         return;
-//     }
-//
-//     throw new Error("No record found to delete");
-// };

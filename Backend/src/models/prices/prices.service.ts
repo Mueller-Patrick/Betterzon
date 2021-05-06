@@ -23,6 +23,9 @@ import {Prices} from './prices.interface';
  * Service Methods
  */
 
+/**
+ * Fetches and returns all known prices
+ */
 export const findAll = async (): Promise<Prices> => {
     let conn;
     let priceRows = [];
@@ -60,6 +63,10 @@ export const findAll = async (): Promise<Prices> => {
     return priceRows;
 };
 
+/**
+ * Fetches and returns the price with the specified id
+ * @param id The id of the price to fetch
+ */
 export const find = async (id: number): Promise<Price> => {
     let conn;
     let price: any;
@@ -83,6 +90,10 @@ export const find = async (id: number): Promise<Price> => {
     return price;
 };
 
+/**
+ * Fetches and returns all prices that belong to the specified product
+ * @param product the product to fetch the prices for
+ */
 export const findByProduct = async (product: number): Promise<Prices> => {
     let conn;
     let priceRows = [];
@@ -106,6 +117,14 @@ export const findByProduct = async (product: number): Promise<Prices> => {
     return priceRows;
 };
 
+/**
+ * Fetches and returns prices that belong to the specified product.
+ * If type is newest, only the newest prices for each vendor will be returned.
+ * If type is lowest, the lowest daily price for the product is returned.
+ * Otherwise, all prices for this product are returned.
+ * @param product The product to fetch the prices for
+ * @param type The type of prices, e.g. newest / lowest
+ */
 export const findByType = async (product: string, type: string): Promise<Prices> => {
     let conn;
     let priceRows = [];
@@ -152,6 +171,15 @@ export const findByType = async (product: string, type: string): Promise<Prices>
     return priceRows;
 };
 
+/**
+ * Fetches and returns prices that belong to the specified product and vendor.
+ * If type is newest, only the newest known price for the product at the vendor is returned.
+ * If type is lowest, only the lowest ever known price for the product at the vendor is returned.
+ * Otherwise, all prices for this product are returned.
+ * @param product The product to fetch the prices for
+ * @param vendor The vendor to fetch the prices for
+ * @param type The type of prices, e.g. newest / lowest
+ */
 export const findByVendor = async (product: string, vendor: string, type: string): Promise<Prices> => {
     let conn;
     let priceRows = [];
@@ -186,6 +214,11 @@ export const findByVendor = async (product: string, vendor: string, type: string
     return priceRows;
 };
 
+/**
+ * Fetches and returns the best current deals, i.e. the non-amazon prices that have the biggest difference to amazon prices.
+ * Only the latest known prices for every vendor are taken into consideration so we only get up-to-date-deals.
+ * @param amount The amount of deals to return
+ */
 export const getBestDeals = async (amount: number): Promise<Prices> => {
     let conn;
     let priceRows = [];
@@ -282,7 +315,7 @@ export const getBestDeals = async (amount: number): Promise<Prices> => {
 };
 
 /**
- * Get the lowest, latest, non-amazon price for each given product
+ * Fetches and returns the lowest, latest, non-amazon price for each given product
  * @param ids the ids of the products
  */
 export const findListByProducts = async (productIds: [number]): Promise<Prices> => {
@@ -344,36 +377,3 @@ export const findListByProducts = async (productIds: [number]): Promise<Prices> 
 
     return priceRows;
 };
-
-// export const create = async (newItem: Product): Promise<void> => {
-//     let conn;
-//     try {
-//         conn = await pool.getConnection();
-//         await conn.query("");
-//
-//     } catch (err) {
-//         throw err;
-//     } finally {
-//         if (conn) conn.end();
-//     }
-// };
-//
-// export const update = async (updatedItem: Product): Promise<void> => {
-//     if (models.products[updatedItem.product_id]) {
-//         models.products[updatedItem.product_id] = updatedItem;
-//         return;
-//     }
-//
-//     throw new Error("No record found to update");
-// };
-//
-// export const remove = async (id: number): Promise<void> => {
-//     const record: Product = models.products[id];
-//
-//     if (record) {
-//         delete models.products[id];
-//         return;
-//     }
-//
-//     throw new Error("No record found to delete");
-// };
