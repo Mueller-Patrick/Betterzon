@@ -1,20 +1,20 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ProductListComponent} from './product-list.component';
-import {FooterComponent} from "../footer/footer.component";
-import {HeaderComponent} from "../header/header.component";
-import {RouterTestingModule} from "@angular/router/testing";
-import {ApiService} from "../../services/api.service";
-import {AbstractMockObservableService} from "../../mocks/mock.service";
-import {Router} from "@angular/router";
+import {FooterComponent} from '../footer/footer.component';
+import {HeaderComponent} from '../header/header.component';
+import {RouterTestingModule} from '@angular/router/testing';
+import {ApiService} from '../../services/api.service';
+import {AbstractMockObservableService} from '../../mocks/mock.service';
+import {Router} from '@angular/router';
 
 class MockApiService extends AbstractMockObservableService {
-    getProducts() {
+    getProducts(): any {
         this.content = [];
         return this;
     }
 
-    getProductsByQuery() {
+    getProductsByQuery(): any {
         this.content = [];
         return this;
     }
@@ -24,10 +24,10 @@ describe('ProductListComponent', () => {
     let component: ProductListComponent;
     let fixture: ComponentFixture<ProductListComponent>;
     let mockService;
-    let router = {
+    const router = {
         navigate: jasmine.createSpy('navigate'),
         routerState: jasmine.createSpy('routerState')
-    }
+    };
 
     beforeEach(async () => {
         mockService = new MockApiService();
@@ -71,7 +71,7 @@ describe('ProductListComponent', () => {
             manufacturer_id: 1,
             selling_rank: '1',
             category_id: 1
-        }
+        };
 
         component.clickedProduct(product);
         expect(router.navigate).toHaveBeenCalledWith(['/product/1']);
