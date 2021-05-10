@@ -1,21 +1,22 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {HeaderComponent} from './header.component';
-import {RouterTestingModule} from "@angular/router/testing";
-import {MatMenuModule} from "@angular/material/menu";
-import {Router} from "@angular/router";
+import {RouterTestingModule} from '@angular/router/testing';
+import {MatMenuModule} from '@angular/material/menu';
+import {Router} from '@angular/router';
 
 describe('HeaderComponent', () => {
     let component: HeaderComponent;
     let fixture: ComponentFixture<HeaderComponent>;
-    let router = {
+    const router = {
         navigate: jasmine.createSpy('navigate'),
         navigateByUrl: (url: string) => {
             return {
-                then: () => {}
-            }
+                then: () => {
+                }
+            };
         }
-    }
+    };
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
