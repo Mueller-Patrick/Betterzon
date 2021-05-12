@@ -25,16 +25,21 @@ import {PriceAlarms} from './pricealarms.interface';
 
 /**
  * Creates a price alarm for the given user for the product with the defined price
+ * @param user_id The id of the user to create the price alarm for
+ * @param product_id The id of the product to create the price alarm for
+ * @param defined_price The defined price for the price alarm
  */
 export const createPriceAlarm = async (user_id: number, product_id: number, defined_price: number): Promise<Boolean> => {
     let conn;
     try {
         conn = await pool.getConnection();
-        const affected_rows = await conn.query('INSERT INTO price_alarms (user_id, product_id, defined_price) VALUES (?, ?, ?)', [user_id, product_id, defined_price]);
+        const res = await conn.query('INSERT INTO price_alarms (user_id, product_id, defined_price) VALUES (?, ?, ?)', [user_id, product_id, defined_price]);
 
-        console.log(affected_rows);
-
-        return true;
+        if (res.affectedRows === 1) {
+            return true;
+        } else {
+            return false;
+        }
     } catch (err) {
         throw err;
     } finally {
@@ -44,4 +49,30 @@ export const createPriceAlarm = async (user_id: number, product_id: number, defi
     }
 
     return false;
+};
+
+/**
+ * Fetches and returns all price alarms for the given user
+ * @param user_id
+ */
+export const getPriceAlarms = async (user_id: number): Promise<PriceAlarms> => {
+    let conn;
+    let priceAlarms = [];
+    try {
+        conn = await pool.getConnection();
+        const rows = await conn.query('SELECT alarm_id, user_id, product_id, defined_price FROM price_alarms WHERE user_id = ?', user_id);
+        for (let row in rows) {
+            if (row !== 'meta') {
+                priceAlarms.push(rows[row]);
+            }
+        }
+
+        return priceAlarms;
+    } catch (err) {
+        throw err;
+    } finally {
+        if (conn) {
+            conn.end();
+        }
+    }
 };
