@@ -19,7 +19,32 @@ export const pricealarmsRouter = express.Router();
  * Controller Definitions
  */
 
-// POST priceAlarms/create
+//GET pricealarms/
+pricealarmsRouter.get('/', async (req: Request, res: Response) => {
+    try {
+        // Authenticate user
+        const session_id = req.body.session_id;
+        const session_key = req.body.session_key;
+        const user_ip = req.connection.remoteAddress ?? '';
+
+        if (!session_id || !session_key) {
+            // Missing
+            res.status(400).send(JSON.stringify({message: 'Missing parameters'}));
+            return;
+        }
+
+        const user = await UserService.checkSession(session_id, session_key, user_ip);
+
+        const priceAlarms = await PriceAlarmsService.getPriceAlarms(user.user_id);
+
+        res.status(200).send(priceAlarms);
+    } catch (e) {
+        console.log('Error handling a request: ' + e.message);
+        res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
+    }
+});
+
+// POST pricealarms/create
 pricealarmsRouter.post('/create', async (req: Request, res: Response) => {
     try {
         // Authenticate user
@@ -48,15 +73,15 @@ pricealarmsRouter.post('/create', async (req: Request, res: Response) => {
         // Create price alarm
         const success = await PriceAlarmsService.createPriceAlarm(user.user_id, product_id, defined_price);
 
-        if(success) {
-            res.status(200).send(JSON.stringify({success: true}));
+        if (success) {
+            res.status(201).send(JSON.stringify({success: true}));
             return;
         } else {
-            res.status(400).send(JSON.stringify({success: false}));
+            res.status(500).send(JSON.stringify({success: false}));
             return;
         }
     } catch (e) {
         console.log('Error handling a request: ' + e.message);
-        res.status(500).send(JSON.stringify({"message": "Internal Server Error. Try again later."}));
+        res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
     }
 });
