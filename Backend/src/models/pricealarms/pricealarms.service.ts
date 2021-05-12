@@ -76,3 +76,31 @@ export const getPriceAlarms = async (user_id: number): Promise<PriceAlarms> => {
         }
     }
 };
+
+/**
+ * Updates the given price alarm with the given fields
+ * @param alarm_id The id of the price alarm to update
+ * @param user_id The id of the user that wants to update the price alarm
+ * @param defined_price The defined price for the price alarm
+ */
+export const updatePriceAlarm = async (alarm_id: number, user_id: number, defined_price: number): Promise<Boolean> => {
+    let conn;
+    try {
+        conn = await pool.getConnection();
+        const res = await conn.query('UPDATE price_alarms SET defined_price = ? WHERE alarm_id = ? AND user_id = ?', [defined_price, alarm_id, user_id]);
+
+        if (res.affectedRows === 1) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (err) {
+        throw err;
+    } finally {
+        if (conn) {
+            conn.end();
+        }
+    }
+
+    return false;
+};
