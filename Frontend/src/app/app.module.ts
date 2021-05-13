@@ -23,11 +23,11 @@ import {NgcCookieConsentModule, NgcCookieConsentConfig} from 'ngx-cookieconsent'
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {TopBarComponent} from './components/top-bar/top-bar.component';
 import {RouterModule} from '@angular/router';
-import {MatButtonModule} from '@angular/material/button';
+import {MatButtonModule} from "@angular/material/button";
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatListModule} from '@angular/material/list';
+import {MatListModule} from "@angular/material/list";
 import {BottomBarComponent} from './components/bottom-bar/bottom-bar.component';
 
 

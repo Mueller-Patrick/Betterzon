@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BottomBarComponent } from './bottom-bar.component';
+import { BottomBarComponent } from "./bottom-bar.component";
 
-describe('BottomBarComponent', () => {
+describe("BottomBarComponent", () => {
   let component: BottomBarComponent;
   let fixture: ComponentFixture<BottomBarComponent>;
 

@@ -42,6 +42,7 @@ a {
 
 a:hover {
     opacity: 0.8;
+    color: #3480E3;
 }
 
 a, p{
@@ -128,10 +129,11 @@ app-bottom-bar{
     width: 1640px;
     height: 210px;
     position: fixed;
-    padding: 16px;
     margin-top: 90px;
     bottom: 0;
     flex-direction: row;
+    display: flex;
+    justify-content: space-between;
 }
 
 
