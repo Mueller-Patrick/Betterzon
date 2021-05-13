@@ -15,6 +15,7 @@ import {errorHandler} from './middleware/error.middleware';
 import {notFoundHandler} from './middleware/notFound.middleware';
 import {usersRouter} from './models/users/users.router';
 import {pricealarmsRouter} from './models/pricealarms/pricealarms.router';
+
 const cookieParser = require('cookie-parser');
 
 dotenv.config();
