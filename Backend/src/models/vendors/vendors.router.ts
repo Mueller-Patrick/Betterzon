@@ -27,7 +27,7 @@ vendorsRouter.get('/', async (req: Request, res: Response) => {
         res.status(200).send(vendors);
     } catch (e) {
         console.log('Error handling a request: ' + e.message);
-        res.status(500).send(JSON.stringify({"message": "Internal Server Error. Try again later."}));
+        res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
     }
 });
 
@@ -46,7 +46,7 @@ vendorsRouter.get('/:id', async (req: Request, res: Response) => {
         res.status(200).send(vendor);
     } catch (e) {
         console.log('Error handling a request: ' + e.message);
-        res.status(500).send(JSON.stringify({"message": "Internal Server Error. Try again later."}));
+        res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
     }
 });
 
@@ -65,6 +65,6 @@ vendorsRouter.get('/search/:term', async (req: Request, res: Response) => {
         res.status(200).send(vendors);
     } catch (e) {
         console.log('Error handling a request: ' + e.message);
-        res.status(500).send(JSON.stringify({"message": "Internal Server Error. Try again later."}));
+        res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
     }
 });
