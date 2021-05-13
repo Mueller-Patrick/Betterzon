@@ -179,7 +179,7 @@ export const checkSession = async (sessionId: string, sessionKey: string, ip: st
         // Key is valid, continue
 
         // Check if the session is still valid
-        if(validUntil <= new Date()) {
+        if (validUntil <= new Date()) {
             // Session expired, return invalid
             return {} as User;
         }
@@ -193,7 +193,7 @@ export const checkSession = async (sessionId: string, sessionKey: string, ip: st
         await conn.commit();
 
         // Get the other required user information and update the user
-        const userQuery = "SELECT user_id, username, email, registration_date, last_login_date FROM users WHERE user_id = ?";
+        const userQuery = 'SELECT user_id, username, email, registration_date, last_login_date FROM users WHERE user_id = ?';
         const userRows = await conn.query(userQuery, userId);
         let username = '';
         let email = '';
@@ -234,14 +234,14 @@ export const checkSession = async (sessionId: string, sessionKey: string, ip: st
  * @param cookie The betterauth cookie
  * @param ip The users IP address
  */
-export const checkSessionWithCookie = async(cookie: any, ip: string): Promise<User> => {
+export const checkSessionWithCookie = async (cookie: any, ip: string): Promise<User> => {
     const parsedCookie = JSON.parse(cookie);
     const session_id = parsedCookie.id;
     const session_key = parsedCookie.key;
 
 
     return checkSession(session_id, session_key, '');
-}
+};
 
 /**
  * Used in the checkUsernameAndEmail method as return value

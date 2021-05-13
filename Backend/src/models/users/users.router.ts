@@ -47,10 +47,13 @@ usersRouter.post('/register', async (req: Request, res: Response) => {
         const session: Session = await UserService.createUser(username, password, email, ip);
 
         // Send the session details back to the user
-        res.cookie('betterauth', JSON.stringify({id: session.session_id, key: session.session_key}), {expires: new Date(Date.now() + 1000*60*60*24*30)}).sendStatus(201);
+        res.cookie('betterauth', JSON.stringify({
+            id: session.session_id,
+            key: session.session_key
+        }), {expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30)}).sendStatus(201);
     } catch (e) {
         console.log('Error handling a request: ' + e.message);
-        res.status(500).send(JSON.stringify({"message": "Internal Server Error. Try again later."}));
+        res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
     }
 });
 
@@ -70,17 +73,20 @@ usersRouter.post('/login', async (req: Request, res: Response) => {
         // Update the user entry and create a session
         const session: Session = await UserService.login(username, password, ip);
 
-        if(!session.session_id) {
+        if (!session.session_id) {
             // Error logging in, probably wrong username / password
-            res.status(401).send(JSON.stringify({messages: ["Wrong username and / or password"], codes: [1, 4]}));
+            res.status(401).send(JSON.stringify({messages: ['Wrong username and / or password'], codes: [1, 4]}));
             return;
         }
 
         // Send the session details back to the user
-        res.cookie('betterauth', JSON.stringify({id: session.session_id, key: session.session_key}), {expires: new Date(Date.now() + 1000*60*60*24*30)}).sendStatus(200);
+        res.cookie('betterauth', JSON.stringify({
+            id: session.session_id,
+            key: session.session_key
+        }), {expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30)}).sendStatus(200);
     } catch (e) {
         console.log('Error handling a request: ' + e.message);
-        res.status(500).send(JSON.stringify({"message": "Internal Server Error. Try again later."}));
+        res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
     }
 });
 
@@ -92,9 +98,9 @@ usersRouter.post('/checkSessionValid', async (req: Request, res: Response) => {
         // Update the user entry and create a session
         const user: User = await UserService.checkSessionWithCookie(req.cookies.betterauth, ip);
 
-        if(!user.user_id) {
+        if (!user.user_id) {
             // Error logging in, probably wrong username / password
-            res.status(401).send(JSON.stringify({messages: ["Invalid session"], codes: [5]}));
+            res.status(401).send(JSON.stringify({messages: ['Invalid session'], codes: [5]}));
             return;
         }
 
@@ -102,6 +108,6 @@ usersRouter.post('/checkSessionValid', async (req: Request, res: Response) => {
         res.status(201).send(user);
     } catch (e) {
         console.log('Error handling a request: ' + e.message);
-        res.status(500).send(JSON.stringify({"message": "Internal Server Error. Try again later."}));
+        res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
     }
 });
