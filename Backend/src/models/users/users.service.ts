@@ -68,7 +68,7 @@ export const createUser = async (username: string, password: string, email: stri
         return {
             session_id: sessionId,
             session_key: sessionKey,
-            session_key_hash: '',
+            session_key_hash: 'HIDDEN',
             last_IP: ip
         };
 
@@ -135,7 +135,7 @@ export const login = async (username: string, password: string, ip: string): Pro
         return {
             session_id: sessionId,
             session_key: sessionKey,
-            session_key_hash: '',
+            session_key_hash: 'HIDDEN',
             last_IP: ip
         };
 
@@ -213,7 +213,7 @@ export const checkSession = async (sessionId: string, sessionKey: string, ip: st
             user_id: userId,
             username: username,
             email: email,
-            password_hash: '',
+            password_hash: 'HIDDEN',
             registration_date: registrationDate,
             last_login_date: lastLoginDate
         };
@@ -228,6 +228,20 @@ export const checkSession = async (sessionId: string, sessionKey: string, ip: st
 
     return {} as User;
 };
+
+/**
+ * Calls the checkSession method after extracting the required information from the authentication cookie
+ * @param cookie The betterauth cookie
+ * @param ip The users IP address
+ */
+export const checkSessionWithCookie = async(cookie: any, ip: string): Promise<User> => {
+    const parsedCookie = JSON.parse(cookie);
+    const session_id = parsedCookie.id;
+    const session_key = parsedCookie.key;
+
+
+    return checkSession(session_id, session_key, '');
+}
 
 /**
  * Used in the checkUsernameAndEmail method as return value

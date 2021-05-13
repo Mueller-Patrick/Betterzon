@@ -23,17 +23,8 @@ export const pricealarmsRouter = express.Router();
 pricealarmsRouter.get('/', async (req: Request, res: Response) => {
     try {
         // Authenticate user
-        const session_id = req.body.session_id;
-        const session_key = req.body.session_key;
         const user_ip = req.connection.remoteAddress ?? '';
-
-        if (!session_id || !session_key) {
-            // Missing
-            res.status(400).send(JSON.stringify({message: 'Missing parameters'}));
-            return;
-        }
-
-        const user = await UserService.checkSession(session_id, session_key, user_ip);
+        const user = await UserService.checkSessionWithCookie(req.cookies.betterauth, user_ip);
 
         const priceAlarms = await PriceAlarmsService.getPriceAlarms(user.user_id);
 
@@ -48,17 +39,8 @@ pricealarmsRouter.get('/', async (req: Request, res: Response) => {
 pricealarmsRouter.post('/create', async (req: Request, res: Response) => {
     try {
         // Authenticate user
-        const session_id = req.body.session_id;
-        const session_key = req.body.session_key;
         const user_ip = req.connection.remoteAddress ?? '';
-
-        if (!session_id || !session_key) {
-            // Missing
-            res.status(400).send(JSON.stringify({message: 'Missing parameters'}));
-            return;
-        }
-
-        const user = await UserService.checkSession(session_id, session_key, user_ip);
+        const user = await UserService.checkSessionWithCookie(req.cookies.betterauth, user_ip);
 
         // Get info for price alarm creation
         const product_id = req.body.product_id;
@@ -90,17 +72,8 @@ pricealarmsRouter.post('/create', async (req: Request, res: Response) => {
 pricealarmsRouter.put('/update', async (req: Request, res: Response) => {
     try {
         // Authenticate user
-        const session_id = req.body.session_id;
-        const session_key = req.body.session_key;
         const user_ip = req.connection.remoteAddress ?? '';
-
-        if (!session_id || !session_key) {
-            // Missing
-            res.status(400).send(JSON.stringify({message: 'Missing parameters'}));
-            return;
-        }
-
-        const user = await UserService.checkSession(session_id, session_key, user_ip);
+        const user = await UserService.checkSessionWithCookie(req.cookies.betterauth, user_ip);
 
         // Get info for price alarm creation
         const alarm_id = req.body.alarm_id;
