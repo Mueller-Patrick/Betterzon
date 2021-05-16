@@ -2,7 +2,6 @@ from flask import Flask
 from flask_restful import Resource, Api, reqparse
 
 import crawler
-import sql
 
 app = Flask(__name__)
 api = Api(app)
