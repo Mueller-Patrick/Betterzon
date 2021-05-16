@@ -17,6 +17,7 @@ const pool = mariadb.createPool({
 
 import {Vendor} from './vendor.interface';
 import {Vendors} from './vendors.interface';
+import {User} from '../users/user.interface';
 
 
 /**
@@ -107,6 +108,33 @@ export const findBySearchTerm = async (term: string): Promise<Vendors> => {
         conn = await pool.getConnection();
         term = '%' + term + '%';
         const rows = await conn.query('SELECT vendor_id, name, streetname, zip_code, city, country_code, phone, website FROM vendors WHERE name LIKE ?', term);
+        for (let row in rows) {
+            if (row !== 'meta') {
+                vendorRows.push(rows[row]);
+            }
+        }
+
+    } catch (err) {
+        throw err;
+    } finally {
+        if (conn) {
+            conn.end();
+        }
+    }
+
+    return vendorRows;
+};
+
+/**
+ * Get all vendors that have the given user as admin
+ * @param user The user to return the managed shops for
+ */
+export const getManagedShops = async (user_id: number): Promise<Vendors> => {
+    let conn;
+    let vendorRows = [];
+    try {
+        conn = await pool.getConnection();
+        const rows = await conn.query('SELECT vendor_id, name, streetname, zip_code, city, country_code, phone, website FROM vendors WHERE admin_id LIKE ?', user_id);
         for (let row in rows) {
             if (row !== 'meta') {
                 vendorRows.push(rows[row]);
