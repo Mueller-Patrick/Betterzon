@@ -34,7 +34,6 @@ vendorsRouter.get('/', async (req: Request, res: Response) => {
 
 // GET vendors/managed
 vendorsRouter.get('/managed', async (req: Request, res: Response) => {
-    console.log('here');
     try {
         // Authenticate user
         const user_ip = req.connection.remoteAddress ?? '';
@@ -81,6 +80,30 @@ vendorsRouter.get('/search/:term', async (req: Request, res: Response) => {
         const vendors: Vendors = await VendorService.findBySearchTerm(term);
 
         res.status(200).send(vendors);
+    } catch (e) {
+        console.log('Error handling a request: ' + e.message);
+        res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
+    }
+});
+
+// PUT /manage/deactivatelisting
+vendorsRouter.put('/manage/deactivatelisting', async (req: Request, res: Response) => {
+    try {
+        // Authenticate user
+        const user_ip = req.connection.remoteAddress ?? '';
+        const user = await UserService.checkSessionWithCookie(req.cookies.betterauth, user_ip);
+
+        // Get required parameters
+        const vendor_id = req.body.vendor_id;
+        const product_id = req.body.product_id;
+
+        const success = await VendorService.deactivateListing(user.user_id, vendor_id, product_id);
+
+        if(success) {
+            res.sendStatus(200);
+        } else {
+            res.sendStatus(500);
+        }
     } catch (e) {
         console.log('Error handling a request: ' + e.message);
         res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
