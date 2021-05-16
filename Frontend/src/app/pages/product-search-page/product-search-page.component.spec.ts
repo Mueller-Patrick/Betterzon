@@ -1,10 +1,10 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ProductSearchPageComponent} from './product-search-page.component';
-import {HeaderComponent} from "../../components/header/header.component";
-import {FooterComponent} from "../../components/footer/footer.component";
-import {ProductListComponent} from "../../components/product-list/product-list.component";
-import {RouterTestingModule} from "@angular/router/testing";
+import {HeaderComponent} from '../../components/header/header.component';
+import {FooterComponent} from '../../components/footer/footer.component';
+import {ProductListComponent} from '../../components/product-list/product-list.component';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('ProductSearchPageComponent', () => {
     let component: ProductSearchPageComponent;

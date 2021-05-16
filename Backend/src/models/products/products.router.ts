@@ -27,7 +27,7 @@ productsRouter.get('/', async (req: Request, res: Response) => {
         res.status(200).send(products);
     } catch (e) {
         console.log('Error handling a request: ' + e.message);
-        res.status(500).send(JSON.stringify({"message": "Internal Server Error. Try again later."}));
+        res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
     }
 });
 
@@ -46,7 +46,7 @@ productsRouter.get('/:id', async (req: Request, res: Response) => {
         res.status(200).send(product);
     } catch (e) {
         console.log('Error handling a request: ' + e.message);
-        res.status(500).send(JSON.stringify({"message": "Internal Server Error. Try again later."}));
+        res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
     }
 });
 
@@ -65,7 +65,7 @@ productsRouter.get('/search/:term', async (req: Request, res: Response) => {
         res.status(200).send(products);
     } catch (e) {
         console.log('Error handling a request: ' + e.message);
-        res.status(500).send(JSON.stringify({"message": "Internal Server Error. Try again later."}));
+        res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
     }
 });
 
@@ -84,6 +84,6 @@ productsRouter.get('/list/:ids', async (req: Request, res: Response) => {
         res.status(200).send(products);
     } catch (e) {
         console.log('Error handling a request: ' + e.message);
-        res.status(500).send(JSON.stringify({"message": "Internal Server Error. Try again later."}));
+        res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
     }
 });

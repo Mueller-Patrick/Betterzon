@@ -1,18 +1,19 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {NewestPricesListComponent} from './newest-prices-list.component';
-import {RouterTestingModule} from "@angular/router/testing";
-import {HttpClient} from "@angular/common/http";
-import {AbstractMockObservableService} from "../../mocks/mock.service";
-import {ApiService} from "../../services/api.service";
+import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClient} from '@angular/common/http';
+import {AbstractMockObservableService} from '../../mocks/mock.service';
+import {ApiService} from '../../services/api.service';
+import {Observable} from 'rxjs';
 
 class MockApiService extends AbstractMockObservableService {
-    getCurrentPricePerVendor() {
+    getCurrentPricePerVendor(): any {
         this.content = [];
         return this;
     }
 
-    getVendors() {
+    getVendors(): any {
         const vendor = {
             vendor_id: 1,
             name: 'Max Mustermann',
