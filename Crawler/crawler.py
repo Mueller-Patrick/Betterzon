@@ -1,4 +1,5 @@
 import sql
+import amazonspider
 
 
 def crawl(product_ids: [int]) -> dict:
@@ -50,13 +51,14 @@ def crawl(product_ids: [int]) -> dict:
         'products_with_problems': products_with_problems
     }
 
-
 def __crawl_amazon__(product_info: dict) -> tuple:
     """
     Crawls the price for the given product from amazon
     :param product_info: A dict with product info containing product_id, vendor_id, url
     :return: A tuple with the crawled data, containing (product_id, vendor_id, price_in_cents)
     """
+
+    amazonspider.start_crawling()
     return (product_info['product_id'], product_info['vendor_id'], 123)
 
 
