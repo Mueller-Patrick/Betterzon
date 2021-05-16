@@ -6,6 +6,7 @@ import express, {Request, Response} from 'express';
 import * as VendorService from './vendors.service';
 import {Vendor} from './vendor.interface';
 import {Vendors} from './vendors.interface';
+import * as UserService from '../users/users.service';
 
 
 /**
@@ -19,7 +20,7 @@ export const vendorsRouter = express.Router();
  * Controller Definitions
  */
 
-// GET items/
+// GET vendors/
 vendorsRouter.get('/', async (req: Request, res: Response) => {
     try {
         const vendors: Vendors = await VendorService.findAll();
@@ -31,7 +32,24 @@ vendorsRouter.get('/', async (req: Request, res: Response) => {
     }
 });
 
-// GET items/:id
+// GET vendors/managed
+vendorsRouter.get('/managed', async (req: Request, res: Response) => {
+    console.log('here');
+    try {
+        // Authenticate user
+        const user_ip = req.connection.remoteAddress ?? '';
+        const user = await UserService.checkSessionWithCookie(req.cookies.betterauth, user_ip);
+
+        const vendors = await VendorService.getManagedShops(user.user_id);
+
+        res.status(200).send(vendors);
+    } catch (e) {
+        console.log('Error handling a request: ' + e.message);
+        res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
+    }
+});
+
+// GET vendors/:id
 vendorsRouter.get('/:id', async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
 
@@ -50,7 +68,7 @@ vendorsRouter.get('/:id', async (req: Request, res: Response) => {
     }
 });
 
-// GET items/:name
+// GET vendors/search/:term
 vendorsRouter.get('/search/:term', async (req: Request, res: Response) => {
     const term: string = req.params.term;
 
