@@ -1,5 +1,10 @@
 import sql
-import amazonspider
+import requests
+from bs4 import BeautifulSoup
+
+HEADERS = ({'User-Agent':
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 '
+            'Safari/537.36'})
 
 
 def crawl(product_ids: [int]) -> dict:
@@ -57,9 +62,14 @@ def __crawl_amazon__(product_info: dict) -> tuple:
     :param product_info: A dict with product info containing product_id, vendor_id, url
     :return: A tuple with the crawled data, containing (product_id, vendor_id, price_in_cents)
     """
+    page = requests.get(product_info['url'], headers= HEADERS)
+    soup = BeautifulSoup(page.content, features="lxml")
+    try:
+        price = int(soup.find(id='priceblock_ourprice').get_text().replace(".", "").replace(",", "").replace("€", "").strip())
+    except RuntimeError:
+        price = ''
 
-    amazonspider.start_crawling()
-    return (product_info['product_id'], product_info['vendor_id'], 123)
+    return (product_info['product_id'], product_info['vendor_id'], price)
 
 
 def __crawl_apple__(product_info: dict) -> tuple:
