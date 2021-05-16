@@ -4,3 +4,4 @@ flask-sqlalchemy
 flask_restful
 beautifulsoup4
 requests
+lxml

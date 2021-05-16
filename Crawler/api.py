@@ -1,6 +1,9 @@
 from flask import Flask
 from flask_restful import Resource, Api, reqparse
 
+import crawler
+import sql
+
 app = Flask(__name__)
 api = Api(app)
 
@@ -17,6 +20,7 @@ class CrawlerApi(Resource):
     def post(self):
         # Accept crawler request here
         args = parser.parse_args()
+        crawler.crawl(args['products'])
         return args
 
 
