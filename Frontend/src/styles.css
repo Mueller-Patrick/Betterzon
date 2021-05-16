@@ -104,6 +104,32 @@ label {
     padding-right: 4px;
 }
 
+/* Main Container */
+
+.container {
+    position: fixed;
+    left: 50%;
+    margin-left: -820px;
+    width: 1640px;
+    height: auto;
+    display: grid;
+    grid-template-rows: 70px auto 210px;
+}
+
+.header {
+    grid-row: 1/2;
+}
+
+.page-content {
+    grid-row: 2/3;
+}
+
+.footer {
+    grid-row: 3/4;
+}
+
+/* End of Main Container */
+
 /* Top Bar */
 
 app-top-bar {
