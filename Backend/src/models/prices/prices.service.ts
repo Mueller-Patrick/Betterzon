@@ -31,7 +31,7 @@ export const findAll = async (): Promise<Prices> => {
     let priceRows = [];
     try {
         conn = await pool.getConnection();
-        const rows = await conn.query('SELECT price_id, product_id, vendor_id, price_in_cents, timestamp FROM prices');
+        const rows = await conn.query('SELECT price_id, product_id, vendor_id, price_in_cents, timestamp FROM prices WHERE active_listing = true');
         for (let row in rows) {
             if (row !== 'meta') {
                 let price: Price = {
@@ -72,7 +72,7 @@ export const find = async (id: number): Promise<Price> => {
     let price: any;
     try {
         conn = await pool.getConnection();
-        const rows = await conn.query('SELECT price_id, product_id, vendor_id, price_in_cents, timestamp FROM prices WHERE price_id = ?', id);
+        const rows = await conn.query('SELECT price_id, product_id, vendor_id, price_in_cents, timestamp FROM prices WHERE price_id = ? AND active_listing = true', id);
         for (let row in rows) {
             if (row !== 'meta') {
                 price = rows[row];
@@ -99,7 +99,7 @@ export const findByProduct = async (product: number): Promise<Prices> => {
     let priceRows = [];
     try {
         conn = await pool.getConnection();
-        const rows = await conn.query('SELECT price_id, product_id, vendor_id, price_in_cents, timestamp FROM prices WHERE product_id = ?', product);
+        const rows = await conn.query('SELECT price_id, product_id, vendor_id, price_in_cents, timestamp FROM prices WHERE product_id = ? AND active_listing = true', product);
         for (let row in rows) {
             if (row !== 'meta') {
                 priceRows.push(rows[row]);
@@ -142,16 +142,16 @@ export const findByType = async (product: string, type: string): Promise<Prices>
                 'PARTITION BY p.vendor_id ' +
                 'ORDER BY p.timestamp DESC) AS rk ' +
                 'FROM prices p ' +
-                'WHERE product_id = ? AND vendor_id != 1) ' +
+                'WHERE product_id = ? AND vendor_id != 1 AND active_listing = true) ' +
                 'SELECT s.* ' +
                 'FROM summary s ' +
                 'WHERE s.rk = 1 '), product);
         } else if (type === 'lowest') {
             // Used to get the lowest prices for this product over a period of time
-            rows = await conn.query('SELECT price_id, product_id, vendor_id, MIN(price_in_cents) as price_in_cents, timestamp FROM prices WHERE product_id = ? AND vendor_id != 1 GROUP BY DAY(timestamp) ORDER BY timestamp', product);
+            rows = await conn.query('SELECT price_id, product_id, vendor_id, MIN(price_in_cents) as price_in_cents, timestamp FROM prices WHERE product_id = ? AND vendor_id != 1 AND active_listing = true GROUP BY DAY(timestamp) ORDER BY timestamp', product);
         } else {
             // If no type is given, return all prices for this product
-            rows = await conn.query('SELECT price_id, product_id, vendor_id, price_in_cents, timestamp FROM prices WHERE product_id = ? AND vendor_id != 1', product);
+            rows = await conn.query('SELECT price_id, product_id, vendor_id, price_in_cents, timestamp FROM prices WHERE product_id = ? AND vendor_id != 1 AND active_listing = true', product);
         }
 
         for (let row in rows) {
@@ -188,13 +188,13 @@ export const findByVendor = async (product: string, vendor: string, type: string
         let rows = [];
         if (type === 'newest') {
             // Used to get the newest price for this product and vendor
-            rows = await conn.query('SELECT price_id, product_id, vendor_id, price_in_cents, timestamp FROM prices WHERE product_id = ? AND vendor_id = ? ORDER BY timestamp DESC LIMIT 1', [product, vendor]);
+            rows = await conn.query('SELECT price_id, product_id, vendor_id, price_in_cents, timestamp FROM prices WHERE product_id = ? AND vendor_id = ? AND active_listing = true ORDER BY timestamp DESC LIMIT 1', [product, vendor]);
         } else if (type === 'lowest') {
             // Used to get the lowest prices for this product and vendor in all time
-            rows = await conn.query('SELECT price_id, product_id, vendor_id, MIN(price_in_cents) as price_in_cents, timestamp FROM prices WHERE product_id = ? AND vendor_id = ? LIMIT 1', [product, vendor]);
+            rows = await conn.query('SELECT price_id, product_id, vendor_id, MIN(price_in_cents) as price_in_cents, timestamp FROM prices WHERE product_id = ? AND vendor_id = ? AND active_listing = true LIMIT 1', [product, vendor]);
         } else {
             // If no type is given, return all prices for this product and vendor
-            rows = await conn.query('SELECT price_id, product_id, vendor_id, price_in_cents, timestamp FROM prices WHERE product_id = ? AND vendor_id = ?', [product, vendor]);
+            rows = await conn.query('SELECT price_id, product_id, vendor_id, price_in_cents, timestamp FROM prices WHERE product_id = ? AND vendor_id = ? AND active_listing = true', [product, vendor]);
         }
 
         for (let row in rows) {
@@ -237,7 +237,7 @@ export const getBestDeals = async (amount: number): Promise<Prices> => {
             '           ROW_NUMBER() OVER(\n' +
             '               PARTITION BY p.product_id, p.vendor_id\n' +
             '               ORDER BY p.timestamp DESC) AS rk\n' +
-            '    FROM prices p)\n' +
+            '    FROM prices p WHERE active_listing = true)\n' +
             'SELECT s.*\n' +
             'FROM summary s\n' +
             'WHERE s.rk = 1');
@@ -298,7 +298,6 @@ export const getBestDeals = async (amount: number): Promise<Prices> => {
         let maxAmt = Math.min(amount, deals.length);
 
         for (let dealIndex = 0; dealIndex < maxAmt; dealIndex++) {
-            //console.log(deals[dealIndex]);
             priceRows.push(deals[dealIndex] as Price);
         }
 
@@ -338,7 +337,7 @@ export const findListByProducts = async (productIds: [number]): Promise<Prices> 
             '               ORDER BY p.timestamp DESC) AS rk\n' +
             '    FROM prices p' +
             '    WHERE p.product_id IN (?)' +
-            '    AND p.vendor_id != 1)\n' +
+            '    AND p.vendor_id != 1 AND active_listing = true)\n' +
             'SELECT s.*\n' +
             'FROM summary s\n' +
             'WHERE s.rk = 1', [productIds]);
