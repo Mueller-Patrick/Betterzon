@@ -73,9 +73,14 @@ def __crawl_amazon__(product_info: dict) -> tuple:
     try:
         price = int(soup.find(id='priceblock_ourprice').get_text().replace(".", "").replace(",", "").replace("€", "").strip())
     except RuntimeError:
-        price = ''
+        price = -1
+    except AttributeError:
+        price = -1
 
-    return (product_info['product_id'], product_info['vendor_id'], price)
+    if price != -1:
+        return (product_info['product_id'], product_info['vendor_id'], price)
+    else:
+        return None
 
 
 def __crawl_apple__(product_info: dict) -> tuple:

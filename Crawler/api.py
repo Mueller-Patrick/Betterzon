@@ -10,8 +10,8 @@ api = Api(app)
 
 # To parse request data
 parser = reqparse.RequestParser()
-parser.add_argument('key')
-parser.add_argument('products')
+parser.add_argument('key', type=str)
+parser.add_argument('products', type=int, action='append')
 
 
 class CrawlerApi(Resource):
