@@ -35,7 +35,7 @@ def getProductsForVendor(vendor_id: int) -> [{}]:
     conn = __getConnection__()
     cur = conn.cursor()
 
-    query = 'SELECT product_id, url FROM product_links WHERE vendor_id = %s' % vendor_id
+    query = 'SELECT product_id, url FROM product_links WHERE vendor_id = %s'
 
     cur.execute(query, (vendor_id,))
 
@@ -53,7 +53,7 @@ def getProductLinksForProduct(product_id: int) -> [dict]:
     conn = __getConnection__()
     cur = conn.cursor()
 
-    query = 'SELECT vendor_id, url FROM product_links WHERE product_id = %s' % product_id
+    query = 'SELECT vendor_id, url FROM product_links WHERE product_id = %s'
     print(query)
     cur.execute(query, (product_id,))
 

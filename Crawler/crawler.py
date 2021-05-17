@@ -34,13 +34,19 @@ def crawl(product_ids: [int]) -> dict:
             # Call the appropriate vendor crawling function and append the result to the list of crawled data
             if product_vendor_info['vendor_id'] == 1:
                 # Amazon
-                crawled_data.append(__crawl_amazon__(product_vendor_info))
+                data = __crawl_amazon__(product_vendor_info)
+                if data:
+                    crawled_data.append(data)
             elif product_vendor_info['vendor_id'] == 2:
                 # Apple
-                crawled_data.append(__crawl_apple__(product_vendor_info))
+                data = __crawl_apple__(product_vendor_info)
+                if data:
+                    crawled_data.append(data)
             elif product_vendor_info['vendor_id'] == 3:
                 # Media Markt
-                crawled_data.append(__crawl_mediamarkt__(product_vendor_info))
+                data = __crawl_mediamarkt__(product_vendor_info)
+                if data:
+                    crawled_data.append(data)
             else:
                 products_with_problems.append(product_vendor_info)
                 continue
@@ -78,7 +84,8 @@ def __crawl_apple__(product_info: dict) -> tuple:
     :param product_info: A dict with product info containing product_id, vendor_id, url
     :return: A tuple with the crawled data, containing (product_id, vendor_id, price_in_cents)
     """
-    return (product_info['product_id'], product_info['vendor_id'], 123)
+    #return (product_info['product_id'], product_info['vendor_id'], 123)
+    pass
 
 
 def __crawl_mediamarkt__(product_info: dict) -> tuple:
