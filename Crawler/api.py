@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask
 from flask_restful import Resource, Api, reqparse
 
@@ -19,8 +21,12 @@ class CrawlerApi(Resource):
     def post(self):
         # Accept crawler request here
         args = parser.parse_args()
-        crawler.crawl(args['products'])
-        return args
+        access_key = os.getenv('CRAWLER_ACCESS_KEY')
+        if(args['key'] == access_key):
+            crawler.crawl(args['products'])
+            return {'message': 'success'}
+        else:
+            return {'message': 'Wrong access key'}
 
 
 api.add_resource(CrawlerApi, '/')
