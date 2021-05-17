@@ -99,7 +99,7 @@ vendorsRouter.put('/manage/deactivatelisting', async (req: Request, res: Respons
 
         const success = await VendorService.deactivateListing(user.user_id, vendor_id, product_id);
 
-        if(success) {
+        if (success) {
             res.sendStatus(200);
         } else {
             res.sendStatus(500);

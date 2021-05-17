@@ -171,10 +171,7 @@ export const deactivateListing = async (user_id: number, vendor_id: number, prod
 
         const status = await conn.query('UPDATE prices SET active_listing = false WHERE vendor_id = ? and product_id = ?', [vendor_id, product_id]);
 
-        if(status.affectedRows > 0){
-            return true;
-        }
-        return false;
+        return status.affectedRows > 0;
     } catch (err) {
         throw err;
     } finally {
