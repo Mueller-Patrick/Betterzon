@@ -15,6 +15,7 @@ import {errorHandler} from './middleware/error.middleware';
 import {notFoundHandler} from './middleware/notFound.middleware';
 import {usersRouter} from './models/users/users.router';
 import {pricealarmsRouter} from './models/pricealarms/pricealarms.router';
+import {contactpersonsRouter} from './models/contact_persons/contact_persons.router';
 
 const cookieParser = require('cookie-parser');
 
@@ -49,6 +50,7 @@ app.use('/prices', pricesRouter);
 app.use('/users', usersRouter);
 app.use('/vendors', vendorsRouter);
 app.use('/pricealarms', pricealarmsRouter);
+app.use('/contactpersons', contactpersonsRouter);
 
 app.use(errorHandler);
 app.use(notFoundHandler);
