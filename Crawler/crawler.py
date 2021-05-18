@@ -3,8 +3,8 @@ import requests
 from bs4 import BeautifulSoup
 
 HEADERS = ({'User-Agent':
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 '
-            'Safari/537.36'})
+                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 '
+                'Safari/537.36'})
 
 
 def crawl(product_ids: [int]) -> dict:
@@ -62,16 +62,21 @@ def crawl(product_ids: [int]) -> dict:
         'products_with_problems': products_with_problems
     }
 
+
 def __crawl_amazon__(product_info: dict) -> tuple:
     """
     Crawls the price for the given product from amazon
     :param product_info: A dict with product info containing product_id, vendor_id, url
     :return: A tuple with the crawled data, containing (product_id, vendor_id, price_in_cents)
     """
-    page = requests.get(product_info['url'], headers= HEADERS)
+    page = requests.get(product_info['url'], headers=HEADERS)
     soup = BeautifulSoup(page.content, features="lxml")
     try:
-        price = int(soup.find(id='priceblock_ourprice').get_text().replace(".", "").replace(",", "").replace("€", "").strip())
+        price = int(
+            soup.find(id='priceblock_ourprice').get_text().replace(".", "").replace(",", "").replace("€", "").strip())
+        if not price:
+            price = int(soup.find(id='price_inside_buybox').get_text().replace(".", "").replace(",", "").replace("€", "").strip())
+
     except RuntimeError:
         price = -1
     except AttributeError:
@@ -89,7 +94,7 @@ def __crawl_apple__(product_info: dict) -> tuple:
     :param product_info: A dict with product info containing product_id, vendor_id, url
     :return: A tuple with the crawled data, containing (product_id, vendor_id, price_in_cents)
     """
-    #return (product_info['product_id'], product_info['vendor_id'], 123)
+    # return (product_info['product_id'], product_info['vendor_id'], 123)
     pass
 
 
