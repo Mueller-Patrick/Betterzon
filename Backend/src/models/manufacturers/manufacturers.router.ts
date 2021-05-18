@@ -19,7 +19,7 @@ export const manufacturersRouter = express.Router();
  * Controller Definitions
  */
 
-// GET items/
+// GET manufacturers/
 manufacturersRouter.get('/', async (req: Request, res: Response) => {
     try {
         const manufacturers: Manufacturers = await ManufacturerService.findAll();
@@ -31,7 +31,7 @@ manufacturersRouter.get('/', async (req: Request, res: Response) => {
     }
 });
 
-// GET items/:id
+// GET manufacturers/:id
 manufacturersRouter.get('/:id', async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
 
@@ -50,7 +50,7 @@ manufacturersRouter.get('/:id', async (req: Request, res: Response) => {
     }
 });
 
-// GET items/:term
+// GET manufacturers/:term
 manufacturersRouter.get('/search/:term', async (req: Request, res: Response) => {
     const term: string = req.params.term;
 

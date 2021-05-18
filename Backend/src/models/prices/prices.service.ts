@@ -376,3 +376,29 @@ export const findListByProducts = async (productIds: [number]): Promise<Prices> 
 
     return priceRows;
 };
+
+export const createPriceEntry = async (user_id: number, vendor_id: number, product_id: number, price_in_cents: number): Promise<Boolean> => {
+    let conn;
+    try {
+        conn = await pool.getConnection();
+
+        // Check if the user is authorized to manage the requested vendor
+        const user_vendor_rows = await conn.query('SELECT vendor_id FROM vendors WHERE vendor_id = ? AND admin_id = ?', [vendor_id, user_id]);
+        if (user_vendor_rows.length !== 1) {
+            return false;
+        }
+
+        // Create price entry
+        const res = await conn.query('INSERT INTO prices (product_id, vendor_id, price_in_cents) VALUES (?,?,?)', [product_id, vendor_id, price_in_cents]);
+
+        // If there are more / less than 1 affected rows, return false
+        return res.affectedRows === 1;
+
+    } catch (err) {
+        throw err;
+    } finally {
+        if (conn) {
+            conn.end();
+        }
+    }
+};
