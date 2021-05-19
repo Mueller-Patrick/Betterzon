@@ -31,7 +31,7 @@ export const findAll = async (): Promise<Prices> => {
     let priceRows = [];
     try {
         conn = await pool.getConnection();
-        const rows = await conn.query('SELECT price_id, product_id, vendor_id, price_in_cents, timestamp FROM prices WHERE active_listing = true');
+        const rows = await conn.query('SELECT price_id, product_id, v.vendor_id, price_in_cents, timestamp FROM prices p LEFT OUTER JOIN vendors v ON v.vendor_id = p.vendor_id WHERE active_listing = true AND v.isActive = true');
         for (let row in rows) {
             if (row !== 'meta') {
                 let price: Price = {
@@ -72,7 +72,7 @@ export const find = async (id: number): Promise<Price> => {
     let price: any;
     try {
         conn = await pool.getConnection();
-        const rows = await conn.query('SELECT price_id, product_id, vendor_id, price_in_cents, timestamp FROM prices WHERE price_id = ? AND active_listing = true', id);
+        const rows = await conn.query('SELECT price_id, product_id, p.vendor_id, price_in_cents, timestamp FROM prices p LEFT OUTER JOIN vendors v ON v.vendor_id = p.vendor_id WHERE price_id = ? AND active_listing = true AND v.isActive = true', id);
         for (let row in rows) {
             if (row !== 'meta') {
                 price = rows[row];
@@ -99,7 +99,7 @@ export const findByProduct = async (product: number): Promise<Prices> => {
     let priceRows = [];
     try {
         conn = await pool.getConnection();
-        const rows = await conn.query('SELECT price_id, product_id, vendor_id, price_in_cents, timestamp FROM prices WHERE product_id = ? AND active_listing = true', product);
+        const rows = await conn.query('SELECT price_id, product_id, p.vendor_id, price_in_cents, timestamp FROM prices p LEFT OUTER JOIN vendors v ON v.vendor_id = p.vendor_id WHERE product_id = ? AND active_listing = true AND v.isActive = true', product);
         for (let row in rows) {
             if (row !== 'meta') {
                 priceRows.push(rows[row]);
@@ -142,16 +142,17 @@ export const findByType = async (product: string, type: string): Promise<Prices>
                 'PARTITION BY p.vendor_id ' +
                 'ORDER BY p.timestamp DESC) AS rk ' +
                 'FROM prices p ' +
-                'WHERE product_id = ? AND vendor_id != 1 AND active_listing = true) ' +
+                'LEFT OUTER JOIN vendors v ON v.vendor_id = p.vendor_id ' +
+                'WHERE product_id = ? AND p.vendor_id != 1 AND active_listing = true AND v.isActive = true) ' +
                 'SELECT s.* ' +
                 'FROM summary s ' +
                 'WHERE s.rk = 1 '), product);
         } else if (type === 'lowest') {
             // Used to get the lowest prices for this product over a period of time
-            rows = await conn.query('SELECT price_id, product_id, vendor_id, MIN(price_in_cents) as price_in_cents, timestamp FROM prices WHERE product_id = ? AND vendor_id != 1 AND active_listing = true GROUP BY DAY(timestamp) ORDER BY timestamp', product);
+            rows = await conn.query('SELECT price_id, product_id, p.vendor_id, MIN(price_in_cents) as price_in_cents, timestamp FROM prices p LEFT OUTER JOIN vendors v ON v.vendor_id = p.vendor_id WHERE product_id = ? AND v.vendor_id != 1 AND active_listing = true AND v.isActive = true GROUP BY DAY(timestamp) ORDER BY timestamp', product);
         } else {
             // If no type is given, return all prices for this product
-            rows = await conn.query('SELECT price_id, product_id, vendor_id, price_in_cents, timestamp FROM prices WHERE product_id = ? AND vendor_id != 1 AND active_listing = true', product);
+            rows = await conn.query('SELECT price_id, product_id, p.vendor_id, price_in_cents, timestamp FROM prices p LEFT OUTER JOIN vendors v ON v.vendor_id = p.vendor_id WHERE product_id = ? AND p.vendor_id != 1 AND active_listing = true AND v.isActive = true', product);
         }
 
         for (let row in rows) {
@@ -188,13 +189,13 @@ export const findByVendor = async (product: string, vendor: string, type: string
         let rows = [];
         if (type === 'newest') {
             // Used to get the newest price for this product and vendor
-            rows = await conn.query('SELECT price_id, product_id, vendor_id, price_in_cents, timestamp FROM prices WHERE product_id = ? AND vendor_id = ? AND active_listing = true ORDER BY timestamp DESC LIMIT 1', [product, vendor]);
+            rows = await conn.query('SELECT price_id, product_id, p.vendor_id, price_in_cents, timestamp FROM prices p LEFT OUTER JOIN vendors v ON v.vendor_id = p.vendor_id WHERE product_id = ? AND p.vendor_id = ? AND active_listing = true AND v.isActive = true ORDER BY timestamp DESC LIMIT 1', [product, vendor]);
         } else if (type === 'lowest') {
             // Used to get the lowest prices for this product and vendor in all time
-            rows = await conn.query('SELECT price_id, product_id, vendor_id, MIN(price_in_cents) as price_in_cents, timestamp FROM prices WHERE product_id = ? AND vendor_id = ? AND active_listing = true LIMIT 1', [product, vendor]);
+            rows = await conn.query('SELECT price_id, product_id, p.vendor_id, MIN(price_in_cents) as price_in_cents, timestamp FROM prices p LEFT OUTER JOIN vendors v ON v.vendor_id = p.vendor_id WHERE product_id = ? AND p.vendor_id = ? AND active_listing = true AND v.isActive = true LIMIT 1', [product, vendor]);
         } else {
             // If no type is given, return all prices for this product and vendor
-            rows = await conn.query('SELECT price_id, product_id, vendor_id, price_in_cents, timestamp FROM prices WHERE product_id = ? AND vendor_id = ? AND active_listing = true', [product, vendor]);
+            rows = await conn.query('SELECT price_id, product_id, p.vendor_id, price_in_cents, timestamp FROM prices p LEFT OUTER JOIN vendors v ON v.vendor_id = p.vendor_id WHERE product_id = ? AND p.vendor_id = ? AND active_listing = true AND v.isActive = true', [product, vendor]);
         }
 
         for (let row in rows) {
@@ -237,7 +238,7 @@ export const getBestDeals = async (amount: number): Promise<Prices> => {
             '           ROW_NUMBER() OVER(\n' +
             '               PARTITION BY p.product_id, p.vendor_id\n' +
             '               ORDER BY p.timestamp DESC) AS rk\n' +
-            '    FROM prices p WHERE active_listing = true)\n' +
+            '    FROM prices p LEFT OUTER JOIN vendors v ON v.vendor_id = p.vendor_id WHERE active_listing = true AND v.isActive = true)\n' +
             'SELECT s.*\n' +
             'FROM summary s\n' +
             'WHERE s.rk = 1');
@@ -300,7 +301,6 @@ export const getBestDeals = async (amount: number): Promise<Prices> => {
         for (let dealIndex = 0; dealIndex < maxAmt; dealIndex++) {
             priceRows.push(deals[dealIndex] as Price);
         }
-
     } catch (err) {
         console.log(err);
         throw err;
@@ -315,7 +315,7 @@ export const getBestDeals = async (amount: number): Promise<Prices> => {
 
 /**
  * Fetches and returns the lowest, latest, non-amazon price for each given product
- * @param ids the ids of the products
+ * @param productIds the ids of the products
  */
 export const findListByProducts = async (productIds: [number]): Promise<Prices> => {
     let conn;
@@ -335,8 +335,8 @@ export const findListByProducts = async (productIds: [number]): Promise<Prices> 
             '           ROW_NUMBER() OVER(\n' +
             '               PARTITION BY p.product_id, p.vendor_id\n' +
             '               ORDER BY p.timestamp DESC) AS rk\n' +
-            '    FROM prices p' +
-            '    WHERE p.product_id IN (?)' +
+            '    FROM prices p LEFT OUTER JOIN vendors v ON v.vendor_id = p.vendor_id ' +
+            '    WHERE p.product_id IN (?) AND v.isActive = true' +
             '    AND p.vendor_id != 1 AND active_listing = true)\n' +
             'SELECT s.*\n' +
             'FROM summary s\n' +
@@ -365,7 +365,6 @@ export const findListByProducts = async (productIds: [number]): Promise<Prices> 
                 priceRows.push(pricesForProd[0]);
             }
         });
-
     } catch (err) {
         throw err;
     } finally {
@@ -393,7 +392,6 @@ export const createPriceEntry = async (user_id: number, vendor_id: number, produ
 
         // If there are more / less than 1 affected rows, return false
         return res.affectedRows === 1;
-
     } catch (err) {
         throw err;
     } finally {
