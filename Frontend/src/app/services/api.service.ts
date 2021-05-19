@@ -5,6 +5,7 @@ import {Product} from '../models/product';
 import {Price} from '../models/price';
 import {Observable, of} from 'rxjs';
 import {Vendor} from '../models/vendor';
+import {PriceAlarm} from '../models/pricealarm';
 
 @Injectable({
     providedIn: 'root'
@@ -94,6 +95,39 @@ export class ApiService {
         try {
             const vendors = this.http.get<Vendor[]>((this.apiUrl + '/vendors'));
             return vendors;
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+    getPriceAlarms(): Observable<PriceAlarm[]> {
+        try {
+            const alarms = this.http.get<PriceAlarm[]>((this.apiUrl + '/pricealarms'));
+            return alarms;
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+    createPriceAlarms(productId: number, definedPrice: number): Observable<any> {
+        try {
+            const res = this.http.post((this.apiUrl + '/pricealarms'), JSON.stringify({
+                product_id: productId,
+                defined_price: definedPrice
+            }));
+            return res;
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+    updatePriceAlarms(alarmId: number, definedPrice: number): Observable<any> {
+        try {
+            const res = this.http.put((this.apiUrl + '/pricealarms'), JSON.stringify({
+                alarm_id: alarmId,
+                defined_price: definedPrice
+            }));
+            return res;
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
