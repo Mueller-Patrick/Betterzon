@@ -159,3 +159,41 @@ export const findList = async (ids: [number]): Promise<Products> => {
 
     return prodRows;
 };
+
+/**
+ * Fetches and returns the products that the given vendor has price entries for
+ * @param id The id of the vendor to fetch the products for
+ */
+export const findByVendor = async (id: number): Promise<Products> => {
+    let conn;
+    let prodRows = [];
+    try {
+        conn = await pool.getConnection();
+
+        // Get the relevant product ids
+        let relevant_prod_ids = [];
+        const relevantProds = await conn.query('SELECT product_id FROM prices WHERE vendor_id = ? GROUP BY product_id', id);
+        for (let row in relevantProds) {
+            if (row !== 'meta') {
+                relevant_prod_ids.push(relevantProds[row].product_id);
+            }
+        }
+
+        // Fetch products
+        const rows = await conn.query('SELECT product_id, name, asin, is_active, short_description, long_description, image_guid, date_added, last_modified, manufacturer_id, selling_rank, category_id FROM products WHERE product_id IN (?)', [relevant_prod_ids]);
+        for (let row in rows) {
+            if (row !== 'meta') {
+                prodRows.push(rows[row]);
+            }
+        }
+
+    } catch (err) {
+        throw err;
+    } finally {
+        if (conn) {
+            conn.end();
+        }
+    }
+
+    return prodRows;
+};
