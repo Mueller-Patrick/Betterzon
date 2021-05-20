@@ -29,17 +29,13 @@ import {PriceAlarms} from './pricealarms.interface';
  * @param product_id The id of the product to create the price alarm for
  * @param defined_price The defined price for the price alarm
  */
-export const createPriceAlarm = async (user_id: number, product_id: number, defined_price: number): Promise<Boolean> => {
+export const createPriceAlarm = async (user_id: number, product_id: number, defined_price: number): Promise<boolean> => {
     let conn;
     try {
         conn = await pool.getConnection();
         const res = await conn.query('INSERT INTO price_alarms (user_id, product_id, defined_price) VALUES (?, ?, ?)', [user_id, product_id, defined_price]);
 
-        if (res.affectedRows === 1) {
-            return true;
-        } else {
-            return false;
-        }
+        return res.affectedRows === 1;
     } catch (err) {
         throw err;
     } finally {
@@ -47,8 +43,6 @@ export const createPriceAlarm = async (user_id: number, product_id: number, defi
             conn.end();
         }
     }
-
-    return false;
 };
 
 /**
@@ -83,17 +77,13 @@ export const getPriceAlarms = async (user_id: number): Promise<PriceAlarms> => {
  * @param user_id The id of the user that wants to update the price alarm
  * @param defined_price The defined price for the price alarm
  */
-export const updatePriceAlarm = async (alarm_id: number, user_id: number, defined_price: number): Promise<Boolean> => {
+export const updatePriceAlarm = async (alarm_id: number, user_id: number, defined_price: number): Promise<boolean> => {
     let conn;
     try {
         conn = await pool.getConnection();
         const res = await conn.query('UPDATE price_alarms SET defined_price = ? WHERE alarm_id = ? AND user_id = ?', [defined_price, alarm_id, user_id]);
 
-        if (res.affectedRows === 1) {
-            return true;
-        } else {
-            return false;
-        }
+        return res.affectedRows === 1;
     } catch (err) {
         throw err;
     } finally {
@@ -101,6 +91,4 @@ export const updatePriceAlarm = async (alarm_id: number, user_id: number, define
             conn.end();
         }
     }
-
-    return false;
 };
