@@ -3,30 +3,30 @@
  */
 
 import express, {Request, Response} from 'express';
-import * as PriceAlarmsService from './pricealarms.service';
-import {PriceAlarm} from './pricealarm.interface';
-import {PriceAlarms} from './pricealarms.interface';
+import * as FavoriteShopsService from './favoriteshops.service';
+import {FavoriteShop} from './favoriteshop.interface';
+import {FavoriteShops} from './favoriteshops.interface';
 import * as UserService from '../users/users.service';
 
 
 /**
  * Router Definition
  */
-export const pricealarmsRouter = express.Router();
+export const favoriteshopsRouter = express.Router();
 
 
 /**
  * Controller Definitions
  */
 
-//GET pricealarms/
-pricealarmsRouter.get('/', async (req: Request, res: Response) => {
+//GET favoriteshops/
+favoriteshopsRouter.get('/', async (req: Request, res: Response) => {
     try {
         // Authenticate user
         const user_ip = req.connection.remoteAddress ?? '';
         const user = await UserService.checkSessionWithCookie(req.cookies.betterauth, user_ip);
 
-        const priceAlarms = await PriceAlarmsService.getPriceAlarms(user.user_id);
+        const priceAlarms = await FavoriteShopsService.getFavoriteShops(user.user_id);
 
         res.status(200).send(priceAlarms);
     } catch (e) {
@@ -35,25 +35,24 @@ pricealarmsRouter.get('/', async (req: Request, res: Response) => {
     }
 });
 
-// POST pricealarms/
-pricealarmsRouter.post('/', async (req: Request, res: Response) => {
+// POST favoriteshops/
+favoriteshopsRouter.post('/', async (req: Request, res: Response) => {
     try {
         // Authenticate user
         const user_ip = req.connection.remoteAddress ?? '';
         const user = await UserService.checkSessionWithCookie(req.cookies.betterauth, user_ip);
 
         // Get info for price alarm creation
-        const product_id = req.body.product_id;
-        const defined_price = req.body.defined_price;
+        const vendor_id = req.body.vendor_id;
 
-        if (!product_id || !defined_price) {
+        if (!vendor_id) {
             // Missing
             res.status(400).send(JSON.stringify({message: 'Missing parameters'}));
             return;
         }
 
         // Create price alarm
-        const success = await PriceAlarmsService.createPriceAlarm(user.user_id, product_id, defined_price);
+        const success = await FavoriteShopsService.createFavoriteShop(user.user_id, vendor_id);
 
         if (success) {
             res.status(201).send(JSON.stringify({success: true}));
@@ -68,25 +67,24 @@ pricealarmsRouter.post('/', async (req: Request, res: Response) => {
     }
 });
 
-// PUT pricealarms/
-pricealarmsRouter.put('/', async (req: Request, res: Response) => {
+// DELETE favoriteshops/
+favoriteshopsRouter.delete('/:id', async (req: Request, res: Response) => {
     try {
         // Authenticate user
         const user_ip = req.connection.remoteAddress ?? '';
         const user = await UserService.checkSessionWithCookie(req.cookies.betterauth, user_ip);
 
         // Get info for price alarm creation
-        const alarm_id = req.body.alarm_id;
-        const defined_price = req.body.defined_price;
+        const favorite_id = parseInt(req.params.id, 10);
 
-        if (!alarm_id || !defined_price) {
+        if (!favorite_id) {
             // Missing
             res.status(400).send(JSON.stringify({message: 'Missing parameters'}));
             return;
         }
 
         // Create price alarm
-        const success = await PriceAlarmsService.updatePriceAlarm(alarm_id, user.user_id, defined_price);
+        const success = await FavoriteShopsService.deleteFavoriteShop(user.user_id, favorite_id);
 
         if (success) {
             res.status(201).send(JSON.stringify({success: true}));
