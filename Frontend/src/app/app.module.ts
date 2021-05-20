@@ -29,6 +29,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from "@angular/material/list";
 import {BottomBarComponent} from './components/bottom-bar/bottom-bar.component';
+import { HotDealsWidgetComponent } from './components/hot-deals-widget/hot-deals-widget.component';
+import { SliderForProductsComponent } from './components/slider-for-products/slider-for-products.component';
 
 
 // For cookie popup
@@ -85,7 +87,9 @@ const cookieConfig: NgcCookieConsentConfig = {
         ImprintComponent,
         PrivacyComponent,
         TopBarComponent,
-        BottomBarComponent
+        BottomBarComponent,
+        HotDealsWidgetComponent,
+        SliderForProductsComponent
     ],
     imports: [
         BrowserModule,

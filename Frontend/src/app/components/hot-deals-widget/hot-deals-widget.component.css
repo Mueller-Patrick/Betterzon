@@ -1,0 +1,70 @@
+.hot-deal-widget-wrapper{
+    width: 1640px;
+    height: 820px;
+    background-color: #f8f9fa;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+}
+
+.product-description {
+    /*background-color: #3480E3;*/
+    height: 100%;
+    display: grid;
+    grid-template-columns: 15% 16px 15% 16px 15% 16px 15% 16px 15% 16px 15% 8px;
+    grid-template-rows: repeat(5, 1fr);
+}
+
+.product-image {
+
+}
+
+#hot-deals{
+    /*background-color: #E53167;*/
+    justify-self: center;
+    align-self: center;
+    grid-column: 3/10;
+    grid-row: 1/2;
+}
+
+#product-name {
+    justify-self: center;
+    align-self: center;
+    grid-column: 3/10;
+    grid-row: 2/3;
+    /*background-color: #E53167;*/
+}
+
+#product-name > p {
+    font-size: 65px;
+}
+
+#sales {
+    justify-self: center;
+    align-self: center;
+    grid-column: 3/10;
+    grid-row: 3/4;
+    /*background-color: #E53167;*/
+}
+
+#futher-informations {
+    justify-self: center;
+    align-self: center;
+    grid-column: 3/10;
+    grid-row: 4/5;
+    /*background-color: #E53167;*/
+}
+
+#points {
+    justify-self: center;
+    align-self: start;
+    grid-column: 3/10;
+    grid-row: 5/6;
+    /*background-color: #E53167;*/
+}
+
+.product-image {
+    display: grid;
+    justify-content: center;
+}
+
