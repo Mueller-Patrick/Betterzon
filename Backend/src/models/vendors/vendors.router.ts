@@ -99,7 +99,53 @@ vendorsRouter.put('/manage/deactivatelisting', async (req: Request, res: Respons
 
         const success = await VendorService.deactivateListing(user.user_id, vendor_id, product_id);
 
-        if(success) {
+        if (success) {
+            res.sendStatus(200);
+        } else {
+            res.sendStatus(500);
+        }
+    } catch (e) {
+        console.log('Error handling a request: ' + e.message);
+        res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
+    }
+});
+
+// PUT /manage/shop/deactivate/:id
+vendorsRouter.put('/manage/shop/deactivate/:id', async (req: Request, res: Response) => {
+    try {
+        // Authenticate user
+        const user_ip = req.connection.remoteAddress ?? '';
+        const user = await UserService.checkSessionWithCookie(req.cookies.betterauth, user_ip);
+
+        // Get required parameters
+        const vendor_id = parseInt(req.params.id, 10);
+
+        const success = await VendorService.setShopStatus(user.user_id, vendor_id, false);
+
+        if (success) {
+            res.sendStatus(200);
+        } else {
+            res.sendStatus(500);
+        }
+    } catch (e) {
+        console.log('Error handling a request: ' + e.message);
+        res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
+    }
+});
+
+// PUT /manage/shop/activate/:id
+vendorsRouter.put('/manage/shop/activate/:id', async (req: Request, res: Response) => {
+    try {
+        // Authenticate user
+        const user_ip = req.connection.remoteAddress ?? '';
+        const user = await UserService.checkSessionWithCookie(req.cookies.betterauth, user_ip);
+
+        // Get required parameters
+        const vendor_id = parseInt(req.params.id, 10);
+
+        const success = await VendorService.setShopStatus(user.user_id, vendor_id, true);
+
+        if (success) {
             res.sendStatus(200);
         } else {
             res.sendStatus(500);
