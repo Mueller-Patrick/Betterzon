@@ -15,7 +15,7 @@ const pool = mariadb.createPool({
  * Data Model Interfaces
  */
 
-import {Price} from './price.interface';
+import {Deal, Price} from './price.interface';
 import {Prices} from './prices.interface';
 
 
@@ -255,7 +255,7 @@ export const getBestDeals = async (amount: number): Promise<Prices> => {
         }
 
         // Iterate over all prices to find the products with the biggest difference between amazon and other vendor
-        let deals: Price[] = [];
+        let deals: Deal[] = [];
 
         Object.keys(allPrices).forEach(productId => {
             if (allPrices[parseInt(productId)]) {
@@ -287,7 +287,7 @@ export const getBestDeals = async (amount: number): Promise<Prices> => {
 
                 // Push only deals were the amazon price is actually higher
                 if (deal.amazonDifferencePercent > 0) {
-                    deals.push(deal as Price);
+                    deals.push(deal as Deal);
                 }
             }
         });
