@@ -106,3 +106,26 @@ productsRouter.get('/vendor/:id', async (req: Request, res: Response) => {
         res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
     }
 });
+
+// POST products/
+productsRouter.post('/', async (req: Request, res: Response) => {
+    const asin: string = req.body.asin;
+
+    if (!asin) {
+        res.status(400).send('Missing parameters.');
+        return;
+    }
+
+    try {
+        const result: boolean = await ProductService.addNewProduct(asin);
+
+        if (result) {
+            res.sendStatus(201);
+        } else {
+            res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
+        }
+    } catch (e) {
+        console.log('Error handling a request: ' + e.message);
+        res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
+    }
+});
