@@ -6,6 +6,7 @@ import express, {Request, Response} from 'express';
 import * as PriceService from './prices.service';
 import {Price} from './price.interface';
 import {Prices} from './prices.interface';
+import * as UserService from '../users/users.service';
 
 
 /**
@@ -40,7 +41,7 @@ pricesRouter.get('/', async (req: Request, res: Response) => {
         res.status(200).send(prices);
     } catch (e) {
         console.log('Error handling a request: ' + e.message);
-        res.status(500).send(JSON.stringify({"message": "Internal Server Error. Try again later."}));
+        res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
     }
 });
 
@@ -59,7 +60,7 @@ pricesRouter.get('/:id', async (req: Request, res: Response) => {
         res.status(200).send(price);
     } catch (e) {
         console.log('Error handling a request: ' + e.message);
-        res.status(500).send(JSON.stringify({"message": "Internal Server Error. Try again later."}));
+        res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
     }
 });
 
@@ -78,7 +79,7 @@ pricesRouter.get('/bestDeals/:amount', async (req: Request, res: Response) => {
         res.status(200).send(prices);
     } catch (e) {
         console.log('Error handling a request: ' + e.message);
-        res.status(500).send(JSON.stringify({"message": "Internal Server Error. Try again later."}));
+        res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
     }
 });
 
@@ -97,6 +98,31 @@ pricesRouter.get('/byProduct/list/:ids', async (req: Request, res: Response) => 
         res.status(200).send(prices);
     } catch (e) {
         console.log('Error handling a request: ' + e.message);
-        res.status(500).send(JSON.stringify({"message": "Internal Server Error. Try again later."}));
+        res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
+    }
+});
+
+// POST prices/
+pricesRouter.post('/', async (req: Request, res: Response) => {
+    try {
+        // Authenticate user
+        const user_ip = req.connection.remoteAddress ?? '';
+        const user = await UserService.checkSessionWithCookie(req.cookies.betterauth, user_ip);
+
+        // Get required parameters
+        const vendor_id = req.body.vendor_id;
+        const product_id = req.body.product_id;
+        const price_in_cents = req.body.price_in_cents;
+
+        const success = await PriceService.createPriceEntry(user.user_id, vendor_id, product_id, price_in_cents);
+
+        if (success) {
+            res.sendStatus(200);
+        } else {
+            res.sendStatus(500);
+        }
+    } catch (e) {
+        console.log('Error handling a request: ' + e.message);
+        res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
     }
 });
