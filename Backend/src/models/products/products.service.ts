@@ -17,6 +17,7 @@ const pool = mariadb.createPool({
 
 import {Product} from './product.interface';
 import {Products} from './products.interface';
+import * as http from 'http';
 
 
 /**
@@ -196,4 +197,33 @@ export const findByVendor = async (id: number): Promise<Products> => {
     }
 
     return prodRows;
+};
+
+/**
+ * Makes a callout to a crawler instance to search for the requested product
+ * @param asin The amazon asin of the product to look for
+ */
+export const addNewProduct = async (asin: string): Promise<boolean> => {
+    try {
+        let options = {
+            host: 'crawl.p4ddy.com',
+            path: '/searchNew',
+            port: '443',
+            method: 'POST'
+        };
+
+        let req = http.request(options, res => {
+            return res.statusCode === 202;
+        });
+        req.write(JSON.stringify({
+            asin: asin,
+            key: process.env.CRAWLER_ACCESS_KEY
+        }));
+        req.end();
+    } catch (err) {
+        console.log(err);
+        throw(err);
+    }
+
+    return false;
 };
