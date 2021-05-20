@@ -1,5 +1,7 @@
 pymysql
-flask
+flask==1.1.2
 flask-sqlalchemy
 flask_restful
-scrapy
+beautifulsoup4
+requests
+lxml
