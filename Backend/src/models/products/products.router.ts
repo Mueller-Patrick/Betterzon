@@ -87,3 +87,22 @@ productsRouter.get('/list/:ids', async (req: Request, res: Response) => {
         res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
     }
 });
+
+// GET products/vendor/:id
+productsRouter.get('/vendor/:id', async (req: Request, res: Response) => {
+    const id: number = parseInt(req.params.id, 10);
+
+    if (!id) {
+        res.status(400).send('Missing parameters.');
+        return;
+    }
+
+    try {
+        const products: Products = await ProductService.findByVendor(id);
+
+        res.status(200).send(products);
+    } catch (e) {
+        console.log('Error handling a request: ' + e.message);
+        res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
+    }
+});

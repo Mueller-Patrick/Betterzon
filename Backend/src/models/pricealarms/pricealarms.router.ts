@@ -36,7 +36,7 @@ pricealarmsRouter.get('/', async (req: Request, res: Response) => {
 });
 
 // POST pricealarms/create
-pricealarmsRouter.post('/create', async (req: Request, res: Response) => {
+pricealarmsRouter.post('/', async (req: Request, res: Response) => {
     try {
         // Authenticate user
         const user_ip = req.connection.remoteAddress ?? '';
@@ -69,7 +69,7 @@ pricealarmsRouter.post('/create', async (req: Request, res: Response) => {
 });
 
 // PUT pricealarms/update
-pricealarmsRouter.put('/update', async (req: Request, res: Response) => {
+pricealarmsRouter.put('/', async (req: Request, res: Response) => {
     try {
         // Authenticate user
         const user_ip = req.connection.remoteAddress ?? '';
