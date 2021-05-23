@@ -193,18 +193,20 @@ export const checkSession = async (sessionId: string, sessionKey: string, ip: st
         await conn.commit();
 
         // Get the other required user information and update the user
-        const userQuery = 'SELECT user_id, username, email, registration_date, last_login_date FROM users WHERE user_id = ?';
+        const userQuery = 'SELECT user_id, username, email, registration_date, last_login_date, is_admin FROM users WHERE user_id = ?';
         const userRows = await conn.query(userQuery, userId);
         let username = '';
         let email = '';
         let registrationDate = new Date();
         let lastLoginDate = new Date();
+        let is_admin = false;
         for (const row in userRows) {
             if (row !== 'meta' && userRows[row].user_id != null) {
                 username = userRows[row].username;
                 email = userRows[row].email;
                 registrationDate = userRows[row].registration_date;
                 lastLoginDate = userRows[row].last_login_date;
+                is_admin = userRows[row].is_admin;
             }
         }
 
@@ -215,7 +217,8 @@ export const checkSession = async (sessionId: string, sessionKey: string, ip: st
             email: email,
             password_hash: 'HIDDEN',
             registration_date: registrationDate,
-            last_login_date: lastLoginDate
+            last_login_date: lastLoginDate,
+            is_admin: is_admin
         };
 
     } catch (err) {
@@ -225,8 +228,6 @@ export const checkSession = async (sessionId: string, sessionKey: string, ip: st
             conn.end();
         }
     }
-
-    return {} as User;
 };
 
 /**
@@ -312,6 +313,4 @@ export const checkUsernameAndEmail = async (username: string, email: string): Pr
             conn.end();
         }
     }
-
-    return {hasProblems: true, messages: ['Internal server error'], codes: [3]};
 };
