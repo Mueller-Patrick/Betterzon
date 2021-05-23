@@ -17,6 +17,7 @@ import {usersRouter} from './models/users/users.router';
 import {pricealarmsRouter} from './models/pricealarms/pricealarms.router';
 import {contactpersonsRouter} from './models/contact_persons/contact_persons.router';
 import {favoriteshopsRouter} from './models/favorite_shops/favoriteshops.router';
+import {crawlingstatusRouter} from './models/crawling_status/crawling_status.router';
 
 const cookieParser = require('cookie-parser');
 
@@ -53,6 +54,7 @@ app.use('/vendors', vendorsRouter);
 app.use('/pricealarms', pricealarmsRouter);
 app.use('/contactpersons', contactpersonsRouter);
 app.use('/favoriteshops', favoriteshopsRouter);
+app.use('/crawlingstatus', crawlingstatusRouter);
 
 app.use(errorHandler);
 app.use(notFoundHandler);
