@@ -5,6 +5,7 @@ import {Product} from '../models/product';
 import {Price} from '../models/price';
 import {Observable, of} from 'rxjs';
 import {Vendor} from '../models/vendor';
+import {PriceAlarm} from '../models/pricealarm';
 
 @Injectable({
     providedIn: 'root'
@@ -17,83 +18,191 @@ export class ApiService {
     ) {
     }
 
+
+    /*   ____                 __           __
+        / __ \_________  ____/ /_  _______/ /______
+       / /_/ / ___/ __ \/ __  / / / / ___/ __/ ___/
+      / ____/ /  / /_/ / /_/ / /_/ / /__/ /_(__  )
+     /_/   /_/   \____/\__,_/\__,_/\___/\__/____/
+    */
+
+    /**
+     * Gets the specified product from the API
+     * @param id The id of the product to get
+     * @return Observable<Product> An observable containing a single product
+     */
     getProduct(id): Observable<Product> {
         try {
-            const prod = this.http.get<Product>((this.apiUrl + '/products/' + id));
-            return prod;
+            return this.http.get<Product>((this.apiUrl + '/products/' + id));
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
     }
 
+
+    /**
+     * Gets a list of products that match the given search term
+     * @param query The search term to match
+     * @return Observable<Product[]> An observable list of products
+     */
     getProductsByQuery(query): Observable<Product[]> {
         try {
-            const prods = this.http.get<Product[]>((this.apiUrl + '/products/search/' + query));
-            return prods;
+            return this.http.get<Product[]>((this.apiUrl + '/products/search/' + query));
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
     }
 
+    /**
+     * Gets a list of all products
+     * @return Observable<Product[]> An observable list of products
+     */
     getProducts(): Observable<Product[]> {
         try {
-            const prods = this.http.get<Product[]>((this.apiUrl + '/products'));
-            return prods;
+            return this.http.get<Product[]>((this.apiUrl + '/products'));
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
     }
 
+
+    /*    ____       _
+         / __ \_____(_)_______  _____
+        / /_/ / ___/ / ___/ _ \/ ___/
+       / ____/ /  / / /__/  __(__  )
+      /_/   /_/  /_/\___/\___/____/
+     */
+
+    /**
+     * Gets a list of all prices
+     * @return Observable<Price[]> An observable list of prices
+     */
     getPrices(): Observable<Price[]> {
         try {
-            const prices = this.http.get<Price[]>((this.apiUrl + '/prices'));
-            return prices;
+            return this.http.get<Price[]>((this.apiUrl + '/prices'));
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
     }
 
+    /**
+     * Gets the lowest prices of every vendor for the given product
+     * @param productId The product id of the product to fetch the prices for
+     * @return Observable<Price[]> An observable list of prices
+     */
     getLowestPrices(productId): Observable<Price[]> {
         try {
             let params = new HttpParams();
             params = params.append('product', productId);
             params = params.append('type', 'lowest');
-            const prices = this.http.get<Price[]>((this.apiUrl + '/prices'), {params});
-            return prices;
+            return this.http.get<Price[]>((this.apiUrl + '/prices'), {params});
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
     }
 
+    /**
+     * Gets the latest amazon price for the given product
+     * @param productId The product id of the product to get the price for
+     * @return Observable<Price> An observable containing a single price
+     */
     getAmazonPrice(productId): Observable<Price> {
         try {
             let params = new HttpParams();
             params = params.append('product', productId);
             params = params.append('vendor', '1');
             params = params.append('type', 'newest');
-            const price = this.http.get<Price>((this.apiUrl + '/prices'), {params});
-            return price;
+            return this.http.get<Price>((this.apiUrl + '/prices'), {params});
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
     }
 
+    /**
+     * Gets the newest prices of every vendor for the given product
+     * @param productId The product id of the product to fetch the prices for
+     * @return Observable<Price[]> An observable list of prices
+     */
     getCurrentPricePerVendor(productId): Observable<Price[]> {
         try {
             let params = new HttpParams();
             params = params.append('product', productId);
             params = params.append('type', 'newest');
-            const prices = this.http.get<Price[]>((this.apiUrl + '/prices'), {params});
-            return prices;
+            return this.http.get<Price[]>((this.apiUrl + '/prices'), {params});
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
     }
 
+
+    /*  _    __               __
+       | |  / /__  ____  ____/ /___  __________
+       | | / / _ \/ __ \/ __  / __ \/ ___/ ___/
+       | |/ /  __/ / / / /_/ / /_/ / /  (__  )
+       |___/\___/_/ /_/\__,_/\____/_/  /____/
+     */
+
+    /**
+     * Gets a list of all vendors
+     * @return Observable<Vendor[]> An observable list of vendors
+     */
     getVendors(): Observable<Vendor[]> {
         try {
-            const vendors = this.http.get<Vendor[]>((this.apiUrl + '/vendors'));
-            return vendors;
+            return this.http.get<Vendor[]>((this.apiUrl + '/vendors'));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+
+    /*     ____       _              ___    __
+          / __ \_____(_)_______     /   |  / /___ __________ ___  _____
+         / /_/ / ___/ / ___/ _ \   / /| | / / __ `/ ___/ __ `__ \/ ___/
+        / ____/ /  / / /__/  __/  / ___ |/ / /_/ / /  / / / / / (__  )
+       /_/   /_/  /_/\___/\___/  /_/  |_/_/\__,_/_/  /_/ /_/ /_/____/
+     */
+
+    /**
+     * Gets a list of all price alarms
+     * @return Observable<PriceAlarm[]> An observable list of price alarms
+     */
+    getPriceAlarms(): Observable<PriceAlarm[]> {
+        try {
+            return this.http.get<PriceAlarm[]>((this.apiUrl + '/pricealarms'));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+    /**
+     * Creates a new price alarm
+     * @param productId The product id of the product to create the alarm for
+     * @param definedPrice The defined target price
+     * @return Observable<any> The observable response of the api
+     */
+    createPriceAlarms(productId: number, definedPrice: number): Observable<any> {
+        try {
+            return this.http.post((this.apiUrl + '/pricealarms'), JSON.stringify({
+                product_id: productId,
+                defined_price: definedPrice
+            }));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+    /**
+     * Updates the given price alarm
+     * @param alarmId The alarm id of the alarm to update
+     * @param definedPrice The defined target price
+     * @return Observable<any> The observable response of the api
+     */
+    updatePriceAlarms(alarmId: number, definedPrice: number): Observable<any> {
+        try {
+            return this.http.put((this.apiUrl + '/pricealarms'), JSON.stringify({
+                alarm_id: alarmId,
+                defined_price: definedPrice
+            }));
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }

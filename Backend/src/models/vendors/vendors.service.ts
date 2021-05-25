@@ -17,6 +17,7 @@ const pool = mariadb.createPool({
 
 import {Vendor} from './vendor.interface';
 import {Vendors} from './vendors.interface';
+import {User} from '../users/user.interface';
 
 
 /**
@@ -31,7 +32,7 @@ export const findAll = async (): Promise<Vendors> => {
     let vendorRows = [];
     try {
         conn = await pool.getConnection();
-        const rows = await conn.query('SELECT vendor_id, name, streetname, zip_code, city, country_code, phone, website FROM vendors');
+        const rows = await conn.query('SELECT vendor_id, name, streetname, zip_code, city, country_code, phone, website FROM vendors WHERE isActive = true');
         for (let row in rows) {
             if (row !== 'meta') {
                 let vendor: Vendor = {
@@ -78,7 +79,7 @@ export const find = async (id: number): Promise<Vendor> => {
     let vendor: any;
     try {
         conn = await pool.getConnection();
-        const rows = await conn.query('SELECT vendor_id, name, streetname, zip_code, city, country_code, phone, website FROM vendors WHERE vendor_id = ?', id);
+        const rows = await conn.query('SELECT vendor_id, name, streetname, zip_code, city, country_code, phone, website FROM vendors WHERE vendor_id = ? AND isActive = true', id);
         for (let row in rows) {
             if (row !== 'meta') {
                 vendor = rows[row];
@@ -106,7 +107,7 @@ export const findBySearchTerm = async (term: string): Promise<Vendors> => {
     try {
         conn = await pool.getConnection();
         term = '%' + term + '%';
-        const rows = await conn.query('SELECT vendor_id, name, streetname, zip_code, city, country_code, phone, website FROM vendors WHERE name LIKE ?', term);
+        const rows = await conn.query('SELECT vendor_id, name, streetname, zip_code, city, country_code, phone, website FROM vendors WHERE name LIKE ? AND isActive = true', term);
         for (let row in rows) {
             if (row !== 'meta') {
                 vendorRows.push(rows[row]);
@@ -122,4 +123,94 @@ export const findBySearchTerm = async (term: string): Promise<Vendors> => {
     }
 
     return vendorRows;
+};
+
+/**
+ * Get all vendors that have the given user as admin
+ * @param user The user to return the managed shops for
+ */
+export const getManagedShops = async (user_id: number): Promise<Vendors> => {
+    let conn;
+    let vendorRows = [];
+    try {
+        conn = await pool.getConnection();
+        const rows = await conn.query('SELECT vendor_id, name, streetname, zip_code, city, country_code, phone, website FROM vendors WHERE admin_id LIKE ?', user_id);
+        for (let row in rows) {
+            if (row !== 'meta') {
+                vendorRows.push(rows[row]);
+            }
+        }
+
+    } catch (err) {
+        throw err;
+    } finally {
+        if (conn) {
+            conn.end();
+        }
+    }
+
+    return vendorRows;
+};
+
+/**
+ * Deactivates a product listing for a specific vendor
+ * @param user_id The user id of the issuing user
+ * @param vendor_id The vendor id of the vendor to deactivate the listing for
+ * @param product_id The product id of the product to deactivate the listing for
+ */
+export const deactivateListing = async (user_id: number, vendor_id: number, product_id: number): Promise<Boolean> => {
+    let conn;
+    try {
+        conn = await pool.getConnection();
+
+        // Check if the user is authorized to manage the requested vendor
+        const user_vendor_rows = await conn.query('SELECT vendor_id FROM vendors WHERE vendor_id = ? AND admin_id = ?', [vendor_id, user_id]);
+        if (user_vendor_rows.length !== 1) {
+            return false;
+        }
+
+        const status = await conn.query('UPDATE prices SET active_listing = false WHERE vendor_id = ? and product_id = ?', [vendor_id, product_id]);
+
+        return status.affectedRows > 0;
+    } catch (err) {
+        throw err;
+    } finally {
+        if (conn) {
+            conn.end();
+        }
+    }
+
+    return false;
+};
+
+/**
+ * Set the specified shop to either active or not active
+ * @param user_id The user id of the issuing user
+ * @param vendor_id The vendor id of the shop to update
+ * @param isActive The new active state
+ */
+export const setShopStatus = async (user_id: number, vendor_id: number, isActive: boolean): Promise<Boolean> => {
+    let conn;
+    try {
+        conn = await pool.getConnection();
+
+        // Check if the user is authorized to manage the requested vendor
+        const user_vendor_rows = await conn.query('SELECT vendor_id FROM vendors WHERE vendor_id = ? AND admin_id = ?', [vendor_id, user_id]);
+        if (user_vendor_rows.length !== 1) {
+            return false;
+        }
+
+        // Update the vendor state
+        const status = await conn.query('UPDATE vendors SET isActive = ? WHERE vendor_id = ?', [isActive, vendor_id]);
+
+        return status.affectedRows > 0;
+    } catch (err) {
+        throw err;
+    } finally {
+        if (conn) {
+            conn.end();
+        }
+    }
+
+    return false;
 };
