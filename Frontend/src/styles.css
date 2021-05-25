@@ -116,17 +116,7 @@ label {
     grid-template-rows: 70px auto 210px;
 }
 
-.header {
-    grid-row: 1/2;
-}
 
-.page-content {
-    grid-row: 2/3;
-}
-
-.footer {
-    grid-row: 3/4;
-}
 
 /* End of Main Container */
 
@@ -138,9 +128,6 @@ app-top-bar {
     background-color: #ffffff;
     padding: 16px;
     position: fixed;
-    left: 50%;
-    top:0;
-    margin-left: -820px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
