@@ -86,7 +86,7 @@ vendorsRouter.get('/search/:term', async (req: Request, res: Response) => {
     }
 });
 
-// PUT /manage/deactivatelisting
+// PUT vendors/manage/deactivatelisting
 vendorsRouter.put('/manage/deactivatelisting', async (req: Request, res: Response) => {
     try {
         // Authenticate user
@@ -110,7 +110,7 @@ vendorsRouter.put('/manage/deactivatelisting', async (req: Request, res: Respons
     }
 });
 
-// PUT /manage/shop/deactivate/:id
+// PUT vendors/manage/shop/deactivate/:id
 vendorsRouter.put('/manage/shop/deactivate/:id', async (req: Request, res: Response) => {
     try {
         // Authenticate user
@@ -133,7 +133,7 @@ vendorsRouter.put('/manage/shop/deactivate/:id', async (req: Request, res: Respo
     }
 });
 
-// PUT /manage/shop/activate/:id
+// PUT vendors/manage/shop/activate/:id
 vendorsRouter.put('/manage/shop/activate/:id', async (req: Request, res: Response) => {
     try {
         // Authenticate user
