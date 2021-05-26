@@ -6,6 +6,7 @@ import {Price} from '../models/price';
 import {Observable, of} from 'rxjs';
 import {Vendor} from '../models/vendor';
 import {PriceAlarm} from '../models/pricealarm';
+import {FavoriteShop} from '../models/favoriteshop';
 
 @Injectable({
     providedIn: 'root'
@@ -328,6 +329,54 @@ export class ApiService {
                 username,
                 password
             }));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+    /*       ______                       _ __               __
+            / ____/___ __   ______  _____(_) /____     _____/ /_  ____  ____  _____
+           / /_  / __ `/ | / / __ \/ ___/ / __/ _ \   / ___/ __ \/ __ \/ __ \/ ___/
+          / __/ / /_/ /| |/ / /_/ / /  / / /_/  __/  (__  ) / / / /_/ / /_/ (__  )
+         /_/    \__,_/ |___/\____/_/  /_/\__/\___/  /____/_/ /_/\____/ .___/____/
+                                                                    /_/
+     */
+
+    /**
+     * Gets a list of all favorite shops
+     * @return Observable<FavoriteShop[]> An observable list of favorite shops
+     */
+    getFavoriteShops(): Observable<FavoriteShop[]> {
+        try {
+            return this.http.get<FavoriteShop[]>((this.apiUrl + '/favoriteshops'));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+    /**
+     * Adds a vendor as a favorite
+     * @param vendorId The id of the vendor to mark as favorite
+     * @return Observable<any> The observable response of the api
+     */
+    addFavoriteShop(vendorId: number): Observable<any> {
+        try {
+            return this.http.post((this.apiUrl + '/favoriteshops'), JSON.stringify({
+                vendor_id: vendorId
+            }));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+    /**
+     * Deletes a vendor from favorites
+     * @param vendorId The id of the vendor to delete from favorites
+     * @return Observable<any> The observable response of the api
+     */
+    deleteFavoriteShop(vendorId: number): Observable<any> {
+        try {
+            return this.http.delete((this.apiUrl + '/favoriteshops/' + vendorId));
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
