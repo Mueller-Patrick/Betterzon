@@ -207,4 +207,48 @@ export class ApiService {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
     }
+
+
+    /*     __  __
+          / / / /_______  __________
+         / / / / ___/ _ \/ ___/ ___/
+        / /_/ (__  )  __/ /  (__  )
+        \____/____/\___/_/  /____/
+     */
+
+    /**
+     * Registers a new user with the API
+     * @param username The username for the new user
+     * @param password The password for the new user
+     * @param email The email address for the new user
+     * @return Observable<any> The observable response of the api
+     */
+    registerUser(username: string, password: string, email: string): Observable<any> {
+        try {
+            return this.http.post((this.apiUrl + '/users/register'), JSON.stringify({
+                username,
+                password,
+                email
+            }));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+    /**
+     * Logs a user in with the api
+     * @param username The username of the user to log in
+     * @param password The password of the user to log in
+     * @return Observable<any> The observable response of the api
+     */
+    loginUser(username: string, password: string): Observable<any> {
+        try {
+            return this.http.post((this.apiUrl + '/users/login'), JSON.stringify({
+                username,
+                password
+            }));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
 }
