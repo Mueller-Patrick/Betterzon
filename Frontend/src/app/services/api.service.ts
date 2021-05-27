@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import process from 'process';
+import {process} from 'process';
 import {Product} from '../models/product';
 import {Price} from '../models/price';
 import {Observable, of} from 'rxjs';
