@@ -31,6 +31,8 @@ import {MatListModule} from "@angular/material/list";
 import {BottomBarComponent} from './components/bottom-bar/bottom-bar.component';
 import { HotDealsWidgetComponent } from './components/hot-deals-widget/hot-deals-widget.component';
 import { SliderForProductsComponent } from './components/slider-for-products/slider-for-products.component';
+import { InfoboxComponent } from './components/infobox/infobox.component';
+import {MatCardModule} from '@angular/material/card';
 
 
 // For cookie popup
@@ -89,7 +91,8 @@ const cookieConfig: NgcCookieConsentConfig = {
         TopBarComponent,
         BottomBarComponent,
         HotDealsWidgetComponent,
-        SliderForProductsComponent
+        SliderForProductsComponent,
+        InfoboxComponent
     ],
     imports: [
         BrowserModule,
@@ -107,7 +110,8 @@ const cookieConfig: NgcCookieConsentConfig = {
         MatListModule,
         MatButtonModule,
         MatIconModule,
-        RouterModule.forRoot([
+        MatCardModule,
+    RouterModule.forRoot([
             {path: '', component: LandingpageComponent},
         ]),
     ],

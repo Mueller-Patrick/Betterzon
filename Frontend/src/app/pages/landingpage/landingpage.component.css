@@ -1,4 +1,15 @@
-#mainComponents {
+.infoboxes {
+    display: grid;
+    grid-template-columns: 820px 820px;
+}
+
+#infobox1 {
+
+}
+
+/* old */
+
+#main {
     margin: 5em;
     margin-top: .5em;
     margin-bottom: .5em;
