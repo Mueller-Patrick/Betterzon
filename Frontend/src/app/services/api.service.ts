@@ -10,6 +10,7 @@ import {FavoriteShop} from '../models/favoriteshop';
 import {ContactPerson} from '../models/contactperson';
 import {Category} from '../models/category';
 import {Manufacturer} from '../models/manufacturer';
+import {CrawlingStatus} from '../models/crawlingstatus';
 
 @Injectable({
     providedIn: 'root'
@@ -571,6 +572,27 @@ export class ApiService {
     getManufacturers(): Observable<Manufacturer[]> {
         try {
             return this.http.get<Manufacturer[]>((this.apiUrl + '/manufacturers'));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+
+    /*     ______                    ___                _____ __        __
+          / ____/________ __      __/ (_)___  ____ _   / ___// /_____ _/ /___  _______
+         / /   / ___/ __ `/ | /| / / / / __ \/ __ `/   \__ \/ __/ __ `/ __/ / / / ___/
+        / /___/ /  / /_/ /| |/ |/ / / / / / / /_/ /   ___/ / /_/ /_/ / /_/ /_/ (__  )
+        \____/_/   \__,_/ |__/|__/_/_/_/ /_/\__, /   /____/\__/\__,_/\__/\__,_/____/
+                                           /____/
+     */
+
+    /**
+     * Gets the current crawling status
+     * @return Observable<CrawlingStatus> An observable containing a single crawling status object
+     */
+    getCurrentCrawlingStatus(): Observable<CrawlingStatus> {
+        try {
+            return this.http.get<CrawlingStatus>((this.apiUrl + '/crawlingstatus'));
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
