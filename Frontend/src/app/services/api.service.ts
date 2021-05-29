@@ -8,6 +8,7 @@ import {Vendor} from '../models/vendor';
 import {PriceAlarm} from '../models/pricealarm';
 import {FavoriteShop} from '../models/favoriteshop';
 import {ContactPerson} from '../models/contactperson';
+import {Category} from '../models/category';
 
 @Injectable({
     providedIn: 'root'
@@ -475,6 +476,54 @@ export class ApiService {
                 email,
                 phone
             }));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+
+    /*     ______      __                        _
+          / ____/___ _/ /____  ____ _____  _____(_)__  _____
+         / /   / __ `/ __/ _ \/ __ `/ __ \/ ___/ / _ \/ ___/
+        / /___/ /_/ / /_/  __/ /_/ / /_/ / /  / /  __(__  )
+        \____/\__,_/\__/\___/\__, /\____/_/  /_/\___/____/
+                            /____/
+     */
+
+    /**
+     * Gets the specified category from the API
+     * @param id The id of the category to get
+     * @return Observable<Category> An observable containing a single product
+     */
+    getCategoryById(id: number): Observable<Category> {
+        try {
+            return this.http.get<Category>((this.apiUrl + '/categories/' + id));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+
+    /**
+     * Gets a list of categories that match the given search term
+     * @param query The search term to match
+     * @return Observable<Category[]> An observable list of categories
+     */
+    getCategoryByQuery(query: string): Observable<Category[]> {
+        try {
+            return this.http.get<Category[]>((this.apiUrl + '/categories/search/' + query));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+    /**
+     * Gets a list of all categories
+     * @return Observable<Category[]> An observable list of categories
+     */
+    getCategories(): Observable<Category[]> {
+        try {
+            return this.http.get<Category[]>((this.apiUrl + '/categories'));
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
