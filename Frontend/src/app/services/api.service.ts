@@ -7,6 +7,7 @@ import {Observable, of} from 'rxjs';
 import {Vendor} from '../models/vendor';
 import {PriceAlarm} from '../models/pricealarm';
 import {FavoriteShop} from '../models/favoriteshop';
+import {ContactPerson} from '../models/contactperson';
 
 @Injectable({
     providedIn: 'root'
@@ -377,6 +378,103 @@ export class ApiService {
     deleteFavoriteShop(vendorId: number): Observable<any> {
         try {
             return this.http.delete((this.apiUrl + '/favoriteshops/' + vendorId));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+
+    /*     ______            __             __     ____
+          / ____/___  ____  / /_____ ______/ /_   / __ \___  ______________  ____  _____
+         / /   / __ \/ __ \/ __/ __ `/ ___/ __/  / /_/ / _ \/ ___/ ___/ __ \/ __ \/ ___/
+        / /___/ /_/ / / / / /_/ /_/ / /__/ /_   / ____/  __/ /  (__  ) /_/ / / / (__  )
+        \____/\____/_/ /_/\__/\__,_/\___/\__/  /_/    \___/_/  /____/\____/_/ /_/____/
+     */
+
+    /**
+     * Gets a list of all contact persons
+     * @return Observable<ContactPerson[]> An observable list of contact persons
+     */
+    getContactPersons(): Observable<ContactPerson[]> {
+        try {
+            return this.http.get<ContactPerson[]>((this.apiUrl + '/contactpersons'));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+    /**
+     * Gets the specified contact person by id
+     * @param id the id of the contact person to get info about
+     * @return Observable<ContactPerson> An observable containing a single contact person
+     */
+    getContactPersonById(id: number): Observable<ContactPerson> {
+        try {
+            return this.http.get<ContactPerson>((this.apiUrl + '/contactpersons/' + id));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+    /**
+     * Gets the contact persons for the specified vendor
+     * @param vendorId the id of the vendor to get the contact persons for
+     * @return Observable<ContactPerson[]> An observable list of contact persons
+     */
+    getContactPersonsByVendor(vendorId: number): Observable<ContactPerson[]> {
+        try {
+            return this.http.get<ContactPerson[]>((this.apiUrl + '/contactpersons/byvendor/' + vendorId));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+    /**
+     * Adds a contact person for the specified vendor
+     * @param vendorId The id of the vendor to mark as favorite
+     * @param firstName The given name of the contact person
+     * @param lastName The family name of the contact person
+     * @param gender The gender of the contact person
+     * @param email The email address of the contact person
+     * @param phone The phone number of the contact person
+     * @return Observable<any> The observable response of the api
+     */
+    addContactPerson(vendorId: number, firstName: string, lastName: string, gender: string, email: string, phone: string): Observable<any> {
+        try {
+            return this.http.post((this.apiUrl + '/contactpersons'), JSON.stringify({
+                vendor_id: vendorId,
+                first_name: firstName,
+                last_name: lastName,
+                gender,
+                email,
+                phone
+            }));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+    /**
+     * Updates the specified contact person record
+     * @param contactId The id of the contact person record
+     * @param vendorId The id of the vendor to mark as favorite
+     * @param firstName The given name of the contact person
+     * @param lastName The family name of the contact person
+     * @param gender The gender of the contact person
+     * @param email The email address of the contact person
+     * @param phone The phone number of the contact person
+     * @return Observable<any> The observable response of the api
+     */
+    updateContactPerson(contactId: number, vendorId: number, firstName: string, lastName: string, gender: string, email: string, phone: string): Observable<any> {
+        try {
+            return this.http.put((this.apiUrl + '/contactpersons/' + contactId), JSON.stringify({
+                vendor_id: vendorId,
+                first_name: firstName,
+                last_name: lastName,
+                gender,
+                email,
+                phone
+            }));
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
