@@ -19,20 +19,19 @@ export const manufacturersRouter = express.Router();
  * Controller Definitions
  */
 
-// GET items/
-
+// GET manufacturers/
 manufacturersRouter.get('/', async (req: Request, res: Response) => {
     try {
         const manufacturers: Manufacturers = await ManufacturerService.findAll();
 
         res.status(200).send(manufacturers);
     } catch (e) {
-        res.status(404).send(e.message);
+        console.log('Error handling a request: ' + e.message);
+        res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
     }
 });
 
-// GET items/:id
-
+// GET manufacturers/:id
 manufacturersRouter.get('/:id', async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
 
@@ -46,12 +45,12 @@ manufacturersRouter.get('/:id', async (req: Request, res: Response) => {
 
         res.status(200).send(manufacturer);
     } catch (e) {
-        res.status(404).send(e.message);
+        console.log('Error handling a request: ' + e.message);
+        res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
     }
 });
 
-// GET items/:name
-
+// GET manufacturers/:term
 manufacturersRouter.get('/search/:term', async (req: Request, res: Response) => {
     const term: string = req.params.term;
 
@@ -65,48 +64,7 @@ manufacturersRouter.get('/search/:term', async (req: Request, res: Response) => 
 
         res.status(200).send(manufacturer);
     } catch (e) {
-        res.status(404).send(e.message);
+        console.log('Error handling a request: ' + e.message);
+        res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
     }
 });
-
-
-// POST items/
-
-// manufacturersRouter.post('/', async (req: Request, res: Response) => {
-//     try {
-//         const category: Category = req.body.category;
-//
-//         await CategoryService.create(category);
-//
-//         res.sendStatus(201);
-//     } catch (e) {
-//         res.status(404).send(e.message);
-//     }
-// });
-//
-// // PUT items/
-//
-// manufacturersRouter.put('/', async (req: Request, res: Response) => {
-//     try {
-//         const category: Category = req.body.category;
-//
-//         await CategoryService.update(category);
-//
-//         res.sendStatus(200);
-//     } catch (e) {
-//         res.status(500).send(e.message);
-//     }
-// });
-//
-// // DELETE items/:id
-//
-// manufacturersRouter.delete('/:id', async (req: Request, res: Response) => {
-//     try {
-//         const id: number = parseInt(req.params.id, 10);
-//         await CategoryService.remove(id);
-//
-//         res.sendStatus(200);
-//     } catch (e) {
-//         res.status(500).send(e.message);
-//     }
-// });

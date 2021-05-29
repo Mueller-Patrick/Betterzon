@@ -48,3 +48,8 @@
     padding: 10px;
     color: #fff;
 }
+
+.slider {
+    position: relative;
+    margin: auto;
+}

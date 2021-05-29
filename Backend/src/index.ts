@@ -13,6 +13,13 @@ import {pricesRouter} from './models/prices/prices.router';
 import {vendorsRouter} from './models/vendors/vendors.router';
 import {errorHandler} from './middleware/error.middleware';
 import {notFoundHandler} from './middleware/notFound.middleware';
+import {usersRouter} from './models/users/users.router';
+import {pricealarmsRouter} from './models/pricealarms/pricealarms.router';
+import {contactpersonsRouter} from './models/contact_persons/contact_persons.router';
+import {favoriteshopsRouter} from './models/favorite_shops/favoriteshops.router';
+import {crawlingstatusRouter} from './models/crawling_status/crawling_status.router';
+
+const cookieParser = require('cookie-parser');
 
 dotenv.config();
 
@@ -37,11 +44,17 @@ const app = express();
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 app.use('/products', productsRouter);
 app.use('/categories', categoriesRouter);
 app.use('/manufacturers', manufacturersRouter);
 app.use('/prices', pricesRouter);
+app.use('/users', usersRouter);
 app.use('/vendors', vendorsRouter);
+app.use('/pricealarms', pricealarmsRouter);
+app.use('/contactpersons', contactpersonsRouter);
+app.use('/favoriteshops', favoriteshopsRouter);
+app.use('/crawlingstatus', crawlingstatusRouter);
 
 app.use(errorHandler);
 app.use(notFoundHandler);

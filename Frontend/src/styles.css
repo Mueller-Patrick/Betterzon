@@ -1,9 +1,169 @@
-/* You can add global styles to this file, and also import other style files */
-body {
-    margin: 0;
-    font-family: sans-serif;
-    margin-bottom: 10em;
+/* general settings */
+
+* {
+    box-sizing: border-box;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+    height: 100%;
+    margin: 0;
+    background-color: #FFFFFF;
+}
+
+/* Text */
+
+h1 {
+    font-size: 32px;
+}
+
+h2 {
+    font-size: 20px;
+}
+
+h1, h2 {
+    font-weight: lighter;
+}
+
+h3 {
+    font-size: 18px;
+}
+
+p {
+    font-size: 14px;
+}
+
+/* Hyperlink */
+
+a {
+    cursor: pointer;
+    color: #000000;
+    text-decoration: none;
+}
+
+a:hover {
+    opacity: 0.8;
+    color: #3480E3;
+}
+
+a, p{
+    font-size: 16px;
+}
+
+/* links */
+
+/* Input */
+
+input {
+    font-size: 14px;
+    border-radius: 2px;
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #BDBDBD;
+}
+
+label {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 4px;
+    display: block;
+    text-transform: uppercase;
+}
+
+/* Button */
+.button, button {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    border-radius: 2px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #1976d2;
+    color: white;
+    border: none;
+}
+
+.button:hover, button:hover {
+    opacity: 0.8;
+    font-weight: normal;
+}
+
+.button:disabled, button:disabled {
+    opacity: 0.5;
+    cursor: auto;
+}
+
+/* Fancy Button */
+
+.fancy-button {
+    background-color: white;
+    color: #1976d2;
+}
+
+.fancy-button i.material-icons {
+    color: #1976d2;
+    padding-right: 4px;
+}
+
+/* Main Container */
+
+.container {
+    position: fixed;
+    left: 50%;
+    margin-left: -820px;
+    width: 1640px;
+    height: auto;
+    display: grid;
+    grid-template-rows: 70px auto 210px;
+}
+
+.header {
+    grid-row: 1/2;
+}
+
+.page-content {
+    grid-row: 2/3;
+}
+
+.footer {
+    grid-row: 3/4;
+}
+
+/* End of Main Container */
+
+/* Top Bar */
+
+app-top-bar {
+    width: 1640px;
+    height: 70px;
+    background-color: #ffffff;
+    padding: 16px;
+    position: fixed;
+    left: 50%;
+    top:0;
+    margin-left: -820px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    /*box-shadow: 0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12)*/
+}
+
+app-top-bar h1 {
+    color: white;
+    margin: 0;
+}
+
+/* Bottom Bar */
+app-bottom-bar{
+    background-color: #F8F8F8;
+    width: 1640px;
+    height: 210px;
+    position: fixed;
+    margin-top: 90px;
+    bottom: 0;
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between;
+}
+
+

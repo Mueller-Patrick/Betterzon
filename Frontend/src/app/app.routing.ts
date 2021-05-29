@@ -11,7 +11,7 @@ import {ImprintComponent} from './pages/imprint/imprint.component';
 import {PrivacyComponent} from './pages/privacy/privacy.component';
 
 const routes: Routes = [
-    {path: '', component: LandingpageComponent},
+    {path: '', component: LandingpageComponent, pathMatch: 'full'},
     {path: 'search', component: ProductSearchPageComponent},
     {path: 'product/:id', component: ProductDetailPageComponent},
     {path: 'impressum', component: ImprintComponent},
