@@ -1,4 +1,5 @@
 /* general settings */
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
 * {
     box-sizing: border-box;
