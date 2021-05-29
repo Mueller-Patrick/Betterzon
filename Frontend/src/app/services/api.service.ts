@@ -9,6 +9,7 @@ import {PriceAlarm} from '../models/pricealarm';
 import {FavoriteShop} from '../models/favoriteshop';
 import {ContactPerson} from '../models/contactperson';
 import {Category} from '../models/category';
+import {Manufacturer} from '../models/manufacturer';
 
 @Injectable({
     providedIn: 'root'
@@ -493,7 +494,7 @@ export class ApiService {
     /**
      * Gets the specified category from the API
      * @param id The id of the category to get
-     * @return Observable<Category> An observable containing a single product
+     * @return Observable<Category> An observable containing a single category
      */
     getCategoryById(id: number): Observable<Category> {
         try {
@@ -509,7 +510,7 @@ export class ApiService {
      * @param query The search term to match
      * @return Observable<Category[]> An observable list of categories
      */
-    getCategoryByQuery(query: string): Observable<Category[]> {
+    getCategoriesByQuery(query: string): Observable<Category[]> {
         try {
             return this.http.get<Category[]>((this.apiUrl + '/categories/search/' + query));
         } catch (exception) {
@@ -524,6 +525,52 @@ export class ApiService {
     getCategories(): Observable<Category[]> {
         try {
             return this.http.get<Category[]>((this.apiUrl + '/categories'));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+    /*     __  ___                  ____           __
+          /  |/  /___ _____  __  __/ __/___ ______/ /___  __________  __________
+         / /|_/ / __ `/ __ \/ / / / /_/ __ `/ ___/ __/ / / / ___/ _ \/ ___/ ___/
+        / /  / / /_/ / / / / /_/ / __/ /_/ / /__/ /_/ /_/ / /  /  __/ /  (__  )
+       /_/  /_/\__,_/_/ /_/\__,_/_/  \__,_/\___/\__/\__,_/_/   \___/_/  /____/
+     */
+
+    /**
+     * Gets the specified manufacturer from the API
+     * @param id The id of the manufacturer to get
+     * @return Observable<Manufacturer> An observable containing a single manufacturer
+     */
+    getManufacturerById(id: number): Observable<Manufacturer> {
+        try {
+            return this.http.get<Manufacturer>((this.apiUrl + '/manufacturers/' + id));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+
+    /**
+     * Gets a list of manufacturers that match the given search term
+     * @param query The search term to match
+     * @return Observable<Manufacturer[]> An observable list of manufacturers
+     */
+    getManufacturersByQuery(query: string): Observable<Manufacturer[]> {
+        try {
+            return this.http.get<Manufacturer[]>((this.apiUrl + '/manufacturers/search/' + query));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+    /**
+     * Gets a list of all manufacturers
+     * @return Observable<Manufacturer[]> An observable list of manufacturer
+     */
+    getManufacturers(): Observable<Manufacturer[]> {
+        try {
+            return this.http.get<Manufacturer[]>((this.apiUrl + '/manufacturers'));
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
