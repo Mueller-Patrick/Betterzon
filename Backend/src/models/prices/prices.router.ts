@@ -117,7 +117,7 @@ pricesRouter.post('/', async (req: Request, res: Response) => {
         const success = await PriceService.createPriceEntry(user.user_id, vendor_id, product_id, price_in_cents);
 
         if (success) {
-            res.sendStatus(200);
+            res.sendStatus(201);
         } else {
             res.sendStatus(500);
         }

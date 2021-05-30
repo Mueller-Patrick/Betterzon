@@ -85,11 +85,11 @@ pricealarmsRouter.put('/', async (req: Request, res: Response) => {
             return;
         }
 
-        // Create price alarm
+        // Update price alarm
         const success = await PriceAlarmsService.updatePriceAlarm(alarm_id, user.user_id, defined_price);
 
         if (success) {
-            res.status(201).send(JSON.stringify({success: true}));
+            res.status(200).send(JSON.stringify({success: true}));
             return;
         } else {
             res.status(500).send(JSON.stringify({success: false}));

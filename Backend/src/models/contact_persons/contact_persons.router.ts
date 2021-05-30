@@ -89,7 +89,7 @@ contactpersonsRouter.post('/', async (req: Request, res: Response) => {
         const success = await ContactPersonService.createContactEntry(user.user_id, vendor_id, first_name, last_name, gender, email, phone);
 
         if (success) {
-            res.sendStatus(200);
+            res.sendStatus(201);
         } else {
             res.sendStatus(500);
         }
