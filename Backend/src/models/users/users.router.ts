@@ -105,7 +105,7 @@ usersRouter.post('/checkSessionValid', async (req: Request, res: Response) => {
         }
 
         // Send the session details back to the user
-        res.status(201).send(user);
+        res.status(200).send(user);
     } catch (e) {
         console.log('Error handling a request: ' + e.message);
         res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
