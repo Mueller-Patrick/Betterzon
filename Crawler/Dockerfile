@@ -1,5 +1,5 @@
 # Base image
-FROM python:latest
+FROM python:3.9.5-buster
 
 # Create directories and copy files
 RUN echo 'Creating directory and copying files'
