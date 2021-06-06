@@ -1,10 +1,10 @@
 # Base image
-FROM python
+FROM python:latest
 
 # Create directories and copy files
 RUN echo 'Creating directory and copying files'
 RUN mkdir /crawler
-ADD . /crawler
+COPY . /crawler
 WORKDIR /crawler
 
 # Install dependencies
