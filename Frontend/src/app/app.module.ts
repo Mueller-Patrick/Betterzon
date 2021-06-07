@@ -32,10 +32,12 @@ import {BottomBarComponent} from './components/bottom-bar/bottom-bar.component';
 import { HotDealsWidgetComponent } from './components/hot-deals-widget/hot-deals-widget.component';
 import { SliderForProductsComponent } from './components/slider-for-products/slider-for-products.component';
 import { RegistrationComponent } from './components/auth/registration/registration.component';
-import { SigninComponent } from './components/auth/signin/signin.component';
 import { MatCardModule } from "@angular/material/card";
-import {MatFormField} from "@angular/material/form-field";
-
+import {SigninComponent} from "./components/auth/signin/signin.component";
+import { CopyrightComponent } from './components/copyright/copyright.component';
+import { GreetingInfoSliderComponent } from './components/greeting-info-slider/greeting-info-slider.component';
+import { KundenComponent } from './components/kunden/kunden.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
 
 // For cookie popup
 const cookieConfig: NgcCookieConsentConfig = {
@@ -96,6 +98,10 @@ const cookieConfig: NgcCookieConsentConfig = {
         SliderForProductsComponent,
         RegistrationComponent,
         SigninComponent,
+        CopyrightComponent,
+        GreetingInfoSliderComponent,
+        KundenComponent,
+        AboutUsComponent,
     ],
     imports: [
         BrowserModule,
@@ -113,7 +119,6 @@ const cookieConfig: NgcCookieConsentConfig = {
         MatListModule,
         MatButtonModule,
         MatIconModule,
-        MatFormField,
         RouterModule.forRoot([
             {path: '', component: LandingpageComponent},
         ]),
