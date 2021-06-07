@@ -13,7 +13,7 @@ import {NgApexchartsModule} from 'ng-apexcharts';
 import {ProductSearchPageComponent} from './pages/product-search-page/product-search-page.component';
 import {HeaderComponent} from './components/header/header.component';
 import {NewestPricesListComponent} from './components/newest-prices-list/newest-prices-list.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {PageNotFoundPageComponent} from './pages/page-not-found-page/page-not-found-page.component';
 import {MatMenuModule} from '@angular/material/menu';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -31,7 +31,13 @@ import {MatListModule} from "@angular/material/list";
 import {BottomBarComponent} from './components/bottom-bar/bottom-bar.component';
 import { HotDealsWidgetComponent } from './components/hot-deals-widget/hot-deals-widget.component';
 import { SliderForProductsComponent } from './components/slider-for-products/slider-for-products.component';
-
+import { RegistrationComponent } from './components/auth/registration/registration.component';
+import { MatCardModule } from "@angular/material/card";
+import {SigninComponent} from "./components/auth/signin/signin.component";
+import { CopyrightComponent } from './components/copyright/copyright.component';
+import { GreetingInfoSliderComponent } from './components/greeting-info-slider/greeting-info-slider.component';
+import { KundenComponent } from './components/kunden/kunden.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
 
 // For cookie popup
 const cookieConfig: NgcCookieConsentConfig = {
@@ -89,7 +95,13 @@ const cookieConfig: NgcCookieConsentConfig = {
         TopBarComponent,
         BottomBarComponent,
         HotDealsWidgetComponent,
-        SliderForProductsComponent
+        SliderForProductsComponent,
+        RegistrationComponent,
+        SigninComponent,
+        CopyrightComponent,
+        GreetingInfoSliderComponent,
+        KundenComponent,
+        AboutUsComponent,
     ],
     imports: [
         BrowserModule,
@@ -110,6 +122,8 @@ const cookieConfig: NgcCookieConsentConfig = {
         RouterModule.forRoot([
             {path: '', component: LandingpageComponent},
         ]),
+        MatCardModule,
+        ReactiveFormsModule,
     ],
     providers: [],
     bootstrap: [AppComponent]
