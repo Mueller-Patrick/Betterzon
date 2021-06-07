@@ -7,6 +7,10 @@ import {Observable, of} from 'rxjs';
 import {Vendor} from '../models/vendor';
 import {PriceAlarm} from '../models/pricealarm';
 import {FavoriteShop} from '../models/favoriteshop';
+import {ContactPerson} from '../models/contactperson';
+import {Category} from '../models/category';
+import {Manufacturer} from '../models/manufacturer';
+import {CrawlingStatus} from '../models/crawlingstatus';
 
 @Injectable({
     providedIn: 'root'
@@ -377,6 +381,218 @@ export class ApiService {
     deleteFavoriteShop(vendorId: number): Observable<any> {
         try {
             return this.http.delete((this.apiUrl + '/favoriteshops/' + vendorId));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+
+    /*     ______            __             __     ____
+          / ____/___  ____  / /_____ ______/ /_   / __ \___  ______________  ____  _____
+         / /   / __ \/ __ \/ __/ __ `/ ___/ __/  / /_/ / _ \/ ___/ ___/ __ \/ __ \/ ___/
+        / /___/ /_/ / / / / /_/ /_/ / /__/ /_   / ____/  __/ /  (__  ) /_/ / / / (__  )
+        \____/\____/_/ /_/\__/\__,_/\___/\__/  /_/    \___/_/  /____/\____/_/ /_/____/
+     */
+
+    /**
+     * Gets a list of all contact persons
+     * @return Observable<ContactPerson[]> An observable list of contact persons
+     */
+    getContactPersons(): Observable<ContactPerson[]> {
+        try {
+            return this.http.get<ContactPerson[]>((this.apiUrl + '/contactpersons'));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+    /**
+     * Gets the specified contact person by id
+     * @param id the id of the contact person to get info about
+     * @return Observable<ContactPerson> An observable containing a single contact person
+     */
+    getContactPersonById(id: number): Observable<ContactPerson> {
+        try {
+            return this.http.get<ContactPerson>((this.apiUrl + '/contactpersons/' + id));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+    /**
+     * Gets the contact persons for the specified vendor
+     * @param vendorId the id of the vendor to get the contact persons for
+     * @return Observable<ContactPerson[]> An observable list of contact persons
+     */
+    getContactPersonsByVendor(vendorId: number): Observable<ContactPerson[]> {
+        try {
+            return this.http.get<ContactPerson[]>((this.apiUrl + '/contactpersons/byvendor/' + vendorId));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+    /**
+     * Adds a contact person for the specified vendor
+     * @param vendorId The id of the vendor to mark as favorite
+     * @param firstName The given name of the contact person
+     * @param lastName The family name of the contact person
+     * @param gender The gender of the contact person
+     * @param email The email address of the contact person
+     * @param phone The phone number of the contact person
+     * @return Observable<any> The observable response of the api
+     */
+    addContactPerson(vendorId: number, firstName: string, lastName: string, gender: string, email: string, phone: string): Observable<any> {
+        try {
+            return this.http.post((this.apiUrl + '/contactpersons'), JSON.stringify({
+                vendor_id: vendorId,
+                first_name: firstName,
+                last_name: lastName,
+                gender,
+                email,
+                phone
+            }));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+    /**
+     * Updates the specified contact person record
+     * @param contactId The id of the contact person record
+     * @param vendorId The id of the vendor to mark as favorite
+     * @param firstName The given name of the contact person
+     * @param lastName The family name of the contact person
+     * @param gender The gender of the contact person
+     * @param email The email address of the contact person
+     * @param phone The phone number of the contact person
+     * @return Observable<any> The observable response of the api
+     */
+    updateContactPerson(contactId: number, vendorId: number, firstName: string, lastName: string, gender: string, email: string, phone: string): Observable<any> {
+        try {
+            return this.http.put((this.apiUrl + '/contactpersons/' + contactId), JSON.stringify({
+                vendor_id: vendorId,
+                first_name: firstName,
+                last_name: lastName,
+                gender,
+                email,
+                phone
+            }));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+
+    /*     ______      __                        _
+          / ____/___ _/ /____  ____ _____  _____(_)__  _____
+         / /   / __ `/ __/ _ \/ __ `/ __ \/ ___/ / _ \/ ___/
+        / /___/ /_/ / /_/  __/ /_/ / /_/ / /  / /  __(__  )
+        \____/\__,_/\__/\___/\__, /\____/_/  /_/\___/____/
+                            /____/
+     */
+
+    /**
+     * Gets the specified category from the API
+     * @param id The id of the category to get
+     * @return Observable<Category> An observable containing a single category
+     */
+    getCategoryById(id: number): Observable<Category> {
+        try {
+            return this.http.get<Category>((this.apiUrl + '/categories/' + id));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+
+    /**
+     * Gets a list of categories that match the given search term
+     * @param query The search term to match
+     * @return Observable<Category[]> An observable list of categories
+     */
+    getCategoriesByQuery(query: string): Observable<Category[]> {
+        try {
+            return this.http.get<Category[]>((this.apiUrl + '/categories/search/' + query));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+    /**
+     * Gets a list of all categories
+     * @return Observable<Category[]> An observable list of categories
+     */
+    getCategories(): Observable<Category[]> {
+        try {
+            return this.http.get<Category[]>((this.apiUrl + '/categories'));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+    /*     __  ___                  ____           __
+          /  |/  /___ _____  __  __/ __/___ ______/ /___  __________  __________
+         / /|_/ / __ `/ __ \/ / / / /_/ __ `/ ___/ __/ / / / ___/ _ \/ ___/ ___/
+        / /  / / /_/ / / / / /_/ / __/ /_/ / /__/ /_/ /_/ / /  /  __/ /  (__  )
+       /_/  /_/\__,_/_/ /_/\__,_/_/  \__,_/\___/\__/\__,_/_/   \___/_/  /____/
+     */
+
+    /**
+     * Gets the specified manufacturer from the API
+     * @param id The id of the manufacturer to get
+     * @return Observable<Manufacturer> An observable containing a single manufacturer
+     */
+    getManufacturerById(id: number): Observable<Manufacturer> {
+        try {
+            return this.http.get<Manufacturer>((this.apiUrl + '/manufacturers/' + id));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+
+    /**
+     * Gets a list of manufacturers that match the given search term
+     * @param query The search term to match
+     * @return Observable<Manufacturer[]> An observable list of manufacturers
+     */
+    getManufacturersByQuery(query: string): Observable<Manufacturer[]> {
+        try {
+            return this.http.get<Manufacturer[]>((this.apiUrl + '/manufacturers/search/' + query));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+    /**
+     * Gets a list of all manufacturers
+     * @return Observable<Manufacturer[]> An observable list of manufacturer
+     */
+    getManufacturers(): Observable<Manufacturer[]> {
+        try {
+            return this.http.get<Manufacturer[]>((this.apiUrl + '/manufacturers'));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+
+    /*     ______                    ___                _____ __        __
+          / ____/________ __      __/ (_)___  ____ _   / ___// /_____ _/ /___  _______
+         / /   / ___/ __ `/ | /| / / / / __ \/ __ `/   \__ \/ __/ __ `/ __/ / / / ___/
+        / /___/ /  / /_/ /| |/ |/ / / / / / / /_/ /   ___/ / /_/ /_/ / /_/ /_/ (__  )
+        \____/_/   \__,_/ |__/|__/_/_/_/ /_/\__, /   /____/\__/\__,_/\__/\__,_/____/
+                                           /____/
+     */
+
+    /**
+     * Gets the current crawling status
+     * @return Observable<CrawlingStatus> An observable containing a single crawling status object
+     */
+    getCurrentCrawlingStatus(): Observable<CrawlingStatus> {
+        try {
+            return this.http.get<CrawlingStatus>((this.apiUrl + '/crawlingstatus'));
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
