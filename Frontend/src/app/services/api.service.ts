@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import process from 'process';
 import {Product} from '../models/product';
-import {Price} from '../models/price';
+import {Deal, Price} from '../models/price';
 import {Observable, of} from 'rxjs';
 import {Vendor} from '../models/vendor';
 import {PriceAlarm} from '../models/pricealarm';
@@ -70,6 +70,60 @@ export class ApiService {
         }
     }
 
+    /**
+     * Gets a list of all specified products
+     * @param ids The ids of the products to get
+     * @return Observable<Product[]> An observable list of products
+     */
+    getProductsByIds(ids: number[]): Observable<Product[]> {
+        try {
+            return this.http.get<Product[]>((this.apiUrl + '/products/list/[' + ids.toString() + ']'));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+    /**
+     * Gets a list of all products that are available at the specified vendor
+     * @param vendor The vendor to get the products for
+     * @return Observable<Product[]> An observable list of products
+     */
+    getProductsByVendor(vendor: number): Observable<Product[]> {
+        try {
+            return this.http.get<Product[]>((this.apiUrl + '/products/vendor/' + vendor));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+    /**
+     * Creates a new product entry
+     * @param asinOrLink The amazon link or asin of the product
+     * @return Observable<any> The observable response of the api
+     */
+    addNewProduct(asinOrLink: string): Observable<any> {
+        let asin = '';
+
+        // Check if the parameter is a link or an asin
+        const linkRegex: RegExp = /^http[s]{0,1}:\/\/.*\/dp\/(.[^\/]*)\/{0,1}.*$/;
+        const matches = linkRegex.exec(asinOrLink);
+        if (matches) {
+            // param is a link, extract asin
+            asin = matches[1] ?? '';
+        } else {
+            // param is not a link, suspect it is an asin
+            asin = asinOrLink;
+        }
+
+        try {
+            return this.http.post((this.apiUrl + '/products'), JSON.stringify({
+                asin
+            }));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
 
     /*    ____       _
          / __ \_____(_)_______  _____
@@ -77,6 +131,19 @@ export class ApiService {
        / ____/ /  / / /__/  __(__  )
       /_/   /_/  /_/\___/\___/____/
      */
+
+    /**
+     * Gets the specified price from the API
+     * @param id The id of the price to get
+     * @return Observable<Price> An observable containing a single price
+     */
+    getPrice(id: number): Observable<Price> {
+        try {
+            return this.http.get<Price>((this.apiUrl + '/prices/' + id));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
 
     /**
      * Gets a list of all prices
@@ -139,6 +206,51 @@ export class ApiService {
         }
     }
 
+    /**
+     * Gets the currently best deals
+     * @param amount The amount of deals to get
+     * @return Observable<Deal[]> An observable list of deals
+     */
+    getBestDeals(amount: number): Observable<Deal[]> {
+        try {
+            return this.http.get<Deal[]>((this.apiUrl + '/prices/bestDeals/' + amount));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+    /**
+     * Gets a list of all prices for the specified product
+     * @param product The product to get prices for
+     * @return Observable<Price[]> An observable list of prices
+     */
+    getPricesByProduct(products: number[]): Observable<Price[]> {
+        try {
+            console.log('IDs: ' + products.toString());
+            return this.http.get<Price[]>((this.apiUrl + '/prices/byProduct/list/[' + products.toString() + ']'));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+    /**
+     * Creates a new price entry
+     * @param vendorId The vendor to add the price for
+     * @param productId The product to add the price to
+     * @param price The price in cents to add
+     * @return Observable<any> The observable response of the api
+     */
+    addNewPrice(vendorId: number, productId: number, price: number): Observable<any> {
+        try {
+            return this.http.post((this.apiUrl + '/prices'), JSON.stringify({
+                vendor_id: vendorId,
+                product_id: productId,
+                price_in_cents: price
+            }));
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
 
     /*  _    __               __
        | |  / /__  ____  ____/ /___  __________
