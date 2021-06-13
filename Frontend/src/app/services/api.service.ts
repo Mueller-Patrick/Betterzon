@@ -11,6 +11,7 @@ import {ContactPerson} from '../models/contactperson';
 import {Category} from '../models/category';
 import {Manufacturer} from '../models/manufacturer';
 import {CrawlingStatus} from '../models/crawlingstatus';
+import {log} from "util";
 
 @Injectable({
     providedIn: 'root'
