@@ -115,8 +115,8 @@ export const login = async (username: string, password: string, ip: string): Pro
         const sessionKeyHash = bcrypt.hashSync(sessionKey, 10);
 
         // Update user entry in SQL
-        const userQuery = 'UPDATE users SET last_login_date = NOW()';
-        const userIdRes = await conn.query(userQuery);
+        const userQuery = 'UPDATE users SET last_login_date = NOW() WHERE user_id = ?';
+        const userIdRes = await conn.query(userQuery, userId);
         await conn.commit();
 
         // Create session
