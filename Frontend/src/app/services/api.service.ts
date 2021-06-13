@@ -11,7 +11,7 @@ import {ContactPerson} from '../models/contactperson';
 import {Category} from '../models/category';
 import {Manufacturer} from '../models/manufacturer';
 import {CrawlingStatus} from '../models/crawlingstatus';
-import {log} from "util";
+import {log} from 'util';
 
 @Injectable({
     providedIn: 'root'
@@ -206,10 +206,10 @@ export class ApiService {
      */
     deactivateSingleVendorListing(vendorId: number, productId: number): Observable<any> {
         try {
-            return this.http.put((this.apiUrl + '/vendors/manage/deactivatelisting'), JSON.stringify({
+            return this.http.put((this.apiUrl + '/vendors/manage/deactivatelisting'), {
                 vendor_id: vendorId,
                 product_id: productId
-            }));
+            });
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
@@ -222,7 +222,7 @@ export class ApiService {
      */
     deactivateVendor(vendorId: number): Observable<any> {
         try {
-            return this.http.put((this.apiUrl + '/vendors/manage/shop/deactivate/' + vendorId), JSON.stringify({}));
+            return this.http.put((this.apiUrl + '/vendors/manage/shop/deactivate/' + vendorId), {});
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
@@ -235,7 +235,7 @@ export class ApiService {
      */
     activateVendor(vendorId: number): Observable<any> {
         try {
-            return this.http.put((this.apiUrl + '/vendors/manage/shop/activate/' + vendorId), JSON.stringify({}));
+            return this.http.put((this.apiUrl + '/vendors/manage/shop/activate/' + vendorId), {});
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
@@ -269,10 +269,10 @@ export class ApiService {
      */
     createPriceAlarms(productId: number, definedPrice: number): Observable<any> {
         try {
-            return this.http.post((this.apiUrl + '/pricealarms'), JSON.stringify({
+            return this.http.post((this.apiUrl + '/pricealarms'), {
                 product_id: productId,
                 defined_price: definedPrice
-            }));
+            });
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
@@ -286,10 +286,10 @@ export class ApiService {
      */
     updatePriceAlarms(alarmId: number, definedPrice: number): Observable<any> {
         try {
-            return this.http.put((this.apiUrl + '/pricealarms'), JSON.stringify({
+            return this.http.put((this.apiUrl + '/pricealarms'), {
                 alarm_id: alarmId,
                 defined_price: definedPrice
-            }));
+            });
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
@@ -312,11 +312,11 @@ export class ApiService {
      */
     registerUser(username: string, password: string, email: string): Observable<any> {
         try {
-            return this.http.post((this.apiUrl + '/users/register'), JSON.stringify({
+            return this.http.post((this.apiUrl + '/users/register'), {
                 username,
                 password,
                 email
-            }));
+            });
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
@@ -330,10 +330,10 @@ export class ApiService {
      */
     loginUser(username: string, password: string): Observable<any> {
         try {
-            return this.http.post((this.apiUrl + '/users/login'), JSON.stringify({
+            return this.http.post((this.apiUrl + '/users/login'), {
                 username,
                 password
-            }));
+            });
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
@@ -366,9 +366,9 @@ export class ApiService {
      */
     addFavoriteShop(vendorId: number): Observable<any> {
         try {
-            return this.http.post((this.apiUrl + '/favoriteshops'), JSON.stringify({
+            return this.http.post((this.apiUrl + '/favoriteshops'), {
                 vendor_id: vendorId
-            }));
+            });
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
@@ -445,14 +445,14 @@ export class ApiService {
      */
     addContactPerson(vendorId: number, firstName: string, lastName: string, gender: string, email: string, phone: string): Observable<any> {
         try {
-            return this.http.post((this.apiUrl + '/contactpersons'), JSON.stringify({
+            return this.http.post((this.apiUrl + '/contactpersons'), {
                 vendor_id: vendorId,
                 first_name: firstName,
                 last_name: lastName,
                 gender,
                 email,
                 phone
-            }));
+            });
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
@@ -471,14 +471,14 @@ export class ApiService {
      */
     updateContactPerson(contactId: number, vendorId: number, firstName: string, lastName: string, gender: string, email: string, phone: string): Observable<any> {
         try {
-            return this.http.put((this.apiUrl + '/contactpersons/' + contactId), JSON.stringify({
+            return this.http.put((this.apiUrl + '/contactpersons/' + contactId), {
                 vendor_id: vendorId,
                 first_name: firstName,
                 last_name: lastName,
                 gender,
                 email,
                 phone
-            }));
+            });
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
