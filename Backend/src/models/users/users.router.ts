@@ -50,7 +50,7 @@ usersRouter.post('/register', async (req: Request, res: Response) => {
         res.cookie('betterauth', JSON.stringify({
             id: session.session_id,
             key: session.session_key
-        }), {expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30)}).sendStatus(201);
+        }), {expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30)}).status(201).send({});
     } catch (e) {
         console.log('Error handling a request: ' + e.message);
         res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
@@ -83,7 +83,7 @@ usersRouter.post('/login', async (req: Request, res: Response) => {
         res.cookie('betterauth', JSON.stringify({
             id: session.session_id,
             key: session.session_key
-        }), {expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30)}).sendStatus(200);
+        }), {expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30)}).status(200).send({});
     } catch (e) {
         console.log('Error handling a request: ' + e.message);
         res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));

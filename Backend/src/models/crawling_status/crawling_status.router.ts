@@ -28,7 +28,7 @@ crawlingstatusRouter.get('/', async (req: Request, res: Response) => {
         const user = await UserService.checkSessionWithCookie(req.cookies.betterauth, user_ip);
 
         if (!user.is_admin) {
-            res.sendStatus(403);
+            res.status(403).send({});
             return;
         }
 
