@@ -1,0 +1,185 @@
+CREATE DATABASE `Betterzon`;
+
+USE `Betterzon`;
+
+create table categories
+(
+	category_id int auto_increment
+		primary key,
+	name text null
+);
+
+create table crawling_processes
+(
+	process_id int auto_increment
+		primary key,
+	started_timestamp datetime default current_timestamp() null,
+	combinations_to_crawl int null
+);
+
+create table manufacturers
+(
+	manufacturer_id int auto_increment
+		primary key,
+	name text null
+);
+
+create table products
+(
+	product_id int auto_increment
+		primary key,
+	asin text null,
+	is_active tinyint null,
+	name text null,
+	short_description text null,
+	long_description text null,
+	image_guid text null,
+	date_added date null,
+	last_modified datetime null,
+	manufacturer_id int null,
+	selling_rank text null,
+	category_id int null,
+	constraint FK_products_categories
+		foreign key (category_id) references categories (category_id),
+	constraint FK_products_manufacturers
+		foreign key (manufacturer_id) references manufacturers (manufacturer_id)
+);
+
+create table users
+(
+	user_id int auto_increment
+		primary key,
+	username text not null,
+	email text null,
+	bcrypt_password_hash text null,
+	registration_date datetime default current_timestamp() null,
+	last_login_date datetime default current_timestamp() null,
+	is_admin tinyint(1) default 0 null,
+	constraint users_username_uindex
+		unique (username) using hash
+);
+
+create table price_alarms
+(
+	alarm_id int auto_increment
+		primary key,
+	user_id int not null,
+	product_id int not null,
+	defined_price int null,
+	constraint price_alarms_products_product_id_fk
+		foreign key (product_id) references products (product_id)
+			on update cascade on delete cascade,
+	constraint price_alarms_users_user_id_fk
+		foreign key (user_id) references users (user_id)
+			on update cascade on delete cascade
+);
+
+create table sessions
+(
+	session_id int auto_increment
+		primary key,
+	user_id int not null,
+	session_key_hash text null,
+	createdDate datetime default current_timestamp() null,
+	lastLogin datetime null,
+	validUntil datetime null,
+	validDays int null,
+	last_IP text null,
+	constraint sessions_users_user_id_fk
+		foreign key (user_id) references users (user_id)
+			on update cascade on delete cascade
+);
+
+create table vendors
+(
+	vendor_id int auto_increment
+		primary key,
+	admin_id int null,
+	name text null,
+	streetname text null,
+	zip_code int null,
+	city text null,
+	country_code text null,
+	phone text null,
+	website text null,
+	isActive tinyint(1) default 1 not null,
+	constraint vendors_users_user_id_fk
+		foreign key (admin_id) references users (user_id)
+			on update set null on delete set null
+);
+
+create table contact_persons
+(
+	contact_person_id int auto_increment
+		primary key,
+	first_name text default '0' not null,
+	last_name text default '0' not null,
+	gender text default '0' not null,
+	email text default '0' not null,
+	phone text default '0' not null,
+	vendor_id int default 0 not null,
+	constraint FK_contact_persons_vendors
+		foreign key (vendor_id) references vendors (vendor_id)
+);
+
+create table crawling_status
+(
+	status_id int auto_increment
+		primary key,
+	process_id int not null,
+	instance_url text null,
+	product_id int not null,
+	vendor_id int not null,
+	success tinyint(1) not null,
+	constraint crawling_status_crawling_processes_process_id_fk
+		foreign key (process_id) references crawling_processes (process_id)
+			on update cascade on delete cascade,
+	constraint crawling_status_products_product_id_fk
+		foreign key (product_id) references products (product_id)
+			on update cascade on delete cascade,
+	constraint crawling_status_vendors_vendor_id_fk
+		foreign key (vendor_id) references vendors (vendor_id)
+			on update cascade on delete cascade
+);
+
+create table favorite_shops
+(
+	favorite_id int auto_increment
+		primary key,
+	vendor_id int not null,
+	user_id int not null,
+	constraint favorite_shops_users_user_id_fk
+		foreign key (user_id) references users (user_id)
+			on update cascade on delete cascade,
+	constraint favorite_shops_vendors_vendor_id_fk
+		foreign key (vendor_id) references vendors (vendor_id)
+			on update cascade on delete cascade
+);
+
+create table prices
+(
+	price_id int auto_increment
+		primary key,
+	product_id int default 0 null,
+	vendor_id int null,
+	price_in_cents int null,
+	timestamp datetime default current_timestamp() null,
+	active_listing tinyint(1) default 1 not null,
+	constraint FK_prices_products
+		foreign key (product_id) references products (product_id),
+	constraint FK_prices_vendors
+		foreign key (vendor_id) references vendors (vendor_id)
+);
+
+create table product_links
+(
+	product_link_id int auto_increment
+		primary key,
+	product_id int default 0 not null,
+	vendor_id int default 0 not null,
+	url text default '0' not null,
+	constraint FK__products
+		foreign key (product_id) references products (product_id),
+	constraint FK__vendors
+		foreign key (vendor_id) references vendors (vendor_id)
+);
