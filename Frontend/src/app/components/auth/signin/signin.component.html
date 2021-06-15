@@ -9,7 +9,7 @@
                     <h2>Anmelden</h2>
                 </div>
                 <div class="row">
-                    <form [formGroup]="form" class="form-group" (ngSubmit)="onSubmit()">
+                    <form [formGroup]="loginForm" class="form-group" (ngSubmit)="onSubmit()">
                         <div class="row">
                             <input type="text" formControlName="username" name="username" id="username" class="form__input" placeholder="Username">
                         </div>

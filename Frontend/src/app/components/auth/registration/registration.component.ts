@@ -32,7 +32,6 @@ export class RegistrationComponent implements OnInit {
   get me() { return this.form.controls; }
 
   onSubmit() {
-      console.log(this.form.value);
       this.api.registerUser(this.form.value.username, this.form.value.password, this.form.value.email).subscribe(res=>console.log(res));
   }
 }
