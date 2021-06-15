@@ -89,9 +89,9 @@ contactpersonsRouter.post('/', async (req: Request, res: Response) => {
         const success = await ContactPersonService.createContactEntry(user.user_id, vendor_id, first_name, last_name, gender, email, phone);
 
         if (success) {
-            res.sendStatus(201);
+            res.status(201).send({});
         } else {
-            res.sendStatus(500);
+            res.status(500).send({});
         }
     } catch (e) {
         console.log('Error handling a request: ' + e.message);
@@ -118,9 +118,9 @@ contactpersonsRouter.put('/:id', async (req: Request, res: Response) => {
         const success = await ContactPersonService.updateContactEntry(user.user_id, contact_person_id, vendor_id, first_name, last_name, gender, email, phone);
 
         if (success) {
-            res.sendStatus(200);
+            res.status(200).send({});
         } else {
-            res.sendStatus(500);
+            res.status(500).send({});
         }
     } catch (e) {
         console.log('Error handling a request: ' + e.message);

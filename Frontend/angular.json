@@ -92,7 +92,8 @@
                         "karmaConfig": "karma.conf.js",
                         "codeCoverage": true,
                         "codeCoverageExclude": [
-                            "src/app/mocks/mock.service.ts"
+                            "src/app/mocks/mock.service.ts",
+                            "src/app/services/api.service.ts"
                         ],
                         "assets": [
                             "src/favicon.ico",

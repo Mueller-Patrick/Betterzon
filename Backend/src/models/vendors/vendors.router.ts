@@ -100,9 +100,9 @@ vendorsRouter.put('/manage/deactivatelisting', async (req: Request, res: Respons
         const success = await VendorService.deactivateListing(user.user_id, vendor_id, product_id);
 
         if (success) {
-            res.sendStatus(200);
+            res.status(200).send({});
         } else {
-            res.sendStatus(500);
+            res.status(500).send({});
         }
     } catch (e) {
         console.log('Error handling a request: ' + e.message);
@@ -123,9 +123,9 @@ vendorsRouter.put('/manage/shop/deactivate/:id', async (req: Request, res: Respo
         const success = await VendorService.setShopStatus(user.user_id, vendor_id, false);
 
         if (success) {
-            res.sendStatus(200);
+            res.status(200).send({});
         } else {
-            res.sendStatus(500);
+            res.status(500).send({});
         }
     } catch (e) {
         console.log('Error handling a request: ' + e.message);
@@ -146,9 +146,9 @@ vendorsRouter.put('/manage/shop/activate/:id', async (req: Request, res: Respons
         const success = await VendorService.setShopStatus(user.user_id, vendor_id, true);
 
         if (success) {
-            res.sendStatus(200);
+            res.status(200).send({});
         } else {
-            res.sendStatus(500);
+            res.status(500).send({});
         }
     } catch (e) {
         console.log('Error handling a request: ' + e.message);

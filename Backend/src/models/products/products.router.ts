@@ -120,7 +120,7 @@ productsRouter.post('/', async (req: Request, res: Response) => {
         const result: boolean = await ProductService.addNewProduct(asin);
 
         if (result) {
-            res.sendStatus(201);
+            res.status(201).send({});
         } else {
             res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
         }
