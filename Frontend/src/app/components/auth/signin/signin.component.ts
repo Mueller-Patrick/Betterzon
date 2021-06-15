@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {ApiService} from "../../../services/api.service";
-import {Router} from "@angular/router";
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ApiService} from '../../../services/api.service';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-signin',
@@ -23,33 +23,34 @@ export class SigninComponent implements OnInit {
         private formBuilder: FormBuilder,
         private api: ApiService,
         private router: Router
-    ) { }
+    ) {
+    }
 
     ngOnInit(): void {
-          this.loginForm = this.formBuilder.group({
-              username: ['', Validators.required],
-              password: ['', [Validators.required, Validators.minLength(8)]]
-          });
-      }
+        this.loginForm = this.formBuilder.group({
+            username: ['', Validators.required],
+            password: ['', [Validators.required, Validators.minLength(8)]]
+        });
+    }
 
-      onSubmit() {
+    onSubmit(): void {
+        this.submitted = true;
 
-          this.submitted = true;
+        if (this.loginForm.invalid) {
+            return;
+        }
 
-          if (this.loginForm.invalid) {
-              return;
-          }
-
-          this.api.loginUser(this.loginForm.value.username, this.loginForm.value.password)
-              .subscribe(
-                  data => {
-                      this.router.navigate(['']);
-                      this.isSuccessful = true;
-                      this.isSignUpFailed = false;
-                  },
-                  err => {
-                      this.errorMessage = err.error.message;
-                      this.isSignUpFailed = true;
-              })
-      }
+        this.api.loginUser(this.loginForm.value.username, this.loginForm.value.password)
+            .subscribe(
+                data => {
+                    this.router.navigate(['']);
+                    this.isSuccessful = true;
+                    this.isSignUpFailed = false;
+                    this.api.saveSessionInfoToLocalStorage(data);
+                },
+                err => {
+                    this.errorMessage = err.error.message;
+                    this.isSignUpFailed = true;
+                });
+    }
 }

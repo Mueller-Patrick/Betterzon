@@ -76,7 +76,9 @@ contactpersonsRouter.post('/', async (req: Request, res: Response) => {
     try {
         // Authenticate user
         const user_ip = req.connection.remoteAddress ?? '';
-        const user = await UserService.checkSessionWithCookie(req.cookies.betterauth, user_ip);
+        const session_id = req.body.session_id;
+        const session_key = req.body.session_key;
+        const user = await UserService.checkSession(session_id, session_key, user_ip);
 
         // Get required parameters
         const vendor_id = req.body.vendor_id;
@@ -104,7 +106,9 @@ contactpersonsRouter.put('/:id', async (req: Request, res: Response) => {
     try {
         // Authenticate user
         const user_ip = req.connection.remoteAddress ?? '';
-        const user = await UserService.checkSessionWithCookie(req.cookies.betterauth, user_ip);
+        const session_id = req.body.session_id;
+        const session_key = req.body.session_key;
+        const user = await UserService.checkSession(session_id, session_key, user_ip);
 
         // Get required parameters
         const contact_person_id = parseInt(req.params.id, 10);

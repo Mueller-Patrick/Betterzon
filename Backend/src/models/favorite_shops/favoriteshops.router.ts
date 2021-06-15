@@ -24,7 +24,9 @@ favoriteshopsRouter.get('/', async (req: Request, res: Response) => {
     try {
         // Authenticate user
         const user_ip = req.connection.remoteAddress ?? '';
-        const user = await UserService.checkSessionWithCookie(req.cookies.betterauth, user_ip);
+        const session_id = req.params.session_id;
+        const session_key = req.params.session_key;
+        const user = await UserService.checkSession(session_id, session_key, user_ip);
 
         const priceAlarms = await FavoriteShopsService.getFavoriteShops(user.user_id);
 
@@ -40,7 +42,9 @@ favoriteshopsRouter.post('/', async (req: Request, res: Response) => {
     try {
         // Authenticate user
         const user_ip = req.connection.remoteAddress ?? '';
-        const user = await UserService.checkSessionWithCookie(req.cookies.betterauth, user_ip);
+        const session_id = req.body.session_id;
+        const session_key = req.body.session_key;
+        const user = await UserService.checkSession(session_id, session_key, user_ip);
 
         // Get info for price alarm creation
         const vendor_id = req.body.vendor_id;
@@ -72,7 +76,9 @@ favoriteshopsRouter.delete('/:id', async (req: Request, res: Response) => {
     try {
         // Authenticate user
         const user_ip = req.connection.remoteAddress ?? '';
-        const user = await UserService.checkSessionWithCookie(req.cookies.betterauth, user_ip);
+        const session_id = req.params.session_id;
+        const session_key = req.params.session_key;
+        const user = await UserService.checkSession(session_id, session_key, user_ip);
 
         // Get info for price alarm creation
         const favorite_id = parseInt(req.params.id, 10);
