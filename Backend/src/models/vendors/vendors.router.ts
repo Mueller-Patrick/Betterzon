@@ -37,8 +37,8 @@ vendorsRouter.get('/managed', async (req: Request, res: Response) => {
     try {
         // Authenticate user
         const user_ip = req.connection.remoteAddress ?? '';
-        const session_id = req.params.session_id;
-        const session_key = req.params.session_key;
+        const session_id = (req.query.session_id ?? '').toString();
+        const session_key = (req.query.session_key ?? '').toString();
         const user = await UserService.checkSession(session_id, session_key, user_ip);
 
         const vendors = await VendorService.getManagedShops(user.user_id);
