@@ -11,4 +11,5 @@ export interface Product {
     manufacturer_id: number;
     selling_rank: string;
     category_id: number;
+    price: number;
 }

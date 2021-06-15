@@ -37,7 +37,9 @@ vendorsRouter.get('/managed', async (req: Request, res: Response) => {
     try {
         // Authenticate user
         const user_ip = req.connection.remoteAddress ?? '';
-        const user = await UserService.checkSessionWithCookie(req.cookies.betterauth, user_ip);
+        const session_id = req.params.session_id;
+        const session_key = req.params.session_key;
+        const user = await UserService.checkSession(session_id, session_key, user_ip);
 
         const vendors = await VendorService.getManagedShops(user.user_id);
 
@@ -91,7 +93,9 @@ vendorsRouter.put('/manage/deactivatelisting', async (req: Request, res: Respons
     try {
         // Authenticate user
         const user_ip = req.connection.remoteAddress ?? '';
-        const user = await UserService.checkSessionWithCookie(req.cookies.betterauth, user_ip);
+        const session_id = req.body.session_id;
+        const session_key = req.body.session_key;
+        const user = await UserService.checkSession(session_id, session_key, user_ip);
 
         // Get required parameters
         const vendor_id = req.body.vendor_id;
@@ -115,7 +119,9 @@ vendorsRouter.put('/manage/shop/deactivate/:id', async (req: Request, res: Respo
     try {
         // Authenticate user
         const user_ip = req.connection.remoteAddress ?? '';
-        const user = await UserService.checkSessionWithCookie(req.cookies.betterauth, user_ip);
+        const session_id = req.body.session_id;
+        const session_key = req.body.session_key;
+        const user = await UserService.checkSession(session_id, session_key, user_ip);
 
         // Get required parameters
         const vendor_id = parseInt(req.params.id, 10);
@@ -138,7 +144,9 @@ vendorsRouter.put('/manage/shop/activate/:id', async (req: Request, res: Respons
     try {
         // Authenticate user
         const user_ip = req.connection.remoteAddress ?? '';
-        const user = await UserService.checkSessionWithCookie(req.cookies.betterauth, user_ip);
+        const session_id = req.body.session_id;
+        const session_key = req.body.session_key;
+        const user = await UserService.checkSession(session_id, session_key, user_ip);
 
         // Get required parameters
         const vendor_id = parseInt(req.params.id, 10);

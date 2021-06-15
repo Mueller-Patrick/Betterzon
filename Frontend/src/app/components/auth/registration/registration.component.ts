@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {ApiService} from "../../../services/api.service";
+
 
 @Component({
   selector: 'app-registration',
@@ -6,10 +9,29 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
+    form: any;
+    loading = false;
+    submitted = false;
 
-  constructor() { }
+  constructor(
+      private formBuilder: FormBuilder,
+      private api : ApiService
+  ) { }
 
   ngOnInit(): void {
+      this.form = this.formBuilder.group({
+          username: ['', Validators.required],
+          email: ['', Validators.required],
+          password: ['', [
+              Validators.required,
+              Validators.minLength(8)]
+          ],
+      });
   }
 
+  get me() { return this.form.controls; }
+
+  onSubmit() {
+      this.api.registerUser(this.form.value.username, this.form.value.password, this.form.value.email).subscribe(res=>console.log(res));
+  }
 }
