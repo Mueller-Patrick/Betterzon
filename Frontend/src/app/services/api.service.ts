@@ -11,6 +11,7 @@ import {ContactPerson} from '../models/contactperson';
 import {Category} from '../models/category';
 import {Manufacturer} from '../models/manufacturer';
 import {CrawlingStatus} from '../models/crawlingstatus';
+import {log} from 'util';
 
 @Injectable({
     providedIn: 'root'
@@ -242,7 +243,11 @@ export class ApiService {
      */
     addNewPrice(vendorId: number, productId: number, price: number): Observable<any> {
         try {
+            const sessionInfo = this.getSessionInfoFromLocalStorage();
+
             return this.http.post((this.apiUrl + '/prices'), JSON.stringify({
+                session_id: sessionInfo.session_id,
+                session_key: sessionInfo.session_key,
                 vendor_id: vendorId,
                 product_id: productId,
                 price_in_cents: price
@@ -277,7 +282,13 @@ export class ApiService {
      */
     getManagedVendors(): Observable<Vendor[]> {
         try {
-            return this.http.get<Vendor[]>((this.apiUrl + '/vendors/managed'));
+            const sessionInfo = this.getSessionInfoFromLocalStorage();
+
+            let params = new HttpParams();
+            params = params.append('session_id', sessionInfo.session_id);
+            params = params.append('session_key', sessionInfo.session_key);
+
+            return this.http.get<Vendor[]>((this.apiUrl + '/vendors/managed'), {params});
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
@@ -317,10 +328,14 @@ export class ApiService {
      */
     deactivateSingleVendorListing(vendorId: number, productId: number): Observable<any> {
         try {
-            return this.http.put((this.apiUrl + '/vendors/manage/deactivatelisting'), JSON.stringify({
+            const sessionInfo = this.getSessionInfoFromLocalStorage();
+
+            return this.http.put((this.apiUrl + '/vendors/manage/deactivatelisting'), {
+                session_id: sessionInfo.session_id,
+                session_key: sessionInfo.session_key,
                 vendor_id: vendorId,
                 product_id: productId
-            }));
+            });
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
@@ -333,7 +348,12 @@ export class ApiService {
      */
     deactivateVendor(vendorId: number): Observable<any> {
         try {
-            return this.http.put((this.apiUrl + '/vendors/manage/shop/deactivate/' + vendorId), JSON.stringify({}));
+            const sessionInfo = this.getSessionInfoFromLocalStorage();
+
+            return this.http.put((this.apiUrl + '/vendors/manage/shop/deactivate/' + vendorId), {
+                session_id: sessionInfo.session_id,
+                session_key: sessionInfo.session_key,
+            });
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
@@ -346,7 +366,12 @@ export class ApiService {
      */
     activateVendor(vendorId: number): Observable<any> {
         try {
-            return this.http.put((this.apiUrl + '/vendors/manage/shop/activate/' + vendorId), JSON.stringify({}));
+            const sessionInfo = this.getSessionInfoFromLocalStorage();
+
+            return this.http.put((this.apiUrl + '/vendors/manage/shop/activate/' + vendorId), {
+                session_id: sessionInfo.session_id,
+                session_key: sessionInfo.session_key,
+            });
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
@@ -366,7 +391,13 @@ export class ApiService {
      */
     getPriceAlarms(): Observable<PriceAlarm[]> {
         try {
-            return this.http.get<PriceAlarm[]>((this.apiUrl + '/pricealarms'));
+            const sessionInfo = this.getSessionInfoFromLocalStorage();
+
+            let params = new HttpParams();
+            params = params.append('session_id', sessionInfo.session_id);
+            params = params.append('session_key', sessionInfo.session_key);
+
+            return this.http.get<PriceAlarm[]>((this.apiUrl + '/pricealarms'), {params});
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
@@ -380,10 +411,14 @@ export class ApiService {
      */
     createPriceAlarms(productId: number, definedPrice: number): Observable<any> {
         try {
-            return this.http.post((this.apiUrl + '/pricealarms'), JSON.stringify({
+            const sessionInfo = this.getSessionInfoFromLocalStorage();
+
+            return this.http.post((this.apiUrl + '/pricealarms'), {
+                session_id: sessionInfo.session_id,
+                session_key: sessionInfo.session_key,
                 product_id: productId,
                 defined_price: definedPrice
-            }));
+            });
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
@@ -397,10 +432,14 @@ export class ApiService {
      */
     updatePriceAlarms(alarmId: number, definedPrice: number): Observable<any> {
         try {
-            return this.http.put((this.apiUrl + '/pricealarms'), JSON.stringify({
+            const sessionInfo = this.getSessionInfoFromLocalStorage();
+
+            return this.http.put((this.apiUrl + '/pricealarms'), {
+                session_id: sessionInfo.session_id,
+                session_key: sessionInfo.session_key,
                 alarm_id: alarmId,
                 defined_price: definedPrice
-            }));
+            });
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
@@ -423,11 +462,11 @@ export class ApiService {
      */
     registerUser(username: string, password: string, email: string): Observable<any> {
         try {
-            return this.http.post((this.apiUrl + '/users/register'), JSON.stringify({
+            return this.http.post((this.apiUrl + '/users/register'), {
                 username,
                 password,
                 email
-            }));
+            });
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
@@ -441,13 +480,50 @@ export class ApiService {
      */
     loginUser(username: string, password: string): Observable<any> {
         try {
-            return this.http.post((this.apiUrl + '/users/login'), JSON.stringify({
+            return this.http.post((this.apiUrl + '/users/login'), {
                 username,
                 password
-            }));
+            });
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
+    }
+
+    /**
+     * Get all required information about the currently logged in user. If the user is not logged in or the
+     * session is not valid anymore, a 401 will come back from the backend.
+     * @return Observable<any> The observable response of the api
+     */
+    getUserInfo(): Observable<any> {
+        try {
+            const sessionInfo = this.getSessionInfoFromLocalStorage();
+            return this.http.post((this.apiUrl + '/users/checkSessionValid'), {
+                session_id: sessionInfo.session_id,
+                session_key: sessionInfo.session_key
+            });
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
+    /**
+     * Gets session id and session key from local storage
+     * @return any {session_id: '', session_key: ''}
+     */
+    getSessionInfoFromLocalStorage(): any {
+        const session_id = localStorage.getItem('session_id') ?? '';
+        const session_key = localStorage.getItem('session_key') ?? '';
+        return {session_id, session_key};
+    }
+
+    /**
+     * Extracts and saves the session data from an api response
+     * @param data The api response
+     */
+    saveSessionInfoToLocalStorage(data: any): boolean {
+        localStorage.setItem('session_id', data.session_id);
+        localStorage.setItem('session_key', data.session_key);
+        return true;
     }
 
     /*       ______                       _ __               __
@@ -464,7 +540,13 @@ export class ApiService {
      */
     getFavoriteShops(): Observable<FavoriteShop[]> {
         try {
-            return this.http.get<FavoriteShop[]>((this.apiUrl + '/favoriteshops'));
+            const sessionInfo = this.getSessionInfoFromLocalStorage();
+
+            let params = new HttpParams();
+            params = params.append('session_id', sessionInfo.session_id);
+            params = params.append('session_key', sessionInfo.session_key);
+
+            return this.http.get<FavoriteShop[]>((this.apiUrl + '/favoriteshops'), {params});
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
@@ -477,9 +559,13 @@ export class ApiService {
      */
     addFavoriteShop(vendorId: number): Observable<any> {
         try {
-            return this.http.post((this.apiUrl + '/favoriteshops'), JSON.stringify({
+            const sessionInfo = this.getSessionInfoFromLocalStorage();
+
+            return this.http.post((this.apiUrl + '/favoriteshops'), {
+                session_id: sessionInfo.session_id,
+                session_key: sessionInfo.session_key,
                 vendor_id: vendorId
-            }));
+            });
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
@@ -492,7 +578,13 @@ export class ApiService {
      */
     deleteFavoriteShop(vendorId: number): Observable<any> {
         try {
-            return this.http.delete((this.apiUrl + '/favoriteshops/' + vendorId));
+            const sessionInfo = this.getSessionInfoFromLocalStorage();
+
+            let params = new HttpParams();
+            params = params.append('session_id', sessionInfo.session_id);
+            params = params.append('session_key', sessionInfo.session_key);
+
+            return this.http.delete((this.apiUrl + '/favoriteshops/' + vendorId), {params});
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
@@ -556,14 +648,18 @@ export class ApiService {
      */
     addContactPerson(vendorId: number, firstName: string, lastName: string, gender: string, email: string, phone: string): Observable<any> {
         try {
-            return this.http.post((this.apiUrl + '/contactpersons'), JSON.stringify({
+            const sessionInfo = this.getSessionInfoFromLocalStorage();
+
+            return this.http.post((this.apiUrl + '/contactpersons'), {
+                session_id: sessionInfo.session_id,
+                session_key: sessionInfo.session_key,
                 vendor_id: vendorId,
                 first_name: firstName,
                 last_name: lastName,
                 gender,
                 email,
                 phone
-            }));
+            });
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
@@ -582,14 +678,18 @@ export class ApiService {
      */
     updateContactPerson(contactId: number, vendorId: number, firstName: string, lastName: string, gender: string, email: string, phone: string): Observable<any> {
         try {
-            return this.http.put((this.apiUrl + '/contactpersons/' + contactId), JSON.stringify({
+            const sessionInfo = this.getSessionInfoFromLocalStorage();
+
+            return this.http.put((this.apiUrl + '/contactpersons/' + contactId), {
+                session_id: sessionInfo.session_id,
+                session_key: sessionInfo.session_key,
                 vendor_id: vendorId,
                 first_name: firstName,
                 last_name: lastName,
                 gender,
                 email,
                 phone
-            }));
+            });
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }
@@ -704,7 +804,13 @@ export class ApiService {
      */
     getCurrentCrawlingStatus(): Observable<CrawlingStatus> {
         try {
-            return this.http.get<CrawlingStatus>((this.apiUrl + '/crawlingstatus'));
+            const sessionInfo = this.getSessionInfoFromLocalStorage();
+
+            let params = new HttpParams();
+            params = params.append('session_id', sessionInfo.session_id);
+            params = params.append('session_key', sessionInfo.session_key);
+
+            return this.http.get<CrawlingStatus>((this.apiUrl + '/crawlingstatus'), {params});
         } catch (exception) {
             process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
         }

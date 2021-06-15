@@ -61,7 +61,7 @@ form{
 }
 .btn_signin{
     transition: all .5s ease;
-    width: 70%;
+    width: 100%;
     border-radius: 30px;
     color:#008080;
     font-weight: 600;

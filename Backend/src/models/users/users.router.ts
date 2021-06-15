@@ -47,10 +47,10 @@ usersRouter.post('/register', async (req: Request, res: Response) => {
         const session: Session = await UserService.createUser(username, password, email, ip);
 
         // Send the session details back to the user
-        res.cookie('betterauth', JSON.stringify({
-            id: session.session_id,
-            key: session.session_key
-        }), {expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30)}).status(201).send({});
+        res.status(201).send({
+            session_id: session.session_id,
+            session_key: session.session_key
+        });
     } catch (e) {
         console.log('Error handling a request: ' + e.message);
         res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
@@ -80,10 +80,10 @@ usersRouter.post('/login', async (req: Request, res: Response) => {
         }
 
         // Send the session details back to the user
-        res.cookie('betterauth', JSON.stringify({
-            id: session.session_id,
-            key: session.session_key
-        }), {expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30)}).status(200).send({});
+        res.status(200).send({
+            session_id: session.session_id,
+            session_key: session.session_key
+        });
     } catch (e) {
         console.log('Error handling a request: ' + e.message);
         res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
@@ -94,9 +94,17 @@ usersRouter.post('/login', async (req: Request, res: Response) => {
 usersRouter.post('/checkSessionValid', async (req: Request, res: Response) => {
     try {
         const ip: string = req.connection.remoteAddress ?? '';
+        const session_id = req.body.session_id;
+        const session_key = req.body.session_key;
+
+        if(!session_id || !session_key) {
+            // Error logging in, probably wrong username / password
+            res.status(401).send(JSON.stringify({messages: ['No session detected'], codes: [5]}));
+            return;
+        }
 
         // Update the user entry and create a session
-        const user: User = await UserService.checkSessionWithCookie(req.cookies.betterauth, ip);
+        const user: User = await UserService.checkSession(session_id, session_key, ip);
 
         if (!user.user_id) {
             // Error logging in, probably wrong username / password

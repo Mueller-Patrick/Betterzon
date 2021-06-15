@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ApiService} from "../../services/api.service";
+
 
 @Component({
   selector: 'app-top-bar',
@@ -9,9 +11,12 @@ export class TopBarComponent implements OnInit {
 
   sidenav: any;
 
-  constructor() { }
+  constructor(
+      private api: ApiService
+  ) { }
 
     ngOnInit() {
-    }
 
+        this.api.getUserInfo().subscribe(data=>{console.log(data)});
+    }
 }

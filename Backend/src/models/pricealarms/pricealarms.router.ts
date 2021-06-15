@@ -24,7 +24,9 @@ pricealarmsRouter.get('/', async (req: Request, res: Response) => {
     try {
         // Authenticate user
         const user_ip = req.connection.remoteAddress ?? '';
-        const user = await UserService.checkSessionWithCookie(req.cookies.betterauth, user_ip);
+        const session_id = req.params.session_id;
+        const session_key = req.params.session_key;
+        const user = await UserService.checkSession(session_id, session_key, user_ip);
 
         const priceAlarms = await PriceAlarmsService.getPriceAlarms(user.user_id);
 
@@ -40,7 +42,9 @@ pricealarmsRouter.post('/', async (req: Request, res: Response) => {
     try {
         // Authenticate user
         const user_ip = req.connection.remoteAddress ?? '';
-        const user = await UserService.checkSessionWithCookie(req.cookies.betterauth, user_ip);
+        const session_id = req.body.session_id;
+        const session_key = req.body.session_key;
+        const user = await UserService.checkSession(session_id, session_key, user_ip);
 
         // Get info for price alarm creation
         const product_id = req.body.product_id;
@@ -73,7 +77,9 @@ pricealarmsRouter.put('/', async (req: Request, res: Response) => {
     try {
         // Authenticate user
         const user_ip = req.connection.remoteAddress ?? '';
-        const user = await UserService.checkSessionWithCookie(req.cookies.betterauth, user_ip);
+        const session_id = req.body.session_id;
+        const session_key = req.body.session_key;
+        const user = await UserService.checkSession(session_id, session_key, user_ip);
 
         // Get info for price alarm creation
         const alarm_id = req.body.alarm_id;
