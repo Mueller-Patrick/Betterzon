@@ -5,3 +5,4 @@ flask_restful
 beautifulsoup4
 requests
 lxml
+cloudscraper
