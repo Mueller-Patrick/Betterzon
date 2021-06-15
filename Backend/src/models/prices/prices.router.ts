@@ -6,6 +6,7 @@ import express, {Request, Response} from 'express';
 import * as PriceService from './prices.service';
 import {Price} from './price.interface';
 import {Prices} from './prices.interface';
+import * as UserService from '../users/users.service';
 
 
 /**
@@ -19,20 +20,32 @@ export const pricesRouter = express.Router();
  * Controller Definitions
  */
 
-// GET items/
-
+// GET prices/
 pricesRouter.get('/', async (req: Request, res: Response) => {
     try {
-        const prices: Prices = await PriceService.findAll();
+        let prices: Prices = [];
+        const product = req.query.product;
+        const vendor = req.query.vendor;
+        const type = req.query.type;
+
+        if (product) {
+            if (vendor) {
+                prices = await PriceService.findByVendor(<string> product, <string> vendor, <string> type);
+            } else {
+                prices = await PriceService.findByType(<string> product, <string> type);
+            }
+        } else {
+            prices = await PriceService.findAll();
+        }
 
         res.status(200).send(prices);
     } catch (e) {
-        res.status(404).send(e.message);
+        console.log('Error handling a request: ' + e.message);
+        res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
     }
 });
 
-// GET items/:id
-
+// GET prices/:id
 pricesRouter.get('/:id', async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
 
@@ -46,67 +59,72 @@ pricesRouter.get('/:id', async (req: Request, res: Response) => {
 
         res.status(200).send(price);
     } catch (e) {
-        res.status(404).send(e.message);
+        console.log('Error handling a request: ' + e.message);
+        res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
     }
 });
 
-// GET items/:name
+// GET prices/bestDeals
+pricesRouter.get('/bestDeals/:amount', async (req: Request, res: Response) => {
+    const amount: number = parseInt(req.params.amount, 10);
 
-pricesRouter.get('/products/:id', async (req: Request, res: Response) => {
-    const id: number = parseInt(req.params.id, 10);
-
-    if (!id) {
+    if (!amount) {
         res.status(400).send('Missing parameters.');
         return;
     }
 
     try {
-        const prices: Prices = await PriceService.findByProduct(id);
+        const prices: Prices = await PriceService.getBestDeals(amount);
 
         res.status(200).send(prices);
     } catch (e) {
-        res.status(404).send(e.message);
+        console.log('Error handling a request: ' + e.message);
+        res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
     }
 });
 
+// GET prices/byProduct/list/[]
+pricesRouter.get('/byProduct/list/:ids', async (req: Request, res: Response) => {
+    const productIds: [number] = JSON.parse(req.params.ids);
 
-// POST items/
+    if (!productIds) {
+        res.status(400).send('Missing parameters.');
+        return;
+    }
 
-// pricesRouter.post('/', async (req: Request, res: Response) => {
-//     try {
-//         const category: Category = req.body.category;
-//
-//         await CategoryService.create(category);
-//
-//         res.sendStatus(201);
-//     } catch (e) {
-//         res.status(404).send(e.message);
-//     }
-// });
-//
-// // PUT items/
-//
-// pricesRouter.put('/', async (req: Request, res: Response) => {
-//     try {
-//         const category: Category = req.body.category;
-//
-//         await CategoryService.update(category);
-//
-//         res.sendStatus(200);
-//     } catch (e) {
-//         res.status(500).send(e.message);
-//     }
-// });
-//
-// // DELETE items/:id
-//
-// pricesRouter.delete('/:id', async (req: Request, res: Response) => {
-//     try {
-//         const id: number = parseInt(req.params.id, 10);
-//         await CategoryService.remove(id);
-//
-//         res.sendStatus(200);
-//     } catch (e) {
-//         res.status(500).send(e.message);
-//     }
-// });
+    try {
+        const prices: Prices = await PriceService.findListByProducts(productIds);
+
+        res.status(200).send(prices);
+    } catch (e) {
+        console.log('Error handling a request: ' + e.message);
+        res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
+    }
+});
+
+// POST prices/
+pricesRouter.post('/', async (req: Request, res: Response) => {
+    try {
+        // Authenticate user
+        const user_ip = req.connection.remoteAddress ?? '';
+        const session_id = req.body.session_id;
+        const session_key = req.body.session_key;
+        const user = await UserService.checkSession(session_id, session_key, user_ip);
+
+        // Get required parameters
+        const vendor_id = req.body.vendor_id;
+        const product_id = req.body.product_id;
+        const price_in_cents = req.body.price_in_cents;
+
+        const success = await PriceService.createPriceEntry(user.user_id, vendor_id, product_id, price_in_cents);
+
+        if (success) {
+            res.status(201).send({});
+        } else {
+            res.status(500).send({});
+        }
+    } catch (e) {
+        console.log('Error handling a request: ' + e.message);
+        res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
+    }
+});

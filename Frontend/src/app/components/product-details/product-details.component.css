@@ -1,0 +1,88 @@
+/* Div that contains each product */
+.productItem {
+    padding: .25em;
+    margin: auto;
+    margin-bottom: .5em;
+    display: grid;
+    grid-template-columns: 20% 25% 25% 30%;
+    grid-template-areas:
+    'image title title priceChart'
+    'image description description priceChart'
+    'image priceAlarm bestPrice blank';
+}
+
+/* Image div */
+.productImageContainer {
+    grid-area: image;
+    position: relative;
+}
+
+/* Product Image */
+.productImage {
+    max-width: 300px;
+    max-height: 300px;
+    display: block;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+/* Title div */
+.productTitle {
+    grid-area: title;
+    font-size: 2em;
+    font-family: sans-serif;
+}
+
+/* Price div */
+.priceChart {
+    grid-area: priceChart;
+    text-align: center;
+    margin: auto;
+}
+
+/* Description div */
+.productDescription {
+    grid-area: description;
+}
+
+/* Price alarm div */
+.priceAlarm {
+    grid-area: priceAlarm;
+    border-style: solid;
+    border-color: dimgrey;
+    border-radius: 5px;
+    padding: .25em;
+    margin: auto;
+    font-size: 1.5em;
+}
+
+/* Best price container div */
+.bestPriceContainer {
+    grid-area: bestPrice;
+}
+
+/* best price div */
+.bestPrice {
+    border-style: solid;
+    border-color: dimgrey;
+    border-radius: 5px;
+    padding: .25em;
+    margin: auto;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+/* amazon price div */
+.amazonPrice {
+    margin-top: .5em;
+    text-align: center;
+}
+
+.priceAlarm:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}

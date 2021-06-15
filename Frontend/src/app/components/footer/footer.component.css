@@ -1,0 +1,32 @@
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #1976d2;
+    color: white;
+}
+
+.icon-3d {
+    padding: 10px;
+    color: #fff;
+}
+
+#footer-icons {
+    text-align: center;
+}
+
+#imprintSection {
+    position: fixed;
+    right: 1em;
+    bottom: 1em;
+    width: 100%;
+    text-align: right;
+    padding-right: 1em;
+}
+
+#imprintSection a {
+    color: white;
+    text-decoration: none;
+}
+

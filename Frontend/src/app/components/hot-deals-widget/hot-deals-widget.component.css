@@ -1,0 +1,97 @@
+.bbb_deals_wrapper {
+    overflow: hidden;
+}
+
+.bbb_deals_wrapper:hover {
+    transform: scale(1.2);
+}
+
+.bbb_deals_featured {
+    width: 100%;
+}
+
+.bbb_deals {
+    width: 100%;
+    margin-right: 7%;
+    padding-top: 80px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-bottom: 34px;
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    margin-top: 0px
+}
+
+.bbb_deals_title {
+    position: absolute;
+    top: 10px;
+    left: 22px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #000000
+}
+
+.bbb_deals_slider_container {
+    width: 100%
+}
+
+.bbb_deals_item {
+    width: 100% !important
+}
+
+.bbb_deals_image {
+    width: 40%;
+    height: 40%;
+}
+
+.bbb_deals_image img {
+    width: 100%
+}
+
+.bbb_deals_content {
+    margin-top: 33px
+}
+
+.bbb_deals_item_category a {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.5)
+}
+
+#bbb_deals_item_price_a {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.6);
+    color: red;
+}
+
+#bbb_deals_item_price_b {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.6);
+    color: green;
+}
+
+.bbb_deals_item_name {
+    max-width: 300px;
+    word-wrap: break-word;
+    font-size: 16px;
+    font-weight: 400;
+    color: #000000;
+}
+
+.bbb_deals_item_price {
+    font-size: 24px;
+    font-weight: 500;
+    color: #228B22;
+}
+
+.available {
+    margin-top: 19px
+}
+
+.available_title {
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.5);
+    font-weight: 400
+}

@@ -23,6 +23,9 @@ import {Manufacturers} from './manufacturers.interface';
  * Service Methods
  */
 
+/**
+ * Fetches and returns all known manufacturers
+ */
 export const findAll = async (): Promise<Manufacturers> => {
     let conn;
     let manRows = [];
@@ -54,6 +57,10 @@ export const findAll = async (): Promise<Manufacturers> => {
     return manRows;
 };
 
+/**
+ * Fetches and returns the manufacturer with the specified id
+ * @param id The id of the manufacturer to fetch
+ */
 export const find = async (id: number): Promise<Manufacturer> => {
     let conn;
     let man: any;
@@ -77,6 +84,10 @@ export const find = async (id: number): Promise<Manufacturer> => {
     return man;
 };
 
+/**
+ * Fetches and returns all manufacturers that match the search term
+ * @param term the term to match
+ */
 export const findBySearchTerm = async (term: string): Promise<Manufacturers> => {
     let conn;
     let manRows = [];
@@ -100,36 +111,3 @@ export const findBySearchTerm = async (term: string): Promise<Manufacturers> => 
 
     return manRows;
 };
-
-// export const create = async (newItem: Product): Promise<void> => {
-//     let conn;
-//     try {
-//         conn = await pool.getConnection();
-//         await conn.query("");
-//
-//     } catch (err) {
-//         throw err;
-//     } finally {
-//         if (conn) conn.end();
-//     }
-// };
-//
-// export const update = async (updatedItem: Product): Promise<void> => {
-//     if (models.products[updatedItem.product_id]) {
-//         models.products[updatedItem.product_id] = updatedItem;
-//         return;
-//     }
-//
-//     throw new Error("No record found to update");
-// };
-//
-// export const remove = async (id: number): Promise<void> => {
-//     const record: Product = models.products[id];
-//
-//     if (record) {
-//         delete models.products[id];
-//         return;
-//     }
-//
-//     throw new Error("No record found to delete");
-// };

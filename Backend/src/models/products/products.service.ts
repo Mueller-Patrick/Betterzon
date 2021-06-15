@@ -17,12 +17,16 @@ const pool = mariadb.createPool({
 
 import {Product} from './product.interface';
 import {Products} from './products.interface';
+import * as http from 'http';
 
 
 /**
  * Service Methods
  */
 
+/**
+ * Fetches and returns all known products
+ */
 export const findAll = async (): Promise<Products> => {
     let conn;
     let prodRows = [];
@@ -74,6 +78,10 @@ export const findAll = async (): Promise<Products> => {
     return prodRows;
 };
 
+/**
+ * Fetches and returns the product with the specified id
+ * @param id The id of the product to fetch
+ */
 export const find = async (id: number): Promise<Product> => {
     let conn;
     let prod: any;
@@ -97,6 +105,10 @@ export const find = async (id: number): Promise<Product> => {
     return prod;
 };
 
+/**
+ * Fetches and returns all products that match the search term
+ * @param term the term to match
+ */
 export const findBySearchTerm = async (term: string): Promise<Products> => {
     let conn;
     let prodRows = [];
@@ -122,35 +134,96 @@ export const findBySearchTerm = async (term: string): Promise<Products> => {
     return prodRows;
 };
 
-// export const create = async (newItem: Product): Promise<void> => {
-//     let conn;
-//     try {
-//         conn = await pool.getConnection();
-//         await conn.query("");
-//
-//     } catch (err) {
-//         throw err;
-//     } finally {
-//         if (conn) conn.end();
-//     }
-// };
-//
-// export const update = async (updatedItem: Product): Promise<void> => {
-//     if (models.products[updatedItem.product_id]) {
-//         models.products[updatedItem.product_id] = updatedItem;
-//         return;
-//     }
-//
-//     throw new Error("No record found to update");
-// };
-//
-// export const remove = async (id: number): Promise<void> => {
-//     const record: Product = models.products[id];
-//
-//     if (record) {
-//         delete models.products[id];
-//         return;
-//     }
-//
-//     throw new Error("No record found to delete");
-// };
+/**
+ * Fetches and returns the product details for the given list of product ids
+ * @param ids The list of product ids to fetch the details for
+ */
+export const findList = async (ids: [number]): Promise<Products> => {
+    let conn;
+    let prodRows = [];
+    try {
+        conn = await pool.getConnection();
+        const rows = await conn.query('SELECT product_id, name, asin, is_active, short_description, long_description, image_guid, date_added, last_modified, manufacturer_id, selling_rank, category_id FROM products WHERE product_id IN (?)', [ids]);
+        for (let row in rows) {
+            if (row !== 'meta') {
+                prodRows.push(rows[row]);
+            }
+        }
+
+    } catch (err) {
+        throw err;
+    } finally {
+        if (conn) {
+            conn.end();
+        }
+    }
+
+    return prodRows;
+};
+
+/**
+ * Fetches and returns the products that the given vendor has price entries for
+ * @param id The id of the vendor to fetch the products for
+ */
+export const findByVendor = async (id: number): Promise<Products> => {
+    let conn;
+    let prodRows = [];
+    try {
+        conn = await pool.getConnection();
+
+        // Get the relevant product ids
+        let relevant_prod_ids = [];
+        const relevantProds = await conn.query('SELECT product_id FROM prices WHERE vendor_id = ? GROUP BY product_id', id);
+        for (let row in relevantProds) {
+            if (row !== 'meta') {
+                relevant_prod_ids.push(relevantProds[row].product_id);
+            }
+        }
+
+        // Fetch products
+        const rows = await conn.query('SELECT product_id, name, asin, is_active, short_description, long_description, image_guid, date_added, last_modified, manufacturer_id, selling_rank, category_id FROM products WHERE product_id IN (?)', [relevant_prod_ids]);
+        for (let row in rows) {
+            if (row !== 'meta') {
+                prodRows.push(rows[row]);
+            }
+        }
+
+    } catch (err) {
+        throw err;
+    } finally {
+        if (conn) {
+            conn.end();
+        }
+    }
+
+    return prodRows;
+};
+
+/**
+ * Makes a callout to a crawler instance to search for the requested product
+ * @param asin The amazon asin of the product to look for
+ */
+export const addNewProduct = async (asin: string): Promise<boolean> => {
+    try {
+        let options = {
+            host: 'crawl.p4ddy.com',
+            path: '/searchNew',
+            port: '443',
+            method: 'POST'
+        };
+
+        let req = http.request(options, res => {
+            return res.statusCode === 202;
+        });
+        req.write(JSON.stringify({
+            asin: asin,
+            key: process.env.CRAWLER_ACCESS_KEY
+        }));
+        req.end();
+    } catch (err) {
+        console.log(err);
+        throw(err);
+    }
+
+    return false;
+};
