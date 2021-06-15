@@ -1,1920 +1,1980 @@
 {
-  "info": {
-    "_postman_id": "76b7db80-557f-44a6-8b86-f393beed8f86",
-    "name": "Betterzon API Tests",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-  },
-  "item": [
-    {
-      "name": "Categories",
-      "item": [
-        {
-          "name": "GET all categories",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Verify body to be json\", function() {\r",
-                  "    pm.response.to.be.json;\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "https://backend.betterzon.xyz/categories/",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "categories",
-                ""
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "GET single category",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Verify body to be json\", function() {\r",
-                  "    pm.response.to.be.json;\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "https://backend.betterzon.xyz/categories/1",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "categories",
-                "1"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "GET categories by query",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Verify body to be json\", function() {\r",
-                  "    pm.response.to.be.json;\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "https://backend.betterzon.xyz/categories/search/Elektro",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "categories",
-                "search",
-                "Elektro"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Contact Persons",
-      "item": [
-        {
-          "name": "GET all contact persons",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Verify body to be json\", function() {\r",
-                  "    pm.response.to.be.json;\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "https://backend.betterzon.xyz/contactpersons",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "contactpersons"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "GET single contact person",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Verify body to be json\", function() {\r",
-                  "    pm.response.to.be.json;\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "https://backend.betterzon.xyz/contactpersons/1",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "contactpersons",
-                "1"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "GET contact persons by vendor",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Verify body to be json\", function() {\r",
-                  "    pm.response.to.be.json;\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "https://backend.betterzon.xyz/contactpersons/byvendor/1",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "contactpersons",
-                "byvendor",
-                "1"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "POST new contact person",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(201);\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
-                "exec": [
-                  "pm.sendRequest({\r",
-                  "    url: 'https://backend.betterzon.xyz/users/login',\r",
-                  "    method: 'POST',\r",
-                  "    header: 'content-type:application/json',\r",
-                  "    body: {\r",
-                  "        mode: 'raw',\r",
-                  "        raw: JSON.stringify({\r",
-                  "            username: pm.collectionVariables.get(\"testuser_username\"),\r",
-                  "            password: pm.collectionVariables.get(\"testuser_password\")\r",
-                  "        })\r",
-                  "    }\r",
-                  "}, function (err, response) {\r",
-                  "    pm.expect(err).to.not.be.ok;\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"vendor_id\": 7,\r\n    \"first_name\": \"Test\",\r\n    \"last_name\": \"Contact\",\r\n    \"gender\": \"Unix\",\r\n    \"email\": \"testcontact@betterzon.xyz\",\r\n    \"phone\": \"+49 123 456789\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "https://backend.betterzon.xyz/contactpersons/",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "contactpersons",
-                ""
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "PUT update contact person",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
-                "exec": [
-                  "pm.sendRequest({\r",
-                  "    url: 'https://backend.betterzon.xyz/users/login',\r",
-                  "    method: 'POST',\r",
-                  "    header: 'content-type:application/json',\r",
-                  "    body: {\r",
-                  "        mode: 'raw',\r",
-                  "        raw: JSON.stringify({\r",
-                  "            username: pm.collectionVariables.get(\"testuser_username\"),\r",
-                  "            password: pm.collectionVariables.get(\"testuser_password\")\r",
-                  "        })\r",
-                  "    }\r",
-                  "}, function (err, response) {\r",
-                  "    pm.expect(err).to.not.be.ok;\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"vendor_id\": 7,\r\n    \"first_name\": \"Test\",\r\n    \"last_name\": \"Contact\",\r\n    \"gender\": \"Unix\",\r\n    \"email\": \"testcontact@betterzon.xyz\",\r\n    \"phone\": \"+49 123 456789\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "https://backend.betterzon.xyz/contactpersons/2",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "contactpersons",
-                "2"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Crawling Status",
-      "item": [
-        {
-          "name": "GET crawling status",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Verify body to be json\", function() {\r",
-                  "    pm.response.to.be.json;\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
-                "exec": [
-                  "pm.sendRequest({\r",
-                  "    url: 'https://backend.betterzon.xyz/users/login',\r",
-                  "    method: 'POST',\r",
-                  "    header: 'content-type:application/json',\r",
-                  "    body: {\r",
-                  "        mode: 'raw',\r",
-                  "        raw: JSON.stringify({\r",
-                  "            username: pm.collectionVariables.get(\"testuser_username\"),\r",
-                  "            password: pm.collectionVariables.get(\"testuser_password\")\r",
-                  "        })\r",
-                  "    }\r",
-                  "}, function (err, response) {\r",
-                  "    pm.expect(err).to.not.be.ok;\r",
-                  "});\r",
-                  ""
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "method": "GET",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "https://backend.betterzon.xyz/crawlingstatus",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "crawlingstatus"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Favorite Shops",
-      "item": [
-        {
-          "name": "GET favorite shops",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Verify body to be json\", function() {\r",
-                  "    pm.response.to.be.json;\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
-                "exec": [
-                  "pm.sendRequest({\r",
-                  "    url: 'https://backend.betterzon.xyz/users/login',\r",
-                  "    method: 'POST',\r",
-                  "    header: 'content-type:application/json',\r",
-                  "    body: {\r",
-                  "        mode: 'raw',\r",
-                  "        raw: JSON.stringify({\r",
-                  "            username: pm.collectionVariables.get(\"testuser_username\"),\r",
-                  "            password: pm.collectionVariables.get(\"testuser_password\")\r",
-                  "        })\r",
-                  "    }\r",
-                  "}, function (err, response) {\r",
-                  "    pm.expect(err).to.not.be.ok;\r",
-                  "});\r",
-                  ""
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "method": "GET",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "https://backend.betterzon.xyz/favoriteshops",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "favoriteshops"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "POST create favorite shop entry",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(201);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Verify body to be json\", function() {\r",
-                  "    pm.response.to.be.json;\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
-                "exec": [
-                  "pm.sendRequest({\r",
-                  "    url: 'https://backend.betterzon.xyz/users/login',\r",
-                  "    method: 'POST',\r",
-                  "    header: 'content-type:application/json',\r",
-                  "    body: {\r",
-                  "        mode: 'raw',\r",
-                  "        raw: JSON.stringify({\r",
-                  "            username: pm.collectionVariables.get(\"testuser_username\"),\r",
-                  "            password: pm.collectionVariables.get(\"testuser_password\")\r",
-                  "        })\r",
-                  "    }\r",
-                  "}, function (err, response) {\r",
-                  "    pm.expect(err).to.not.be.ok;\r",
-                  "});\r",
-                  ""
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"vendor_id\": 7\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "https://backend.betterzon.xyz/favoriteshops",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "favoriteshops"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "DELETE favorite shop entry",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(201);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Verify body to be json\", function() {\r",
-                  "    pm.response.to.be.json;\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
-                "exec": [
-                  "pm.sendRequest({\r",
-                  "    url: 'https://backend.betterzon.xyz/users/login',\r",
-                  "    method: 'POST',\r",
-                  "    header: 'content-type:application/json',\r",
-                  "    body: {\r",
-                  "        mode: 'raw',\r",
-                  "        raw: JSON.stringify({\r",
-                  "            username: pm.collectionVariables.get(\"testuser_username\"),\r",
-                  "            password: pm.collectionVariables.get(\"testuser_password\")\r",
-                  "        })\r",
-                  "    }\r",
-                  "}, function (err, response) {\r",
-                  "    pm.expect(err).to.not.be.ok;\r",
-                  "    getNewFavId();\r",
-                  "});\r",
-                  "\r",
-                  "\r",
-                  "let getNewFavId = function() {\r",
-                  "    // Create a new shops entry so we can delete it afterwards\r",
-                  "    pm.sendRequest({\r",
-                  "        url: 'https://backend.betterzon.xyz/favoriteshops',\r",
-                  "        method: 'POST',\r",
-                  "        header: 'content-type:application/json',\r",
-                  "        body: {\r",
-                  "            mode: 'raw',\r",
-                  "            raw: JSON.stringify({\r",
-                  "                vendor_id: 7\r",
-                  "            })\r",
-                  "        }\r",
-                  "    }, function (err, response) {\r",
-                  "        pm.expect(err).to.not.be.ok;\r",
-                  "    });\r",
-                  "\r",
-                  "    // Get the id of the entry\r",
-                  "    pm.sendRequest({\r",
-                  "        url: 'https://backend.betterzon.xyz/favoriteshops',\r",
-                  "        method: 'GET'\r",
-                  "    }, function (err, response) {\r",
-                  "        pm.expect(err).to.not.be.ok;\r",
-                  "        pm.collectionVariables.set(\"created_favshop_id\", response.json()[0].favorite_id);\r",
-                  "    });\r",
-                  "}"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "https://backend.betterzon.xyz/favoriteshops/4",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "favoriteshops",
-                "4"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Manufacturers",
-      "item": [
-        {
-          "name": "GET all manufacturers",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Verify body to be json\", function() {\r",
-                  "    pm.response.to.be.json;\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "https://backend.betterzon.xyz/manufacturers",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "manufacturers"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "GET single manufacturer",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Verify body to be json\", function() {\r",
-                  "    pm.response.to.be.json;\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "https://backend.betterzon.xyz/manufacturers/1",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "manufacturers",
-                "1"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "GET manufacturers by query",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Verify body to be json\", function() {\r",
-                  "    pm.response.to.be.json;\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "https://backend.betterzon.xyz/manufacturers/search/Apple",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "manufacturers",
-                "search",
-                "Apple"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Price Alarms",
-      "item": [
-        {
-          "name": "GET all price alarms",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Verify body to be json\", function() {\r",
-                  "    pm.response.to.be.json;\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
-                "exec": [
-                  "pm.sendRequest({\r",
-                  "    url: 'https://backend.betterzon.xyz/users/login',\r",
-                  "    method: 'POST',\r",
-                  "    header: 'content-type:application/json',\r",
-                  "    body: {\r",
-                  "        mode: 'raw',\r",
-                  "        raw: JSON.stringify({\r",
-                  "            username: pm.collectionVariables.get(\"testuser_username\"),\r",
-                  "            password: pm.collectionVariables.get(\"testuser_password\")\r",
-                  "        })\r",
-                  "    }\r",
-                  "}, function (err, response) {\r",
-                  "    pm.expect(err).to.not.be.ok;\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "https://backend.betterzon.xyz/pricealarms",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "pricealarms"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "POST new price alarm",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(201);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Verify body to be json\", function() {\r",
-                  "    pm.response.to.be.json;\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
-                "exec": [
-                  "pm.sendRequest({\r",
-                  "    url: 'https://backend.betterzon.xyz/users/login',\r",
-                  "    method: 'POST',\r",
-                  "    header: 'content-type:application/json',\r",
-                  "    body: {\r",
-                  "        mode: 'raw',\r",
-                  "        raw: JSON.stringify({\r",
-                  "            username: pm.collectionVariables.get(\"testuser_username\"),\r",
-                  "            password: pm.collectionVariables.get(\"testuser_password\")\r",
-                  "        })\r",
-                  "    }\r",
-                  "}, function (err, response) {\r",
-                  "    pm.expect(err).to.not.be.ok;\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"product_id\": 1,\r\n    \"defined_price\": 23400\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "https://backend.betterzon.xyz/pricealarms",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "pricealarms"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "PUT update price alarm",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Verify body to be json\", function() {\r",
-                  "    pm.response.to.be.json;\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
-                "exec": [
-                  "pm.sendRequest({\r",
-                  "    url: 'https://backend.betterzon.xyz/users/login',\r",
-                  "    method: 'POST',\r",
-                  "    header: 'content-type:application/json',\r",
-                  "    body: {\r",
-                  "        mode: 'raw',\r",
-                  "        raw: JSON.stringify({\r",
-                  "            username: pm.collectionVariables.get(\"testuser_username\"),\r",
-                  "            password: pm.collectionVariables.get(\"testuser_password\")\r",
-                  "        })\r",
-                  "    }\r",
-                  "}, function (err, response) {\r",
-                  "    pm.expect(err).to.not.be.ok;\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"alarm_id\": 12,\r\n    \"defined_price\": 23400\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "https://backend.betterzon.xyz/pricealarms",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "pricealarms"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Prices",
-      "item": [
-        {
-          "name": "GET all prices",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Verify body to be json\", function() {\r",
-                  "    pm.response.to.be.json;\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "https://backend.betterzon.xyz/prices/",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "prices",
-                ""
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "GET single price",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Verify body to be json\", function() {\r",
-                  "    pm.response.to.be.json;\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "https://backend.betterzon.xyz/prices/",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "prices",
-                ""
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "GET best deals",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Verify body to be json\", function() {\r",
-                  "    pm.response.to.be.json;\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "https://backend.betterzon.xyz/prices/bestDeals/10",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "prices",
-                "bestDeals",
-                "10"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "GET prices by list of products",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Verify body to be json\", function() {\r",
-                  "    pm.response.to.be.json;\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "https://backend.betterzon.xyz/prices/byProduct/list/[1,2,3]",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "prices",
-                "byProduct",
-                "list",
-                "[1,2,3]"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "POST new price",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(201);\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
-                "exec": [
-                  "pm.sendRequest({\r",
-                  "    url: 'https://backend.betterzon.xyz/users/login',\r",
-                  "    method: 'POST',\r",
-                  "    header: 'content-type:application/json',\r",
-                  "    body: {\r",
-                  "        mode: 'raw',\r",
-                  "        raw: JSON.stringify({\r",
-                  "            username: pm.collectionVariables.get(\"testuser_username\"),\r",
-                  "            password: pm.collectionVariables.get(\"testuser_password\")\r",
-                  "        })\r",
-                  "    }\r",
-                  "}, function (err, response) {\r",
-                  "    pm.expect(err).to.not.be.ok;\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"vendor_id\": 7,\r\n    \"product_id\": 1,\r\n    \"price_in_cents\": 123456\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "https://backend.betterzon.xyz/prices",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "prices"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Products",
-      "item": [
-        {
-          "name": "GET all products",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Verify body to be json\", function() {\r",
-                  "    pm.response.to.be.json;\r",
-                  "})"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "https://backend.betterzon.xyz/products/",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "products",
-                ""
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "GET single product",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Verify body to be json\", function() {\r",
-                  "    pm.response.to.be.json;\r",
-                  "})"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "https://backend.betterzon.xyz/products/1",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "products",
-                "1"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "GET products by query",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Verify body to be json\", function() {\r",
-                  "    pm.response.to.be.json;\r",
-                  "})"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "https://backend.betterzon.xyz/products/search/iPhone",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "products",
-                "search",
-                "iPhone"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "GET products by list of ids",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Verify body to be json\", function() {\r",
-                  "    pm.response.to.be.json;\r",
-                  "})"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "https://backend.betterzon.xyz/products/list/[1,2,3]",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "products",
-                "list",
-                "[1,2,3]"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "GET products by vendor",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Verify body to be json\", function() {\r",
-                  "    pm.response.to.be.json;\r",
-                  "})"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "https://backend.betterzon.xyz/products/vendor/1",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "products",
-                "vendor",
-                "1"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "POST new product",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(201);\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
-                "exec": [
-                  ""
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"asin\": \"B07X356256\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "https://backend.betterzon.xyz/products",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "products"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Users",
-      "item": [
-        {
-          "name": "POST user registration negative",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(400);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Verify body to be json\", function() {\r",
-                  "    pm.response.to.be.json;\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"username\": \"Testuser\",\r\n    \"password\": \"Testpassword\",\r\n    \"email\": \"Wrongemail\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "https://backend.betterzon.xyz/users/register",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "users",
-                "register"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "POST user registration positive",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(201);\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
-                "exec": [
-                  "const customerId = Math.floor((Math.random()*10000 +1));\r",
-                  "pm.collectionVariables.set(\"rand_user_id\", customerId);"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"username\": \"testuser_{{rand_user_id}}\",\r\n    \"password\": \"supersecurepassword1234!\",\r\n    \"email\": \"testuser_{{rand_user_id}}@betterzon.xyz\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "https://backend.betterzon.xyz/users/register",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "users",
-                "register"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "POST user login positive",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
-                "exec": [
-                  ""
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"username\": \"{{testuser_username}}\",\r\n    \"password\": \"{{testuser_password}}\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "https://backend.betterzon.xyz/users/login",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "users",
-                "login"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "POST user login negative",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(401);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Verify body to be json\", function() {\r",
-                  "    pm.response.to.be.json;\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
-                "exec": [
-                  ""
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"username\": \"{{testuser_username}}\",\r\n    \"password\": \"not_the_correct_password\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "https://backend.betterzon.xyz/users/login",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "users",
-                "login"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Vendors",
-      "item": [
-        {
-          "name": "GET all vendors",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Verify body to be json\", function() {\r",
-                  "    pm.response.to.be.json;\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "https://backend.betterzon.xyz/vendors",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "vendors"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "GET single vendor",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Verify body to be json\", function() {\r",
-                  "    pm.response.to.be.json;\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "https://backend.betterzon.xyz/vendors/1",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "vendors",
-                "1"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "GET vendors by query",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Verify body to be json\", function() {\r",
-                  "    pm.response.to.be.json;\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "https://backend.betterzon.xyz/vendors/search/Apple",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "vendors",
-                "search",
-                "Apple"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "GET managed vendors",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Verify status code\", function() {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Verify body to be json\", function() {\r",
-                  "    pm.response.to.be.json;\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
-                "exec": [
-                  "pm.sendRequest({\r",
-                  "    url: 'https://backend.betterzon.xyz/users/login',\r",
-                  "    method: 'POST',\r",
-                  "    header: 'content-type:application/json',\r",
-                  "    body: {\r",
-                  "        mode: 'raw',\r",
-                  "        raw: JSON.stringify({\r",
-                  "            username: pm.collectionVariables.get(\"testuser_username\"),\r",
-                  "            password: pm.collectionVariables.get(\"testuser_password\")\r",
-                  "        })\r",
-                  "    }\r",
-                  "}, function (err, response) {\r",
-                  "    pm.expect(err).to.not.be.ok;\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "https://backend.betterzon.xyz/vendors/managed",
-              "protocol": "https",
-              "host": [
-                "backend",
-                "betterzon",
-                "xyz"
-              ],
-              "path": [
-                "vendors",
-                "managed"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    }
-  ],
-  "event": [
-    {
-      "listen": "prerequest",
-      "script": {
-        "type": "text/javascript",
-        "exec": [
-          ""
-        ]
-      }
-    },
-    {
-      "listen": "test",
-      "script": {
-        "type": "text/javascript",
-        "exec": [
-          ""
-        ]
-      }
-    }
-  ],
-  "variable": [
-    {
-      "key": "testuser_username",
-      "value": ""
-    },
-    {
-      "key": "testuser_password",
-      "value": ""
-    },
-    {
-      "key": "created_favshop_id",
-      "value": ""
-    },
-    {
-      "key": "rand_user_id",
-      "value": ""
-    }
-  ]
+	"info": {
+		"_postman_id": "76b7db80-557f-44a6-8b86-f393beed8f86",
+		"name": "Betterzon API Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "GET all categories",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify body to be json\", function() {\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://backend.betterzon.xyz/categories/",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"categories",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET single category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify body to be json\", function() {\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://backend.betterzon.xyz/categories/1",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"categories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET categories by query",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify body to be json\", function() {\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://backend.betterzon.xyz/categories/search/Elektro",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"categories",
+								"search",
+								"Elektro"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Contact Persons",
+			"item": [
+				{
+					"name": "GET all contact persons",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify body to be json\", function() {\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://backend.betterzon.xyz/contactpersons",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"contactpersons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET single contact person",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify body to be json\", function() {\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://backend.betterzon.xyz/contactpersons/1",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"contactpersons",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET contact persons by vendor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify body to be json\", function() {\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://backend.betterzon.xyz/contactpersons/byvendor/1",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"contactpersons",
+								"byvendor",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST new contact person",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: 'https://backend.betterzon.xyz/users/login',\r",
+									"    method: 'POST',\r",
+									"    header: 'content-type:application/json',\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({\r",
+									"            username: pm.collectionVariables.get(\"testuser_username\"),\r",
+									"            password: pm.collectionVariables.get(\"testuser_password\")\r",
+									"        })\r",
+									"    }\r",
+									"}, function (err, response) {\r",
+									"    pm.expect(err).to.not.be.ok;\r",
+									"    pm.collectionVariables.set(\"session_id\", response.json().session_id);\r",
+									"    pm.collectionVariables.set(\"session_key\", response.json().session_key);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"session_id\": \"{{session_id}}\",\r\n    \"session_key\": \"{{session_key}}\",\r\n    \"vendor_id\": 7,\r\n    \"first_name\": \"Test\",\r\n    \"last_name\": \"Contact\",\r\n    \"gender\": \"Unix\",\r\n    \"email\": \"testcontact@betterzon.xyz\",\r\n    \"phone\": \"+49 123 456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://backend.betterzon.xyz/contactpersons/",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"contactpersons",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT update contact person",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: 'https://backend.betterzon.xyz/users/login',\r",
+									"    method: 'POST',\r",
+									"    header: 'content-type:application/json',\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({\r",
+									"            username: pm.collectionVariables.get(\"testuser_username\"),\r",
+									"            password: pm.collectionVariables.get(\"testuser_password\")\r",
+									"        })\r",
+									"    }\r",
+									"}, function (err, response) {\r",
+									"    pm.expect(err).to.not.be.ok;\r",
+									"    pm.collectionVariables.set(\"session_id\", response.json().session_id);\r",
+									"    pm.collectionVariables.set(\"session_key\", response.json().session_key);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"session_id\": \"{{session_id}}\",\r\n    \"session_key\": \"{{session_key}}\",\r\n    \"vendor_id\": 7,\r\n    \"first_name\": \"Test\",\r\n    \"last_name\": \"Contact\",\r\n    \"gender\": \"Unix\",\r\n    \"email\": \"testcontact@betterzon.xyz\",\r\n    \"phone\": \"+49 123 456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://backend.betterzon.xyz/contactpersons/2",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"contactpersons",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Crawling Status",
+			"item": [
+				{
+					"name": "GET crawling status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify body to be json\", function() {\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: 'https://backend.betterzon.xyz/users/login',\r",
+									"    method: 'POST',\r",
+									"    header: 'content-type:application/json',\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({\r",
+									"            username: pm.collectionVariables.get(\"testuser_username\"),\r",
+									"            password: pm.collectionVariables.get(\"testuser_password\")\r",
+									"        })\r",
+									"    }\r",
+									"}, function (err, response) {\r",
+									"    pm.expect(err).to.not.be.ok;\r",
+									"    pm.collectionVariables.set(\"session_id\", response.json().session_id);\r",
+									"    pm.collectionVariables.set(\"session_key\", response.json().session_key);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://backend.betterzon.xyz/crawlingstatus?session_id={{session_id}}&session_key={{session_key}}",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"crawlingstatus"
+							],
+							"query": [
+								{
+									"key": "session_id",
+									"value": "{{session_id}}"
+								},
+								{
+									"key": "session_key",
+									"value": "{{session_key}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Favorite Shops",
+			"item": [
+				{
+					"name": "GET favorite shops",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify body to be json\", function() {\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: 'https://backend.betterzon.xyz/users/login',\r",
+									"    method: 'POST',\r",
+									"    header: 'content-type:application/json',\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({\r",
+									"            username: pm.collectionVariables.get(\"testuser_username\"),\r",
+									"            password: pm.collectionVariables.get(\"testuser_password\")\r",
+									"        })\r",
+									"    }\r",
+									"}, function (err, response) {\r",
+									"    pm.expect(err).to.not.be.ok;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://backend.betterzon.xyz/favoriteshops",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"favoriteshops"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST create favorite shop entry",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify body to be json\", function() {\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: 'https://backend.betterzon.xyz/users/login',\r",
+									"    method: 'POST',\r",
+									"    header: 'content-type:application/json',\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({\r",
+									"            username: pm.collectionVariables.get(\"testuser_username\"),\r",
+									"            password: pm.collectionVariables.get(\"testuser_password\")\r",
+									"        })\r",
+									"    }\r",
+									"}, function (err, response) {\r",
+									"    pm.expect(err).to.not.be.ok;\r",
+									"    pm.collectionVariables.set(\"session_id\", response.json().session_id);\r",
+									"    pm.collectionVariables.set(\"session_key\", response.json().session_key);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"session_id\": \"{{session_id}}\",\r\n    \"session_key\": \"{{session_key}}\",\r\n    \"vendor_id\": 7\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://backend.betterzon.xyz/favoriteshops",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"favoriteshops"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE favorite shop entry",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify body to be json\", function() {\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: 'https://backend.betterzon.xyz/users/login',\r",
+									"    method: 'POST',\r",
+									"    header: 'content-type:application/json',\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({\r",
+									"            username: pm.collectionVariables.get(\"testuser_username\"),\r",
+									"            password: pm.collectionVariables.get(\"testuser_password\")\r",
+									"        })\r",
+									"    }\r",
+									"}, function (err, response) {\r",
+									"    pm.expect(err).to.not.be.ok;\r",
+									"    pm.collectionVariables.set(\"session_id\", response.json().session_id);\r",
+									"    pm.collectionVariables.set(\"session_key\", response.json().session_key);\r",
+									"    getNewFavId();\r",
+									"});\r",
+									"\r",
+									"\r",
+									"let getNewFavId = function() {\r",
+									"    // Create a new shops entry so we can delete it afterwards\r",
+									"    pm.sendRequest({\r",
+									"        url: 'https://backend.betterzon.xyz/favoriteshops',\r",
+									"        method: 'POST',\r",
+									"        header: 'content-type:application/json',\r",
+									"        body: {\r",
+									"            mode: 'raw',\r",
+									"            raw: JSON.stringify({\r",
+									"                session_id: pm.collectionVariables.get(\"session_id\"),\r",
+									"                session_key: pm.collectionVariables.get(\"session_key\"),\r",
+									"                vendor_id: 7\r",
+									"            })\r",
+									"        }\r",
+									"    }, function (err, response) {\r",
+									"        pm.expect(err).to.not.be.ok;\r",
+									"    });\r",
+									"\r",
+									"    // Get the id of the entry\r",
+									"    pm.sendRequest({\r",
+									"        url: ('https://backend.betterzon.xyz/favoriteshops?session_id=' + pm.collectionVariables.get(\"session_id\") + '&session_key=' + pm.collectionVariables.get(\"session_key\")),\r",
+									"        method: 'GET'\r",
+									"    }, function (err, response) {\r",
+									"        pm.expect(err).to.not.be.ok;\r",
+									"        pm.collectionVariables.set(\"created_favshop_id\", response.json()[0].favorite_id);\r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://backend.betterzon.xyz/favoriteshops/{{created_favshop_id}}",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"favoriteshops",
+								"{{created_favshop_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Manufacturers",
+			"item": [
+				{
+					"name": "GET all manufacturers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify body to be json\", function() {\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://backend.betterzon.xyz/manufacturers",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"manufacturers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET single manufacturer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify body to be json\", function() {\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://backend.betterzon.xyz/manufacturers/1",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"manufacturers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET manufacturers by query",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify body to be json\", function() {\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://backend.betterzon.xyz/manufacturers/search/Apple",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"manufacturers",
+								"search",
+								"Apple"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Price Alarms",
+			"item": [
+				{
+					"name": "GET all price alarms",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify body to be json\", function() {\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: 'https://backend.betterzon.xyz/users/login',\r",
+									"    method: 'POST',\r",
+									"    header: 'content-type:application/json',\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({\r",
+									"            username: pm.collectionVariables.get(\"testuser_username\"),\r",
+									"            password: pm.collectionVariables.get(\"testuser_password\")\r",
+									"        })\r",
+									"    }\r",
+									"}, function (err, response) {\r",
+									"    pm.expect(err).to.not.be.ok;\r",
+									"    pm.collectionVariables.set(\"session_id\", response.json().session_id);\r",
+									"    pm.collectionVariables.set(\"session_key\", response.json().session_key);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://backend.betterzon.xyz/pricealarms?session_id={{session_id}}&session_key={{session_key}}",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"pricealarms"
+							],
+							"query": [
+								{
+									"key": "session_id",
+									"value": "{{session_id}}"
+								},
+								{
+									"key": "session_key",
+									"value": "{{session_key}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST new price alarm",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify body to be json\", function() {\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: 'https://backend.betterzon.xyz/users/login',\r",
+									"    method: 'POST',\r",
+									"    header: 'content-type:application/json',\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({\r",
+									"            username: pm.collectionVariables.get(\"testuser_username\"),\r",
+									"            password: pm.collectionVariables.get(\"testuser_password\")\r",
+									"        })\r",
+									"    }\r",
+									"}, function (err, response) {\r",
+									"    pm.expect(err).to.not.be.ok;\r",
+									"    pm.collectionVariables.set(\"session_id\", response.json().session_id);\r",
+									"    pm.collectionVariables.set(\"session_key\", response.json().session_key);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"session_id\": \"{{session_id}}\",\r\n    \"session_key\": \"{{session_key}}\",\r\n    \"product_id\": 1,\r\n    \"defined_price\": 23400\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://backend.betterzon.xyz/pricealarms",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"pricealarms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT update price alarm",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify body to be json\", function() {\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: 'https://backend.betterzon.xyz/users/login',\r",
+									"    method: 'POST',\r",
+									"    header: 'content-type:application/json',\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({\r",
+									"            username: pm.collectionVariables.get(\"testuser_username\"),\r",
+									"            password: pm.collectionVariables.get(\"testuser_password\")\r",
+									"        })\r",
+									"    }\r",
+									"}, function (err, response) {\r",
+									"    pm.expect(err).to.not.be.ok;\r",
+									"    pm.collectionVariables.set(\"session_id\", response.json().session_id);\r",
+									"    pm.collectionVariables.set(\"session_key\", response.json().session_key);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"session_id\": \"{{session_id}}\",\r\n    \"session_key\": \"{{session_key}}\",\r\n    \"alarm_id\": 12,\r\n    \"defined_price\": 23400\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://backend.betterzon.xyz/pricealarms",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"pricealarms"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Prices",
+			"item": [
+				{
+					"name": "GET all prices",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify body to be json\", function() {\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://backend.betterzon.xyz/prices/",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"prices",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET single price",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify body to be json\", function() {\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://backend.betterzon.xyz/prices/",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"prices",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET best deals",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify body to be json\", function() {\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://backend.betterzon.xyz/prices/bestDeals/10",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"prices",
+								"bestDeals",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET prices by list of products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify body to be json\", function() {\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://backend.betterzon.xyz/prices/byProduct/list/[1,2,3]",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"prices",
+								"byProduct",
+								"list",
+								"[1,2,3]"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST new price",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: 'https://backend.betterzon.xyz/users/login',\r",
+									"    method: 'POST',\r",
+									"    header: 'content-type:application/json',\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({\r",
+									"            username: pm.collectionVariables.get(\"testuser_username\"),\r",
+									"            password: pm.collectionVariables.get(\"testuser_password\")\r",
+									"        })\r",
+									"    }\r",
+									"}, function (err, response) {\r",
+									"    pm.expect(err).to.not.be.ok;\r",
+									"    pm.collectionVariables.set(\"session_id\", response.json().session_id);\r",
+									"    pm.collectionVariables.set(\"session_key\", response.json().session_key);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"session_id\": \"{{session_id}}\",\r\n    \"session_key\": \"{{session_key}}\",\r\n    \"vendor_id\": 7,\r\n    \"product_id\": 1,\r\n    \"price_in_cents\": 123456\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://backend.betterzon.xyz/prices",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"prices"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "GET all products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify body to be json\", function() {\r",
+									"    pm.response.to.be.json;\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://backend.betterzon.xyz/products/",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"products",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET single product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify body to be json\", function() {\r",
+									"    pm.response.to.be.json;\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://backend.betterzon.xyz/products/1",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET products by query",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify body to be json\", function() {\r",
+									"    pm.response.to.be.json;\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://backend.betterzon.xyz/products/search/iPhone",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"products",
+								"search",
+								"iPhone"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET products by list of ids",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify body to be json\", function() {\r",
+									"    pm.response.to.be.json;\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://backend.betterzon.xyz/products/list/[1,2,3]",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"products",
+								"list",
+								"[1,2,3]"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET products by vendor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify body to be json\", function() {\r",
+									"    pm.response.to.be.json;\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://backend.betterzon.xyz/products/vendor/1",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"products",
+								"vendor",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST new product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"asin\": \"B07X356256\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://backend.betterzon.xyz/products",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "POST user registration negative",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify body to be json\", function() {\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"Testuser\",\r\n    \"password\": \"never_gonna_give_you_up\",\r\n    \"email\": \"Wrongemail\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://backend.betterzon.xyz/users/register",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST user registration positive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const customerId = Math.floor((Math.random()*10000 +1));\r",
+									"pm.collectionVariables.set(\"rand_user_id\", customerId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"testuser_{{rand_user_id}}\",\r\n    \"password\": \"supersecurepassword1234!\",\r\n    \"email\": \"testuser_{{rand_user_id}}@betterzon.xyz\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://backend.betterzon.xyz/users/register",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST user login positive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{testuser_username}}\",\r\n    \"password\": \"{{testuser_password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://backend.betterzon.xyz/users/login",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST user login negative",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify body to be json\", function() {\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{testuser_username}}\",\r\n    \"password\": \"not_the_correct_password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://backend.betterzon.xyz/users/login",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vendors",
+			"item": [
+				{
+					"name": "GET all vendors",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify body to be json\", function() {\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://backend.betterzon.xyz/vendors",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"vendors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET single vendor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify body to be json\", function() {\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://backend.betterzon.xyz/vendors/1",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"vendors",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET vendors by query",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify body to be json\", function() {\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://backend.betterzon.xyz/vendors/search/Apple",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"vendors",
+								"search",
+								"Apple"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET managed vendors",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify body to be json\", function() {\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: 'https://backend.betterzon.xyz/users/login',\r",
+									"    method: 'POST',\r",
+									"    header: 'content-type:application/json',\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({\r",
+									"            username: pm.collectionVariables.get(\"testuser_username\"),\r",
+									"            password: pm.collectionVariables.get(\"testuser_password\")\r",
+									"        })\r",
+									"    }\r",
+									"}, function (err, response) {\r",
+									"    pm.expect(err).to.not.be.ok;\r",
+									"    pm.collectionVariables.set(\"session_id\", response.json().session_id);\r",
+									"    pm.collectionVariables.set(\"session_key\", response.json().session_key);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://backend.betterzon.xyz/vendors/managed?session_id={{session_id}}&session_key={{session_key}}",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"betterzon",
+								"xyz"
+							],
+							"path": [
+								"vendors",
+								"managed"
+							],
+							"query": [
+								{
+									"key": "session_id",
+									"value": "{{session_id}}"
+								},
+								{
+									"key": "session_key",
+									"value": "{{session_key}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "testuser_username",
+			"value": ""
+		},
+		{
+			"key": "testuser_password",
+			"value": ""
+		},
+		{
+			"key": "created_favshop_id",
+			"value": ""
+		},
+		{
+			"key": "rand_user_id",
+			"value": ""
+		},
+		{
+			"key": "session_id",
+			"value": ""
+		},
+		{
+			"key": "session_key",
+			"value": ""
+		}
+	]
 }
