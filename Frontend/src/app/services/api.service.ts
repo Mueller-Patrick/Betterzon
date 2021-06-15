@@ -450,6 +450,19 @@ export class ApiService {
         }
     }
 
+    /**
+     * Get all required information about the currently logged in user. If the user is not logged in or the
+     * session is not valid anymore, a 401 will come back from the backend.
+     * @return Observable<any> The observable response of the api
+     */
+    getUserInfo(): Observable<any> {
+        try {
+            return this.http.post((this.apiUrl + '/users/checkSessionValid'), {});
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
     /*       ______                       _ __               __
             / ____/___ __   ______  _____(_) /____     _____/ /_  ____  ____  _____
            / /_  / __ `/ | / / __ \/ ___/ / __/ _ \   / ___/ __ \/ __ \/ __ \/ ___/
