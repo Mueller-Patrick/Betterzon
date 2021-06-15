@@ -95,6 +95,12 @@ usersRouter.post('/checkSessionValid', async (req: Request, res: Response) => {
     try {
         const ip: string = req.connection.remoteAddress ?? '';
 
+        if(!req.cookies.betterauth) {
+            // Error logging in, probably wrong username / password
+            res.status(401).send(JSON.stringify({messages: ['No session detected'], codes: [5]}));
+            return;
+        }
+
         // Update the user entry and create a session
         const user: User = await UserService.checkSessionWithCookie(req.cookies.betterauth, ip);
 
