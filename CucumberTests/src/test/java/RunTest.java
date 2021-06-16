@@ -8,14 +8,16 @@ import stepdefs.Preconditions;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-  features = {"src/test/resource/searchProduct.feature",
-    "src/test/resource/priceAlarms.feature"}
+        features = {"src/test/resource/searchProduct.feature",
+                "src/test/resource/priceAlarms.feature",
+                "src/test/resource/favoriteShopList.feature",
+                "src/test/resource/manageVendor.feature"}
 )
 
 public class RunTest {
     @BeforeClass
     public static void setup() {
-        Preconditions.driver= new FirefoxDriver();
+        Preconditions.driver = new FirefoxDriver();
     }
 
     @AfterClass
