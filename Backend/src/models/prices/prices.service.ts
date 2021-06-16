@@ -282,11 +282,11 @@ export const getBestDeals = async (amount: number): Promise<Prices> => {
                     'price_in_cents': lowestPrice.price_in_cents,
                     'timestamp': lowestPrice.timestamp,
                     'amazonDifference': (amazonPrice.price_in_cents - lowestPrice.price_in_cents),
-                    'amazonDifferencePercent': ((1 - (lowestPrice.price_in_cents / amazonPrice.price_in_cents)) * 100),
+                    'amazonDifferencePercent': ((amazonPrice.price_in_cents / lowestPrice.price_in_cents) * 100),
                 };
 
                 // Push only deals were the amazon price is actually higher
-                if (deal.amazonDifferencePercent > 0) {
+                if (deal.amazonDifferencePercent > 0 && deal.amazonDifference > 0) {
                     deals.push(deal as Deal);
                 }
             }
