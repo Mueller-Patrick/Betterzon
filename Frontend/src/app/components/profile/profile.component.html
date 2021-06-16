@@ -1,0 +1,15 @@
+<div class="container" *ngIf="currentUser; else loggedOut">
+    <p>
+        <strong>e-mail</strong>
+        {{ currentUser.email}}
+    </p>
+    <p>
+        <strong>username:</strong>
+        {{ currentUser.username}}
+    </p>
+</div>
+
+<ng-template #loggedOut>
+    Please login.
+</ng-template>
+
