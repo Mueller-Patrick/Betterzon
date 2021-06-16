@@ -12,6 +12,8 @@ export class HotDealsWidgetComponent implements OnInit {
 
     products: Product[] = [];
     bestDealsProductIds = [];
+    amazonPrices = [];
+    productsPricesMap: any = {};
     @Input() numberOfProducts: number;
     @Input() showProductPicture: boolean;
     @Input() searchQuery: string;
@@ -26,7 +28,6 @@ export class HotDealsWidgetComponent implements OnInit {
 
     ngOnInit(): void {
 
-        this.loadParams();
         this.getBestDeals();
     }
 
@@ -46,11 +47,11 @@ export class HotDealsWidgetComponent implements OnInit {
 
         switch (this.type) {
             case 'search': {
-                this.getSearchedProducts();
                 break;
             }
             default: {
                 this.getProductsByIds();
+                this.getAmazonPricesForBestDeals();
                 break;
             }
         }
@@ -58,27 +59,47 @@ export class HotDealsWidgetComponent implements OnInit {
 
     getProductsByIds(): void {
         this.apiService.getProductsByIds(this.bestDealsProductIds).subscribe(
-            products => this.products = products
+            products => {
+                products.forEach(product => {
+                    this.productsPricesMap [product.product_id].product = product;
+                });
+            }
         );
     }
-
 
     getBestDeals(): void {
         this.apiService.getBestDeals(9).subscribe(
             deals => {
                 deals.forEach(deal => {
                     this.bestDealsProductIds.push(deal.product_id);
+                    this.productsPricesMap [deal.product_id] = {lowestPrice: deal}
                 });
+                this.loadParams();
             }
         );
+    }
+
+
+
+    getAmazonPricesForBestDeals(): void{
+        this.bestDealsProductIds.forEach(id => {
+                this.apiService.getAmazonPrice(id).subscribe(
+                    price => {
+                        this.amazonPrices.push(price);
+                        this.productsPricesMap[price.product_id].amazonPrice = price;
+                    }
+                );
+            }
+        );
+        console.log(this.amazonPrices);
     }
 
     getSearchedProducts(): void {
         this.apiService.getProductsByQuery(this.searchQuery).subscribe(products => this.products = products);
     }
 
-    clickedProduct(product: Product): void {
-        this.router.navigate([('/product/' + product.product_id)]);
+    clickedProduct(productId: string): void {
+        this.router.navigate([('/product/' + productId)]);
     }
 
 
