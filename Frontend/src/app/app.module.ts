@@ -38,6 +38,7 @@ import { CopyrightComponent } from './components/copyright/copyright.component';
 import { GreetingInfoSliderComponent } from './components/greeting-info-slider/greeting-info-slider.component';
 import { KundenComponent } from './components/kunden/kunden.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 // For cookie popup
 const cookieConfig: NgcCookieConsentConfig = {
@@ -102,6 +103,7 @@ const cookieConfig: NgcCookieConsentConfig = {
         GreetingInfoSliderComponent,
         KundenComponent,
         AboutUsComponent,
+        ProfileComponent,
     ],
     imports: [
         BrowserModule,

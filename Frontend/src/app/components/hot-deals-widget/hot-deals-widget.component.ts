@@ -11,6 +11,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class HotDealsWidgetComponent implements OnInit {
 
     products: Product[] = [];
+    bestDealsProductIds = [];
     @Input() numberOfProducts: number;
     @Input() showProductPicture: boolean;
     @Input() searchQuery: string;
@@ -24,12 +25,14 @@ export class HotDealsWidgetComponent implements OnInit {
     }
 
     ngOnInit(): void {
+
         this.loadParams();
+        this.getBestDeals();
     }
 
     loadParams(): void {
         if (!this.numberOfProducts) {
-            this.numberOfProducts = 10;
+            this.numberOfProducts = 9;
         }
         if (!this.showProductPicture) {
             this.showProductPicture = false;
@@ -47,14 +50,27 @@ export class HotDealsWidgetComponent implements OnInit {
                 break;
             }
             default: {
-                this.getProducts();
+                this.getProductsByIds();
                 break;
             }
         }
     }
 
-    getProducts(): void {
-        this.apiService.getProducts().subscribe(products => this.products = products);
+    getProductsByIds(): void {
+        this.apiService.getProductsByIds(this.bestDealsProductIds).subscribe(
+            products => this.products = products
+        );
+    }
+
+
+    getBestDeals(): void {
+        this.apiService.getBestDeals(9).subscribe(
+            deals => {
+                deals.forEach(deal => {
+                    this.bestDealsProductIds.push(deal.product_id);
+                });
+            }
+        );
     }
 
     getSearchedProducts(): void {

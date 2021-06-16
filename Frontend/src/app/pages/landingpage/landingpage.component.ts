@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {ApiService} from "../../services/api.service";
 
 @Component({
     selector: 'app-landingpage',
@@ -8,13 +9,16 @@ import {Router} from '@angular/router';
 })
 export class LandingpageComponent implements OnInit {
     searchInput: string;
+    isLoggedIn = false;
 
     constructor(
-        private router: Router
+        private router: Router,
+        private api: ApiService
     ) {
     }
 
     ngOnInit(): void {
+
     }
 
     startedSearch(): void {
@@ -25,5 +29,4 @@ export class LandingpageComponent implements OnInit {
         this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
             this.router.navigate([uri], queryParams));
     }
-
 }
