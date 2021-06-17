@@ -25,8 +25,8 @@ crawlingstatusRouter.get('/', async (req: Request, res: Response) => {
     try {
         // Authenticate user
         const user_ip = req.connection.remoteAddress ?? '';
-        const session_id = req.body.session_id;
-        const session_key = req.body.session_key;
+        const session_id = (req.query.session_id ?? '').toString();
+        const session_key = (req.query.session_key ?? '').toString();
         const user = await UserService.checkSession(session_id, session_key, user_ip);
 
         if (!user.is_admin) {
