@@ -6,7 +6,7 @@
         <div class="col-md-8 col-xs-12 col-sm-12 login_form ">
             <div class="container-fluid">
                 <div class="row">
-                    <h2>Anmelden</h2>
+                    <h2>Sign In</h2>
                 </div>
                 <div class="row">
                     <form [formGroup]="loginForm" class="form-group" (ngSubmit)="onSubmit()">
@@ -18,12 +18,12 @@
                             <input type="password" formControlName="password" name="password" id="password" class="form__input" placeholder="Password">
                         </div>
                         <div class="row">
-                            <input type="submit" value="Anmelden" class="btn_signin">
+                            <input type="submit" value="Log in" class="btn_signin">
                         </div>
                     </form>
                 </div>
                 <div class="row">
-                    <a href="/registration">Konto erstellen</a>
+                    <p>No account yet?<a href="/registration">sign up</a></p>
                 </div>
             </div>
         </div>

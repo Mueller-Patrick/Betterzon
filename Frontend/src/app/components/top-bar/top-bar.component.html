@@ -10,13 +10,13 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#top-gesuchte">Top-Gesuchte</a></li>
-                <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">über uns</a></li>
-                <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#unsere-kunden">Unsere Kunden</a></li>
-                <li class="nav-item mx-0 mx-lg-1" *ngIf="!isLoggedIn"><a class="nav-link py-3 px-0 px-lg-3 rounded" routerLink="/signin">Anmelden</a></li>
-                <li class="nav-item mx-0 mx-lg-1" *ngIf="!isLoggedIn"><a class="nav-link py-3 px-0 px-lg-3 rounded" routerLink="/registration">Konto Erstellen</a></li>
-                <li class="nav-item mx-0 mx-lg-1" *ngIf="isLoggedIn"><a class="nav-link py-3 px-0 px-lg-3 rounded" routerLink="" (click)="logout()">Log Out</a></li>
-                <li class="nav-item mx-0 mx-lg-1" *ngIf="isLoggedIn"><a class="nav-link py-3 px-0 px-lg-3 rounded" routerLink="/profile">Profile</a></li>
+                <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#top-gesuchte">top-searches</a></li>
+                <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">about</a></li>
+                <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#unsere-kunden">our clients</a></li>
+                <li class="nav-item mx-0 mx-lg-1" *ngIf="!isLoggedIn"><a class="nav-link py-3 px-0 px-lg-3 rounded" routerLink="/signin">sign in</a></li>
+                <li class="nav-item mx-0 mx-lg-1" *ngIf="!isLoggedIn"><a class="nav-link py-3 px-0 px-lg-3 rounded" routerLink="/registration">sign up</a></li>
+                <li class="nav-item mx-0 mx-lg-1" *ngIf="isLoggedIn"><a class="nav-link py-3 px-0 px-lg-3 rounded" routerLink="" (click)="logout()">log out</a></li>
+                <li class="nav-item mx-0 mx-lg-1" *ngIf="isLoggedIn"><a class="nav-link py-3 px-0 px-lg-3 rounded" routerLink="/profile">profile</a></li>
             </ul>
         </div>
     </div>

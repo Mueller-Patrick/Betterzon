@@ -61,24 +61,25 @@ export class ProductListComponent implements OnInit {
     }
 
     getPrices(): void {
-        const productIds: number[] = [];
         this.products.forEach(
-            product => productIds.push(product.product_id)
-        )
-        this.apiService.getProductsByIds(productIds).subscribe(
-            prices => {
-                prices.forEach(price => {
-                    this.pricesMap[price.product_id] = price;
-                })
+            product => {
+                this.apiService.getLowestPrices(product.product_id).subscribe(
+                    prices => {
+                        this.pricesMap[product.product_id] = prices[prices.length - 1];
+                    }
+                );
             }
-        )
+        );
     }
 
 
     getSearchedProducts(): void {
-        this.apiService.getProductsByQuery(this.searchQuery).subscribe(products => this.products = products);
+        this.apiService.getProductsByQuery(this.searchQuery).subscribe(products => {
+            this.products = products;
+            this.getPrices();
+        });
     }
-
+    
     clickedProduct(product: Product): void {
         this.router.navigate([('/product/' + product.product_id)]);
     }

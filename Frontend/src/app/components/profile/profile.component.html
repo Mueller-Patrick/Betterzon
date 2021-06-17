@@ -24,7 +24,7 @@
                                 </strong>
                             </td>
                             <td class="text-primary">
-                                bootnipets
+                                {{currentUser.username}}
                             </td>
                         </tr>
 
@@ -48,7 +48,7 @@
                                 </strong>
                             </td>
                             <td class="text-primary">
-                                noreply@email.com
+                                {{currentUser.email}}
                             </td>
                         </tr>
                         <tr>
@@ -59,7 +59,7 @@
                                 </strong>
                             </td>
                             <td class="text-primary">
-                                20 jul 20014
+                                {{currentUser.registration_date}}
                             </td>
                         </tr>
                         </tbody>
@@ -76,10 +76,10 @@
     <div class="col-auto">
         <table class="table table-hover">
             <tr>
-                <th>Produkt</th>
-                <th>Preis</th>
-                <th>Ändern</th>
-                <th>Löschen</th>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Change</th>
+                <th>Delete</th>
             </tr>
             <tr *ngFor="let alarm of alarms">
                 <td>
