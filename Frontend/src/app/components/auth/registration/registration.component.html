@@ -6,7 +6,7 @@
         <div class="col-md-8 col-xs-12 col-sm-12 login_form ">
             <div class="container-fluid">
                 <div class="row">
-                    <h2>Konto erstellen</h2>
+                    <h2>Registration</h2>
                 </div>
                 <div class="row">
                     <form [formGroup]="form" class="form-group" (ngSubmit)="onSubmit()">
@@ -22,17 +22,17 @@
                         </div>
                         <div class="row">
                             <!-- <span class="fa fa-lock"></span> -->
-                            <input type="password" formControlName="password" name="password" id="password" class="form__input" placeholder="Kennwort">
+                            <input type="password" formControlName="password" name="password" id="password" class="form__input" placeholder="Password">
                         </div>
                         <!--
                         <div class="row">
                             <input type="password" name="password" id="password_repeated" class="form__input" placeholder="Kennwort bestätigen">
                         </div> -->
                         <div class="row">
-                            <input type="submit" value="Erstellen" class="btn_signin">
+                            <input type="submit" value="Sign up" class="btn_signin">
                         </div>
                         <div class="row">
-                            <a href="/signin">Sich anmelden</a>
+                            <p>Have an account?<a href="/signin">Log In</a></p>
                         </div>
                     </form>
                 </div>
