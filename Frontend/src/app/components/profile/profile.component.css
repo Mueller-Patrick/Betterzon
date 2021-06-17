@@ -1,0 +1,21 @@
+.inf-content{
+    border:1px solid #DDDDDD;
+    -webkit-border-radius:10px;
+    -moz-border-radius:10px;
+    border-radius:10px;
+    box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.3);
+}
+
+.header-in-page {
+    padding-top: calc(1rem + 20px);
+    padding-bottom: 1rem;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+.delete:hover {
+    cursor: pointer;
+    color: #0d5a4b;
+}

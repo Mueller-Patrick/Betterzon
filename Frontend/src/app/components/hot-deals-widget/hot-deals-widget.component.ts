@@ -11,6 +11,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class HotDealsWidgetComponent implements OnInit {
 
     products: Product[] = [];
+    bestDealsProductIds = [];
+    amazonPrices = [];
+    productsPricesMap = new Map();
     @Input() numberOfProducts: number;
     @Input() showProductPicture: boolean;
     @Input() searchQuery: string;
@@ -24,12 +27,13 @@ export class HotDealsWidgetComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.loadParams();
+
+        this.getBestDeals();
     }
 
     loadParams(): void {
         if (!this.numberOfProducts) {
-            this.numberOfProducts = 10;
+            this.numberOfProducts = 9;
         }
         if (!this.showProductPicture) {
             this.showProductPicture = false;
@@ -43,26 +47,69 @@ export class HotDealsWidgetComponent implements OnInit {
 
         switch (this.type) {
             case 'search': {
-                this.getSearchedProducts();
                 break;
             }
             default: {
-                this.getProducts();
+                this.getProductsByIds();
+                this.getAmazonPricesForBestDeals();
+                this.getVendors()
                 break;
             }
         }
     }
 
-    getProducts(): void {
-        this.apiService.getProducts().subscribe(products => this.products = products);
+    getProductsByIds(): void {
+        this.apiService.getProductsByIds(this.bestDealsProductIds).subscribe(
+            products => {
+                products.forEach(product => {
+                    this.productsPricesMap [product.product_id].product = product;
+                });
+            }
+        );
+    }
+
+    getBestDeals(): void {
+        this.apiService.getBestDeals(9).subscribe(
+            deals => {
+                deals.forEach(deal => {
+                    this.bestDealsProductIds.push(deal.product_id);
+                    this.productsPricesMap [deal.product_id] = {lowestPrice: deal}
+                });
+                this.loadParams();
+            }
+        );
+    }
+
+    getVendors(): void {
+        this.bestDealsProductIds.forEach(
+            productId => {
+                const currentDeal = this.productsPricesMap[productId].lowestPrice;
+                this.apiService.getVendorById(currentDeal.vendor_id).subscribe(
+                    vendor => {
+                        this.productsPricesMap[productId].vendor = vendor;
+                    });
+            });
+    }
+
+
+    getAmazonPricesForBestDeals(): void{
+        this.bestDealsProductIds.forEach(id => {
+                this.apiService.getAmazonPrice(id).subscribe(
+                    price => {
+                        this.amazonPrices.push(price);
+                        this.productsPricesMap[price[0].product_id].amazonPrice = price[0];
+                    }
+                );
+            }
+        );
     }
 
     getSearchedProducts(): void {
         this.apiService.getProductsByQuery(this.searchQuery).subscribe(products => this.products = products);
     }
 
-    clickedProduct(product: Product): void {
-        this.router.navigate([('/product/' + product.product_id)]);
+    clickedProduct(productId: string): void {
+        this.router.navigate([('/product/' + productId)]);
     }
 
 

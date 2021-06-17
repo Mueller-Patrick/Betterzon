@@ -1,6 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {NgcCookieConsentService, NgcInitializeEvent, NgcNoCookieLawEvent, NgcStatusChangeEvent} from 'ngx-cookieconsent';
 import {Subscription} from 'rxjs';
+import {ApiService} from "./services/api.service";
+
 
 @Component({
     selector: 'app-root',
@@ -19,12 +21,18 @@ export class AppComponent implements OnInit, OnDestroy {
     private revokeChoiceSubscription: Subscription;
     private noCookieLawSubscription: Subscription;
 
+    isLoggedIn = false;
+    showUserBoard = false;
+    username?: string;
+
     constructor(
-        private ccService: NgcCookieConsentService
+        private ccService: NgcCookieConsentService,
+        private api: ApiService
     ) {
     }
 
     ngOnInit(): void {
+
         // subscribe to cookieconsent observables to react to main events
         this.popupOpenSubscription = this.ccService.popupOpen$.subscribe(
             () => {
