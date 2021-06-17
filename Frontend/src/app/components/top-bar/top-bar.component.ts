@@ -10,20 +10,23 @@ import {Router} from "@angular/router";
 })
 export class TopBarComponent implements OnInit {
 
-  sidenav: any;
-  isLoggedIn: boolean;
-  @Input() searchQuery: string;
+    sidenav: any;
+    isLoggedIn: boolean;
+    searchQuery: string;
 
-  constructor(
-      private api: ApiService,
-      private router: Router
-  ) { }
+    constructor(
+        private api: ApiService,
+        private router: Router
+    ) {
+    }
 
     ngOnInit() {
 
-        this.api.getUserInfo().subscribe(data=>{console.log(data)});
+        this.api.getUserInfo().subscribe(data => {
+            console.log(data)
+        });
 
-        if ( this.api.getSessionInfoFromLocalStorage().session_id != "") {
+        if (this.api.getSessionInfoFromLocalStorage().session_id != "") {
             this.isLoggedIn = true;
         }
     }
@@ -35,10 +38,12 @@ export class TopBarComponent implements OnInit {
     }
 
     getSearchedProducts(): void {
-        this.api.getProductsByQuery(this.searchQuery).subscribe(
-            data => {
-                this.router.navigate([('/registration')]);
-            }
-        );
+        console.log(this.searchQuery);
+        this.redirectTo('/search', {queryParams: {q: this.searchQuery}});
+    }
+
+    redirectTo(uri: string, queryParams: object): void {
+        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
+            this.router.navigate([uri], queryParams));
     }
 }

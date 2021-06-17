@@ -11,7 +11,7 @@ export class ProfileComponent implements OnInit {
     currentUser: any;
     obj:any;
     alarms: any [];
-    productsMap: any;
+    productsMap: any = {};
 
     constructor(private api: ApiService ) { }
 
@@ -37,7 +37,7 @@ export class ProfileComponent implements OnInit {
     }
 
     getProductsByIds(): void {
-        let productIds: number [];
+        let productIds: number [] = [];
         this.alarms.forEach(
             alarm => {productIds.push(alarm.product_id)}
         );

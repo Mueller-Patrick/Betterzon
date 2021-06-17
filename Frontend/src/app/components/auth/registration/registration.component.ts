@@ -36,8 +36,8 @@ export class RegistrationComponent implements OnInit {
   onSubmit() {
       this.api.registerUser(this.form.value.username, this.form.value.password, this.form.value.email).subscribe(
           res=> {
-              this.router.navigate(['']);
               this.api.saveSessionInfoToLocalStorage(res);
+              this.router.navigate(['/']);
           }
       );
   }
