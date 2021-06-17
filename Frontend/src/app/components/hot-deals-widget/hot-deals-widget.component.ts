@@ -13,7 +13,7 @@ export class HotDealsWidgetComponent implements OnInit {
     products: Product[] = [];
     bestDealsProductIds = [];
     amazonPrices = [];
-    productsPricesMap: any = {};
+    productsPricesMap = new Map();
     @Input() numberOfProducts: number;
     @Input() showProductPicture: boolean;
     @Input() searchQuery: string;
@@ -52,6 +52,7 @@ export class HotDealsWidgetComponent implements OnInit {
             default: {
                 this.getProductsByIds();
                 this.getAmazonPricesForBestDeals();
+                this.getVendors()
                 break;
             }
         }
@@ -79,6 +80,16 @@ export class HotDealsWidgetComponent implements OnInit {
         );
     }
 
+    getVendors(): void {
+        this.productsPricesMap.keys().forEach(
+            key => {
+                const currentDeal = this.productsPricesMap[key].lowestPrice;
+                this.apiService.getVendorById(currentDeal.vendor_id).subscribe(
+                    vendor => {
+                        this.productsPricesMap[key].vendor = vendor
+                    })
+            })
+    }
 
 
     getAmazonPricesForBestDeals(): void{
