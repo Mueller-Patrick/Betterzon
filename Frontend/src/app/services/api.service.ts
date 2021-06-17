@@ -445,6 +445,25 @@ export class ApiService {
         }
     }
 
+    /**
+     * Deletes the given price alarm
+     * @param alarmId the price alarm to delete
+     * @return Observable<any> The observable response of the api
+     */
+    deletePriceAlarm(alarmId: number): Observable<any> {
+        try {
+            const sessionInfo = this.getSessionInfoFromLocalStorage();
+
+            let params = new HttpParams();
+            params = params.append('session_id', sessionInfo.session_id);
+            params = params.append('session_key', sessionInfo.session_key);
+
+            return this.http.delete((this.apiUrl + '/pricealarms/' + alarmId), {params});
+        } catch (exception) {
+            process.stderr.write(`ERROR received from ${this.apiUrl}: ${exception}\n`);
+        }
+    }
+
 
     /*     __  __
           / / / /_______  __________
