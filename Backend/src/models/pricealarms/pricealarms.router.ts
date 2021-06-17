@@ -106,3 +106,29 @@ pricealarmsRouter.put('/', async (req: Request, res: Response) => {
         res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
     }
 });
+
+// DELETE pricealarms/:id
+pricealarmsRouter.delete('/:id', async (req, res) => {
+    try {
+        // Authenticate user
+        const user_ip = req.connection.remoteAddress ?? '';
+        const session_id = (req.query.session_id ?? '').toString();
+        const session_key = (req.query.session_key ?? '').toString();
+        const user = await UserService.checkSession(session_id, session_key, user_ip);
+
+        const id: number = parseInt(req.params.id, 10);
+
+        const success = await PriceAlarmsService.deletePriceAlarm(id, user.user_id);
+
+        if (success) {
+            res.status(200).send(JSON.stringify({success: true}));
+            return;
+        } else {
+            res.status(500).send(JSON.stringify({success: false}));
+            return;
+        }
+    } catch (e) {
+        console.log('Error handling a request: ' + e.message);
+        res.status(500).send(JSON.stringify({'message': 'Internal Server Error. Try again later.'}));
+    }
+});

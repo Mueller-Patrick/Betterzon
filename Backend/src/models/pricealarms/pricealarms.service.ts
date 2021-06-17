@@ -92,3 +92,24 @@ export const updatePriceAlarm = async (alarm_id: number, user_id: number, define
         }
     }
 };
+
+/**
+ * Deletes the given price alarm
+ * @param alarm_id The id of the price alarm to update
+ * @param user_id The id of the user that wants to update the price alarm
+ */
+export const deletePriceAlarm = async (alarm_id: number, user_id: number): Promise<boolean> => {
+    let conn;
+    try {
+        conn = await pool.getConnection();
+        const res = await conn.query('DELETE FROM price_alarms WHERE alarm_id = ? AND user_id = ?', [alarm_id, user_id]);
+
+        return res.affectedRows === 1;
+    } catch (err) {
+        throw err;
+    } finally {
+        if (conn) {
+            conn.end();
+        }
+    }
+};
