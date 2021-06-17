@@ -50,7 +50,9 @@ export class ProfileComponent implements OnInit {
         )
     }
 
-    delete() {
-
+    delete(id:number): void {
+        this.api.deletePriceAlarm(id).subscribe(
+            res => window.location.reload()
+        )
     }
 }

@@ -34,6 +34,8 @@ export class ProductDetailsComponent implements OnInit {
     vendorMap = {};
     @ViewChild('chart') chart: ChartComponent;
     public chartOptions: ChartOptions;
+    isLoggedIn: boolean;
+    price: any;
 
     constructor(
         private apiService: ApiService
@@ -44,6 +46,9 @@ export class ProductDetailsComponent implements OnInit {
         this.getProduct();
         this.getVendors();
         this.getPrices();
+        if (this.apiService.getSessionInfoFromLocalStorage().session_id != "") {
+            this.isLoggedIn = true;
+        }
     }
 
     getProduct(): void {
@@ -119,8 +124,10 @@ export class ProductDetailsComponent implements OnInit {
     }
 
     setPriceAlarm() {
-        this.apiService.createPriceAlarms(this.productId, 9).subscribe(
+        this.apiService.createPriceAlarms(this.productId, this.price*100).subscribe(
             alarms => console.log(alarms)
         )
     }
+
+
 }

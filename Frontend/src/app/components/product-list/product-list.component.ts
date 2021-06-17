@@ -10,6 +10,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class ProductListComponent implements OnInit {
     products: Product[] = [];
+    pricesMap: any = {};
     @Input() numberOfProducts: number;
     @Input() showProductPicture: boolean;
     @Input() searchQuery: string;
@@ -53,8 +54,26 @@ export class ProductListComponent implements OnInit {
     }
 
     getProducts(): void {
-        this.apiService.getProducts().subscribe(products => this.products = products);
+        this.apiService.getProducts().subscribe(products => {
+            this.products = products;
+            this.getPrices();
+        });
     }
+
+    getPrices(): void {
+        const productIds: number[] = [];
+        this.products.forEach(
+            product => productIds.push(product.product_id)
+        )
+        this.apiService.getProductsByIds(productIds).subscribe(
+            prices => {
+                prices.forEach(price => {
+                    this.pricesMap[price.product_id] = price;
+                })
+            }
+        )
+    }
+
 
     getSearchedProducts(): void {
         this.apiService.getProductsByQuery(this.searchQuery).subscribe(products => this.products = products);
@@ -63,5 +82,6 @@ export class ProductListComponent implements OnInit {
     clickedProduct(product: Product): void {
         this.router.navigate([('/product/' + product.product_id)]);
     }
+
 
 }

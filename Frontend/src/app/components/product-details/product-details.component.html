@@ -23,8 +23,12 @@
             {{product?.short_description}}
         </div>
     </div>
-    <div class="priceAlarm" (click)="setPriceAlarm()">
-        Set Price Alarm
+    <div class="priceAlarm" *ngIf="!isLoggedIn" routerLink="/signin">
+        Login to set a price alarm
+    </div>
+    <div class="priceAlarm" *ngIf="isLoggedIn">
+        <input type="search" id="s" name="price" [(ngModel)]="price">
+        <div (click)="setPriceAlarm()">Set Price Alarm</div>
     </div>
     <div class="bestPriceContainer">
         <div class="bestPrice">

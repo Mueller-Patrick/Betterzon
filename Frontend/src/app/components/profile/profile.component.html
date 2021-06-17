@@ -78,6 +78,7 @@
             <tr>
                 <th>Produkt</th>
                 <th>Preis</th>
+                <th>Ändern</th>
                 <th>Löschen</th>
             </tr>
             <tr *ngFor="let alarm of alarms">
@@ -88,7 +89,10 @@
                     {{alarm.defined_price/100}}
                 </td>
                 <td>
-                    <img class="delete" src="../assets/images/Delete_icon-icons.com_55931.png" (click)="delete()">
+                    <img class="delete" src="../assets/images/Delete_icon-icons.com_55931.png" (click)="delete(alarm.alarm_id)">
+                </td>
+                <td>
+                    <img class="delete" src="../assets/images/Delete_icon-icons.com_55931.png" (click)="delete(alarm.alarm_id)">
                 </td>
             </tr>
         </table>
