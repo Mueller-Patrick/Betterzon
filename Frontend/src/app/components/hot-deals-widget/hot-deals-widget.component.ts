@@ -81,14 +81,14 @@ export class HotDealsWidgetComponent implements OnInit {
     }
 
     getVendors(): void {
-        this.productsPricesMap.keys().forEach(
-            key => {
-                const currentDeal = this.productsPricesMap[key].lowestPrice;
+        this.bestDealsProductIds.forEach(
+            productId => {
+                const currentDeal = this.productsPricesMap[productId].lowestPrice;
                 this.apiService.getVendorById(currentDeal.vendor_id).subscribe(
                     vendor => {
-                        this.productsPricesMap[key].vendor = vendor
-                    })
-            })
+                        this.productsPricesMap[productId].vendor = vendor;
+                    });
+            });
     }
 
 

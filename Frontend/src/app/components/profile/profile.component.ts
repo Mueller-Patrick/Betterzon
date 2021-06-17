@@ -49,4 +49,8 @@ export class ProfileComponent implements OnInit {
             }
         )
     }
+
+    delete() {
+
+    }
 }
