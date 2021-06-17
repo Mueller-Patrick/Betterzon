@@ -43,8 +43,8 @@ export class SigninComponent implements OnInit {
             .subscribe(
                 data => {
                     this.isSuccessful = true;
-                    this.isSignUpFailed = false;
                     this.router.navigate(['']);
+                    this.api.saveSessionInfoToLocalStorage(data);
                 },
                 err => {
                     this.errorMessage = err.error.message;

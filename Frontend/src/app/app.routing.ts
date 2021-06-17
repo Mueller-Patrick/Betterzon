@@ -12,6 +12,7 @@ import {PrivacyComponent} from './pages/privacy/privacy.component';
 import {SigninComponent} from "./components/auth/signin/signin.component";
 import {RegistrationComponent} from "./components/auth/registration/registration.component";
 import {ProfileComponent} from "./components/profile/profile.component";
+import {ProfilePageComponent} from "./pages/profile-page/profile-page.component";
 
 const routes: Routes = [
     {path: '', component: LandingpageComponent, pathMatch: 'full'},
@@ -22,7 +23,7 @@ const routes: Routes = [
     {path: 'signin', component: SigninComponent},
     {path: 'registration', component: RegistrationComponent},
     {path: "product-detail", component: ProductDetailPageComponent},
-    {path: "profile", component: ProfileComponent},
+    {path: "profile", component: ProfilePageComponent},
     {path: '**', component: PageNotFoundPageComponent}
 ];
 

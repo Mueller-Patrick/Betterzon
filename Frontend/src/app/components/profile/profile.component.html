@@ -7,6 +7,27 @@
         <strong>username:</strong>
         {{ currentUser.username}}
     </p>
+    <p>
+        <strong>alarms</strong>
+        {{alarms}}
+    </p>
+    <table>
+        <tr>
+            <th>Produkt</th>
+            <th>Preis</th>
+        </tr>
+        <tr *ngFor="let alarm of alarms">
+            <td>
+                {{productsMap[alarm.product_id]?.name}}
+            </td>
+            <td>
+                {{alarm.defined_price/100}}
+            </td>
+        </tr>
+    </table>
+    <p>
+        <strong><a routerLink="/">zurück</a></strong>
+    </p>
 </div>
 
 <ng-template #loggedOut>

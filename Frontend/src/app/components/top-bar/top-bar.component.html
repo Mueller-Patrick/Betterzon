@@ -2,7 +2,7 @@
     <div class="container">
         <a class="navbar-brand" routerLink=""> Betterzon</a>
         <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" (keyup.enter)="getSearchedProducts()">
         </form>
         <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu
@@ -13,9 +13,10 @@
                 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#top-gesuchte">Top-Gesuchte</a></li>
                 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">über uns</a></li>
                 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#unsere-kunden">Unsere Kunden</a></li>
-                <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" routerLink="/signin">Anmelden</a></li>
-                <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" routerLink="/registration">Konto Erstellen</a></li>
-                <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" routerLink="/registration">Log Out</a></li>
+                <li class="nav-item mx-0 mx-lg-1" *ngIf="!isLoggedIn"><a class="nav-link py-3 px-0 px-lg-3 rounded" routerLink="/signin">Anmelden</a></li>
+                <li class="nav-item mx-0 mx-lg-1" *ngIf="!isLoggedIn"><a class="nav-link py-3 px-0 px-lg-3 rounded" routerLink="/registration">Konto Erstellen</a></li>
+                <li class="nav-item mx-0 mx-lg-1" *ngIf="isLoggedIn"><a class="nav-link py-3 px-0 px-lg-3 rounded" routerLink="" (click)="logout()">Log Out</a></li>
+                <li class="nav-item mx-0 mx-lg-1" *ngIf="isLoggedIn"><a class="nav-link py-3 px-0 px-lg-3 rounded" routerLink="/profile">Profile</a></li>
             </ul>
         </div>
     </div>

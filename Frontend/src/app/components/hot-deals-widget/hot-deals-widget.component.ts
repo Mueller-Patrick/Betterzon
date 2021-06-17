@@ -86,12 +86,11 @@ export class HotDealsWidgetComponent implements OnInit {
                 this.apiService.getAmazonPrice(id).subscribe(
                     price => {
                         this.amazonPrices.push(price);
-                        this.productsPricesMap[price.product_id].amazonPrice = price;
+                        this.productsPricesMap[price[0].product_id].amazonPrice = price[0];
                     }
                 );
             }
         );
-        console.log(this.amazonPrices);
     }
 
     getSearchedProducts(): void {

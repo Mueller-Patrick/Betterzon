@@ -9,7 +9,9 @@ import {ApiService} from "../../services/api.service";
 export class ProfileComponent implements OnInit {
 
     currentUser: any;
-    obj:any
+    obj:any;
+    alarms: any [];
+    productsMap: any;
 
     constructor(private api: ApiService ) { }
 
@@ -21,5 +23,30 @@ export class ProfileComponent implements OnInit {
                 console.log(this.currentUser);
             },
         );
+
+        this.getPriceAlarms();
+    }
+
+    getPriceAlarms(): void {
+        this.api.getPriceAlarms().subscribe(
+            alarms => {
+                this.alarms = alarms
+                this.getProductsByIds()
+            }
+        )
+    }
+
+    getProductsByIds(): void {
+        let productIds: number [];
+        this.alarms.forEach(
+            alarm => {productIds.push(alarm.product_id)}
+        );
+        this.api.getProductsByIds(productIds).subscribe(
+            products => {
+                products.forEach(
+                    product => {this.productsMap[product.product_id] = product}
+                )
+            }
+        )
     }
 }

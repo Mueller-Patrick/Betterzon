@@ -117,4 +117,10 @@ export class ProductDetailsComponent implements OnInit {
 
         return Math.round(percentage);
     }
+
+    setPriceAlarm() {
+        this.apiService.createPriceAlarms(this.productId, 9).subscribe(
+            alarms => console.log(alarms)
+        )
+    }
 }

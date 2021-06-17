@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ApiService} from "../../services/api.service";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -10,13 +11,34 @@ import {ApiService} from "../../services/api.service";
 export class TopBarComponent implements OnInit {
 
   sidenav: any;
+  isLoggedIn: boolean;
+  @Input() searchQuery: string;
 
   constructor(
-      private api: ApiService
+      private api: ApiService,
+      private router: Router
   ) { }
 
     ngOnInit() {
 
         this.api.getUserInfo().subscribe(data=>{console.log(data)});
+
+        if ( this.api.getSessionInfoFromLocalStorage().session_id != "") {
+            this.isLoggedIn = true;
+        }
+    }
+
+    logout(): void {
+        localStorage.setItem('session_id', '');
+        localStorage.setItem('session_key', '');
+        window.location.reload()
+    }
+
+    getSearchedProducts(): void {
+        this.api.getProductsByQuery(this.searchQuery).subscribe(
+            data => {
+                this.router.navigate([('/registration')]);
+            }
+        );
     }
 }
