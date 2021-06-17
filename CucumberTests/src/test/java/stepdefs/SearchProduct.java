@@ -16,7 +16,7 @@ public class SearchProduct {
         //throw new PendingException();
         Preconditions.driver.get("https://betterzon.xyz");
         WebElement logo = (new WebDriverWait(Preconditions.driver, 10))
-                .until(ExpectedConditions.elementToBeClickable(By.cssSelector(".logo")));
+                .until(ExpectedConditions.elementToBeClickable(By.cssSelector(".navbar-brand")));
     }
 
     @When("^the user enters the search term \"([^\"]*)\" and clicks search$")
@@ -25,7 +25,7 @@ public class SearchProduct {
         searchField.sendKeys(searchTerm);
         searchField.sendKeys(Keys.ENTER);
         WebElement logo = (new WebDriverWait(Preconditions.driver, 10))
-                .until(ExpectedConditions.elementToBeClickable(By.cssSelector(".logo")));
+                .until(ExpectedConditions.elementToBeClickable(By.cssSelector(".navbar-brand")));
     }
 
     @Then("^the user should see the error page \"([^\"]*)\"$")
