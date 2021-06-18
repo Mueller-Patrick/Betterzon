@@ -4,9 +4,9 @@ import {Product} from '../../models/product';
 import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
-  selector: 'app-kunden',
-  templateUrl: './kunden.component.html',
-  styleUrls: ['./kunden.component.css']
+    selector: 'app-kunden',
+    templateUrl: './kunden.component.html',
+    styleUrls: ['./kunden.component.css']
 })
 export class KundenComponent implements OnInit {
     products: Product[] = [];

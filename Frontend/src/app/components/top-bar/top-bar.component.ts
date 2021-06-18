@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ApiService} from "../../services/api.service";
-import {Router} from "@angular/router";
+import {ApiService} from '../../services/api.service';
+import {NavigationEnd, Router} from '@angular/router';
 
 
 @Component({
@@ -20,13 +20,12 @@ export class TopBarComponent implements OnInit {
     ) {
     }
 
-    ngOnInit() {
-
+    ngOnInit(): void {
         this.api.getUserInfo().subscribe(data => {
-            console.log(data)
+            console.log(data);
         });
 
-        if (this.api.getSessionInfoFromLocalStorage().session_id != "") {
+        if (this.api.getSessionInfoFromLocalStorage().session_id !== '') {
             this.isLoggedIn = true;
         }
     }
@@ -34,7 +33,11 @@ export class TopBarComponent implements OnInit {
     logout(): void {
         localStorage.setItem('session_id', '');
         localStorage.setItem('session_key', '');
-        this.router.navigate(['/']);
+        if (this.router.url === '/profile') {
+            this.router.navigate(['/']);
+        } else {
+            window.location.reload();
+        }
     }
 
     getSearchedProducts(): void {
