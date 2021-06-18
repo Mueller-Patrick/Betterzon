@@ -1,0 +1,137 @@
+<div class="container bootstrap snippets bootdey">
+    <div class="panel-body inf-content">
+        <div class="row">
+            <div class="col-md-4">
+                <img alt="" style="width:600px;" title="" class="img-circle img-thumbnail isTooltip" src="https://bootdey.com/img/Content/avatar/avatar7.png" data-original-title="Usuario">
+                <ul title="Ratings" class="list-inline ratings text-center">
+                    <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <strong>Information</strong><br>
+                <div class="table-responsive">
+                    <table class="table table-user-information">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <strong>
+                                    <span class="glyphicon glyphicon-bookmark text-primary"></span>
+                                    Username
+                                </strong>
+                            </td>
+                            <td class="text-primary">
+                                {{currentUser.username}}
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td>
+                                <strong>
+                                    <span class="glyphicon glyphicon-eye-open text-primary"></span>
+                                    Role
+                                </strong>
+                            </td>
+                            <td class="text-primary">
+                                User
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>
+                                    <span class="glyphicon glyphicon-envelope text-primary"></span>
+                                    Email
+                                </strong>
+                            </td>
+                            <td class="text-primary">
+                                {{currentUser.email}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>
+                                    <span class="glyphicon glyphicon-calendar text-primary"></span>
+                                    created
+                                </strong>
+                            </td>
+                            <td class="text-primary">
+                                {{currentUser.registration_date}}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<header class="header-in-page">
+
+</header>
+<div class="container bootstrap snippets bootdey">
+    <div class="col-auto">
+        <table class="table table-hover">
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Change</th>
+                <th>Delete</th>
+            </tr>
+            <tr *ngFor="let alarm of alarms">
+                <td>
+                    {{productsMap[alarm.product_id]?.name}}
+                </td>
+                <td>
+                    {{alarm.defined_price/100}}€
+                </td>
+                <td>
+                    <img class="delete" src="../assets/images/Delete_icon-icons.com_55931.png" (click)="delete(alarm.alarm_id)">
+                </td>
+                <td>
+                    <img class="delete" src="../assets/images/Delete_icon-icons.com_55931.png" (click)="delete(alarm.alarm_id)">
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<!--
+<div class="container" *ngIf="currentUser; else loggedOut">
+    <p>
+        <strong>e-mail</strong>
+        {{ currentUser.email}}
+    </p>
+    <p>
+        <strong>username:</strong>
+        {{ currentUser.username}}
+    </p>
+    <p>
+        <strong>alarms</strong>
+        {{alarms}}
+    </p>
+    <table>
+        <tr>
+            <th>Produkt</th>
+            <th>Preis</th>
+        </tr>
+        <tr *ngFor="let alarm of alarms">
+            <td>
+                {{productsMap[alarm.product_id]?.name}}
+            </td>
+            <td>
+                {{alarm.defined_price/100}}
+            </td>
+        </tr>
+    </table>
+    <p>
+        <strong><a routerLink="/">zurück</a></strong>
+    </p>
+</div>
+
+<ng-template #loggedOut>
+    Please login.
+</ng-template>
+-->

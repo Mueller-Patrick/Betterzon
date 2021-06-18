@@ -18,7 +18,6 @@ export class SigninComponent implements OnInit {
     private isSignUpFailed: boolean;
     private errorMessage: '';
 
-
     constructor(
         private formBuilder: FormBuilder,
         private api: ApiService,
@@ -43,9 +42,8 @@ export class SigninComponent implements OnInit {
         this.api.loginUser(this.loginForm.value.username, this.loginForm.value.password)
             .subscribe(
                 data => {
-                    this.router.navigate(['']);
                     this.isSuccessful = true;
-                    this.isSignUpFailed = false;
+                    this.router.navigate(['']);
                     this.api.saveSessionInfoToLocalStorage(data);
                 },
                 err => {

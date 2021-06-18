@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {ApiService} from "../../../services/api.service";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -15,7 +16,8 @@ export class RegistrationComponent implements OnInit {
 
   constructor(
       private formBuilder: FormBuilder,
-      private api : ApiService
+      private api : ApiService,
+      private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -32,6 +34,11 @@ export class RegistrationComponent implements OnInit {
   get me() { return this.form.controls; }
 
   onSubmit() {
-      this.api.registerUser(this.form.value.username, this.form.value.password, this.form.value.email).subscribe(res=>console.log(res));
+      this.api.registerUser(this.form.value.username, this.form.value.password, this.form.value.email).subscribe(
+          res=> {
+              this.api.saveSessionInfoToLocalStorage(res);
+              this.router.navigate(['/']);
+          }
+      );
   }
 }

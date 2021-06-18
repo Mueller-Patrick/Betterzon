@@ -1,7 +1,7 @@
 <section class="page-section portfolio" id="top-gesuchte">
     <div class="container">
         <!-- Portfolio Section Heading-->
-        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">TOP-ANGEBOTE</h2>
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">TOP-SEARCHES</h2>
         <!-- Icon Divider-->
         <div class="divider-custom">
             <div class="divider-custom-line"></div>
@@ -9,18 +9,18 @@
         <!-- Portfolio Grid Items-->
         <div class="row justify-content-center">
             <!-- Portfolio Item 1-->
-            <div class="col-md-4 mx-auto my-5" *ngFor="let product of products" (click)="clickedProduct(product)">
+            <div class="col-md-4 mx-auto my-5" *ngFor="let productId of bestDealsProductIds" (click)="clickedProduct(productId)">
                 <div class="bbb_deals_wrapper">
-                    <div class="bbb_deals_image"><img src="https://www.mueller-patrick.tech/betterzon/images/{{product.image_guid}}.jpg" alt=""></div>
+                    <div class="bbb_deals_image"><img src="https://www.mueller-patrick.tech/betterzon/images/{{productsPricesMap[productId]?.product?.image_guid}}.jpg" alt=""></div>
                     <div class="bbb_deals_content">
                         <div class="bbb_deals_info_line d-flex flex-row justify-content-start">
-                            <div class="bbb_deals_item_name">{{product.name}}</div>
+                            <div class="bbb_deals_item_name">{{productsPricesMap[productId]?.product?.name}}</div>
                         </div>
                         <div class="bbb_deals_info_line d-flex flex-row justify-content-start">
-                            <div class="bbb_deals_item_category">Amazon: <span id="bbb_deals_item_price_a"><strike>{{product.price}}$</strike></span></div>
+                            <div class="bbb_deals_item_category">Amazon: <span id="bbb_deals_item_price_a"><strike>{{productsPricesMap[productId]?.amazonPrice?.price_in_cents/100}}€</strike></span></div>
                         </div>
                         <div class="bbb_deals_info_line d-flex flex-row justify-content-start">
-                            <div class="bbb_deals_item_category">Plantshub: <span id="bbb_deals_item_price_b">599,00$</span></div>
+                            <div class="bbb_deals_item_category">{{productsPricesMap[productId]?.vendor?.name}}: <span id="bbb_deals_item_price_b">{{productsPricesMap[productId]?.lowestPrice?.price_in_cents/100}}€</span></div>
                         </div>
                         <div class="available_bar">
                             <span style="width:17%"></span>
