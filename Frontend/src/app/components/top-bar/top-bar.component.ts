@@ -34,7 +34,7 @@ export class TopBarComponent implements OnInit {
     logout(): void {
         localStorage.setItem('session_id', '');
         localStorage.setItem('session_key', '');
-        window.location.reload()
+        this.router.navigate(['/']);
     }
 
     getSearchedProducts(): void {
