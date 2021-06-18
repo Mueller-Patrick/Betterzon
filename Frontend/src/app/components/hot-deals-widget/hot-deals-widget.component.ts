@@ -4,9 +4,9 @@ import {Product} from '../../models/product';
 import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
-  selector: 'app-hot-deals-widget',
-  templateUrl: './hot-deals-widget.component.html',
-  styleUrls: ['./hot-deals-widget.component.css']
+    selector: 'app-hot-deals-widget',
+    templateUrl: './hot-deals-widget.component.html',
+    styleUrls: ['./hot-deals-widget.component.css']
 })
 export class HotDealsWidgetComponent implements OnInit {
 
@@ -52,7 +52,7 @@ export class HotDealsWidgetComponent implements OnInit {
             default: {
                 this.getProductsByIds();
                 this.getAmazonPricesForBestDeals();
-                this.getVendors()
+                this.getVendors();
                 break;
             }
         }
@@ -73,7 +73,7 @@ export class HotDealsWidgetComponent implements OnInit {
             deals => {
                 deals.forEach(deal => {
                     this.bestDealsProductIds.push(deal.product_id);
-                    this.productsPricesMap [deal.product_id] = {lowestPrice: deal}
+                    this.productsPricesMap [deal.product_id] = {lowestPrice: deal};
                 });
                 this.loadParams();
             }
@@ -92,7 +92,7 @@ export class HotDealsWidgetComponent implements OnInit {
     }
 
 
-    getAmazonPricesForBestDeals(): void{
+    getAmazonPricesForBestDeals(): void {
         this.bestDealsProductIds.forEach(id => {
                 this.apiService.getAmazonPrice(id).subscribe(
                     price => {

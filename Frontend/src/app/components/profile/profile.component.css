@@ -19,3 +19,8 @@ table, th, td {
     cursor: pointer;
     color: #0d5a4b;
 }
+
+.edit {
+    width: 5%;
+    height: 5%;
+}

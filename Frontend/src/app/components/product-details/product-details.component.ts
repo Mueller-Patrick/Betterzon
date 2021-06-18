@@ -46,7 +46,7 @@ export class ProductDetailsComponent implements OnInit {
         this.getProduct();
         this.getVendors();
         this.getPrices();
-        if (this.apiService.getSessionInfoFromLocalStorage().session_id != "") {
+        if (this.apiService.getSessionInfoFromLocalStorage().session_id != '') {
             this.isLoggedIn = true;
         }
     }
@@ -123,10 +123,10 @@ export class ProductDetailsComponent implements OnInit {
         return Math.round(percentage);
     }
 
-    setPriceAlarm() {
-        this.apiService.createPriceAlarms(this.productId, this.price*100).subscribe(
+    setPriceAlarm(): void {
+        this.apiService.createPriceAlarms(this.productId, this.price * 100).subscribe(
             alarms => console.log(alarms)
-        )
+        );
     }
 
 
