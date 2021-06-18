@@ -1,7 +1,7 @@
 <section class="page-section portfolio" id="top-gesuchte">
     <div class="container">
         <!-- Portfolio Section Heading-->
-        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">TOP-SEARCHES</h2>
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">TOP-OFFERS</h2>
         <!-- Icon Divider-->
         <div class="divider-custom">
             <div class="divider-custom-line"></div>
@@ -17,10 +17,10 @@
                             <div class="bbb_deals_item_name">{{productsPricesMap[productId]?.product?.name}}</div>
                         </div>
                         <div class="bbb_deals_info_line d-flex flex-row justify-content-start">
-                            <div class="bbb_deals_item_category">Amazon: <span id="bbb_deals_item_price_a"><strike>{{productsPricesMap[productId]?.amazonPrice?.price_in_cents/100}}$</strike></span></div>
+                            <div class="bbb_deals_item_category">Amazon: <span id="bbb_deals_item_price_a"><strike>{{productsPricesMap[productId]?.amazonPrice?.price_in_cents/100}}€</strike></span></div>
                         </div>
                         <div class="bbb_deals_info_line d-flex flex-row justify-content-start">
-                            <div class="bbb_deals_item_category">{{productsPricesMap[productId]?.vendor?.name}}: <span id="bbb_deals_item_price_b">{{productsPricesMap[productId]?.lowestPrice?.price_in_cents/100}}</span></div>
+                            <div class="bbb_deals_item_category">{{productsPricesMap[productId]?.vendor?.name}}: <span id="bbb_deals_item_price_b">{{productsPricesMap[productId]?.lowestPrice?.price_in_cents/100}}€</span></div>
                         </div>
                         <div class="available_bar">
                             <span style="width:17%"></span>
