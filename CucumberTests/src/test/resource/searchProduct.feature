@@ -12,7 +12,7 @@ Feature: Search a Product
         Then the user should see a list of products
         When the user clicks on the first product
         Then the user should see the product detail page
-        And the set price alarm box should show "Log in to continue"
+        And the set price alarm box should show "Login to set a price alarm"
 
     Scenario: User is logged in, searches for known product
         Given the user is on the landing page

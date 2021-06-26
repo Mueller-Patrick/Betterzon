@@ -5,8 +5,7 @@ Feature: Favorite Shop List
     And the user is logged in
     And the user has at least 1 favorite shop
     When the user clicks on the profile icon
-    Then the profile details popup should open
-    When the user clicks on favorite shops
+    Then the profile page should open
     Then he should see his favorite shops list
 
   Scenario: Remove Favorite Shop Entry
@@ -14,7 +13,6 @@ Feature: Favorite Shop List
     And the user is logged in
     And the user has at least 1 favorite shop
     When the user clicks on the profile icon
-    Then the profile details popup should open
-    When the user clicks on favorite shops
-    And he clicks on delete a favorite shop entry
+    Then the profile page should open
+    When he clicks on delete a favorite shop entry
     Then the favorite shop entry should be deleted
