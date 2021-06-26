@@ -12,8 +12,7 @@ export class LandingpageComponent implements OnInit {
     isLoggedIn = false;
 
     constructor(
-        private router: Router,
-        private api: ApiService
+        private router: Router
     ) {
     }
 

@@ -70,7 +70,8 @@ describe('ProductListComponent', () => {
             last_modified: new Date(),
             manufacturer_id: 1,
             selling_rank: '1',
-            category_id: 1
+            category_id: 1,
+            price: 0
         };
 
         component.clickedProduct(product);

@@ -79,7 +79,7 @@ export class ProductListComponent implements OnInit {
             this.getPrices();
         });
     }
-    
+
     clickedProduct(product: Product): void {
         this.router.navigate([('/product/' + product.product_id)]);
     }

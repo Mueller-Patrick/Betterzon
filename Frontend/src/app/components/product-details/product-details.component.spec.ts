@@ -58,6 +58,11 @@ class MockApiService extends AbstractMockObservableService {
         this.content = [vendor];
         return this;
     }
+
+    getSessionInfoFromLocalStorage(): any {
+        this.content = [];
+        return this;
+    }
 }
 
 describe('ProductDetailsComponent', () => {

@@ -38,7 +38,7 @@ import { CopyrightComponent } from './components/copyright/copyright.component';
 import { GreetingInfoSliderComponent } from './components/greeting-info-slider/greeting-info-slider.component';
 import { KundenComponent } from './components/kunden/kunden.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
-import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 
 // For cookie popup
