@@ -11,11 +11,13 @@
                 <div class="row">
                     <form [formGroup]="loginForm" class="form-group" (ngSubmit)="onSubmit()">
                         <div class="row">
-                            <input type="text" formControlName="username" name="username" id="username" class="form__input" placeholder="Username">
+                            <input type="text" formControlName="username" name="username" id="username"
+                                   class="form__input" placeholder="Username">
                         </div>
                         <div class="row">
                             <!-- <span class="fa fa-lock"></span> -->
-                            <input type="password" formControlName="password" name="password" id="password" class="form__input" placeholder="Password">
+                            <input type="password" formControlName="password" name="password" id="password"
+                                   class="form__input" placeholder="Password">
                         </div>
                         <div class="row">
                             <input type="submit" value="Log in" class="btn_signin">

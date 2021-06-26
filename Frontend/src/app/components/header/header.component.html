@@ -5,7 +5,8 @@
             <img src="assets/images/Betterzon.svg" alt="Betterzon Logo" width="50px" (click)="clickedLogo()">
         </div>
         <div class="searchBox">
-            <input *ngIf="showSearch===true" type="text" [(ngModel)]="searchInput" placeholder="Search" (keyup.enter)="startedSearch()">
+            <input *ngIf="showSearch===true" type="text" [(ngModel)]="searchInput" placeholder="Search"
+                   (keyup.enter)="startedSearch()">
         </div>
         <div class="slider">
             <mat-slide-toggle color="primary">dark me</mat-slide-toggle>

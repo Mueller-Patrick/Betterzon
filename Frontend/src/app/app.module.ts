@@ -23,23 +23,23 @@ import {NgcCookieConsentModule, NgcCookieConsentConfig} from 'ngx-cookieconsent'
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {TopBarComponent} from './components/top-bar/top-bar.component';
 import {RouterModule} from '@angular/router';
-import {MatButtonModule} from "@angular/material/button";
+import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatListModule} from "@angular/material/list";
+import {MatListModule} from '@angular/material/list';
 import {BottomBarComponent} from './components/bottom-bar/bottom-bar.component';
-import { HotDealsWidgetComponent } from './components/hot-deals-widget/hot-deals-widget.component';
-import { SliderForProductsComponent } from './components/slider-for-products/slider-for-products.component';
-import { RegistrationComponent } from './components/auth/registration/registration.component';
-import { MatCardModule } from "@angular/material/card";
-import {SigninComponent} from "./components/auth/signin/signin.component";
-import { CopyrightComponent } from './components/copyright/copyright.component';
-import { GreetingInfoSliderComponent } from './components/greeting-info-slider/greeting-info-slider.component';
-import { KundenComponent } from './components/kunden/kunden.component';
-import { AboutUsComponent } from './components/about-us/about-us.component';
-import { ProfileComponent } from './pages/profile/profile.component';
-import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import {HotDealsWidgetComponent} from './components/hot-deals-widget/hot-deals-widget.component';
+import {SliderForProductsComponent} from './components/slider-for-products/slider-for-products.component';
+import {RegistrationComponent} from './components/auth/registration/registration.component';
+import {MatCardModule} from '@angular/material/card';
+import {SigninComponent} from './components/auth/signin/signin.component';
+import {CopyrightComponent} from './components/copyright/copyright.component';
+import {GreetingInfoSliderComponent} from './components/greeting-info-slider/greeting-info-slider.component';
+import {KundenComponent} from './components/kunden/kunden.component';
+import {AboutUsComponent} from './components/about-us/about-us.component';
+import {ProfileComponent} from './pages/profile/profile.component';
+import {ProfilePageComponent} from './pages/profile-page/profile-page.component';
 
 // For cookie popup
 const cookieConfig: NgcCookieConsentConfig = {

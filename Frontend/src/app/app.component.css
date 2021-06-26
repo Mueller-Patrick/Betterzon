@@ -1,9 +1,10 @@
 .wrapper_app {
-    padding-bottom: 2.5rem;    /* Footer height */
+    padding-bottom: 2.5rem; /* Footer height */
 }
+
 .footer_app {
     position: relative;
     bottom: 0;
     width: 100%;
-    height: 2.5rem;            /* Footer height */
+    height: 2.5rem; /* Footer height */
 }

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {ApiService} from "../../services/api.service";
+import {ApiService} from '../../services/api.service';
 
 @Component({
     selector: 'app-landingpage',

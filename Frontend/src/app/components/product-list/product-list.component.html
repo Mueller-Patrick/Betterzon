@@ -5,43 +5,49 @@
     <div class="d-flex justify-content-center row">
         <div class="col-md-10">
             <div class="row p-2 bg-white border rounded" *ngFor="let product of products">
-                <div class="col-md-3 mt-1"><img width="50%" class="img-fluid img-responsive rounded product-image" src="https://www.mueller-patrick.tech/betterzon/images/{{product.image_guid}}.jpg"></div>
+                <div class="col-md-3 mt-1"><img width="50%" class="img-fluid img-responsive rounded product-image"
+                                                src="https://www.mueller-patrick.tech/betterzon/images/{{product.image_guid}}.jpg">
+                </div>
                 <div class="col-md-6 mt-1">
                     <h5>{{product.name}}</h5>
                     <div class="d-flex flex-row">
                         <p class="text-justify text-truncate para mb-0">{{product.short_description}}</p>
                     </div>
-                    <div class="mt-1 mb-1 spec-1"><span></span><span class="dot"></span><span></span><span class="dot"></span><span><br></span></div>
-                    <div class="mt-1 mb-1 spec-1"><span></span><span class="dot"></span><span></span><span class="dot"></span><span><br></span></div>
+                    <div class="mt-1 mb-1 spec-1"><span></span><span class="dot"></span><span></span><span
+                        class="dot"></span><span><br></span></div>
+                    <div class="mt-1 mb-1 spec-1"><span></span><span class="dot"></span><span></span><span
+                        class="dot"></span><span><br></span></div>
                 </div>
                 <div class="align-items-center align-content-center col-md-3 border-left mt-1">
                     <div class="d-flex flex-row align-items-center">
-                        <h4 class="mr-1">${{pricesMap[product.product_id]?.price_in_cents/100}}</h4>
+                        <h4 class="mr-1">${{pricesMap[product.product_id]?.price_in_cents / 100}}</h4>
                     </div>
-                    <div class="d-flex flex-column mt-4"><button class="btn btn-primary btn-sm" type="button" (click)="clickedProduct(product)">Details</button>
+                    <div class="d-flex flex-column mt-4">
+                        <button class="btn btn-primary btn-sm" type="button" (click)="clickedProduct(product)">Details
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!--
-<div class="productItem" *ngFor="let product of products" (click)="clickedProduct(product)">
-    <div class="productImageContainer" *ngIf="showProductPicture===true">
-        <img class="productImage" src="https://www.mueller-patrick.tech/betterzon/images/{{product.image_guid}}.jpg"/>
-    </div>
-    <div class="productTitle">
-        <b>{{product.name}}</b>
-    </div>
-    <div class="productPrice">
-        5€
-    </div>
-    <div class="productDescription">
-        <div *ngIf="product.short_description.length > 300">
-            {{product.short_description.substring(0, 300) + "..."}}
+    <!--
+    <div class="productItem" *ngFor="let product of products" (click)="clickedProduct(product)">
+        <div class="productImageContainer" *ngIf="showProductPicture===true">
+            <img class="productImage" src="https://www.mueller-patrick.tech/betterzon/images/{{product.image_guid}}.jpg"/>
         </div>
-        <div *ngIf="product.short_description.length <= 300">
-            {{product.short_description}}
+        <div class="productTitle">
+            <b>{{product.name}}</b>
+        </div>
+        <div class="productPrice">
+            5€
+        </div>
+        <div class="productDescription">
+            <div *ngIf="product.short_description.length > 300">
+                {{product.short_description.substring(0, 300) + "..."}}
+            </div>
+            <div *ngIf="product.short_description.length <= 300">
+                {{product.short_description}}
+            </div>
         </div>
     </div>
-</div>
--->
+    -->
