@@ -1,0 +1,24 @@
+#imprintSection {
+    right: 1em;
+    bottom: 1em;
+    width: 100%;
+    text-align: right;
+    padding-right: 1em;
+    grid-area: right;
+}
+
+#imprintSection a {
+    color: white;
+    text-decoration: none;
+}
+
+#copyright {
+    display: grid;
+    grid-template-areas:
+        'left center right';
+    grid-template-columns: 30% 40% 30%;
+}
+
+#copyright-text {
+    grid-area: center;
+}

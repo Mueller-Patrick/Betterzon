@@ -1,10 +1,8 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {TopBarComponent} from './top-bar.component';
-import {FormBuilder} from '@angular/forms';
-import {ApiService} from '../../services/api.service';
-import {Router} from '@angular/router';
+import {ProfileComponent} from './profile.component';
 import {AbstractMockObservableService} from '../../mocks/mock.service';
+import {ApiService} from '../../services/api.service';
 
 class MockApiService extends AbstractMockObservableService {
     getUserInfo(): any {
@@ -12,32 +10,33 @@ class MockApiService extends AbstractMockObservableService {
         return this;
     }
 
-    getSessionInfoFromLocalStorage(): any {
+    getPriceAlarms(): any {
+        this.content = [];
+        return this;
+    }
+
+    getProductsByIds(): any {
         this.content = [];
         return this;
     }
 }
 
-describe('TopBarComponent', () => {
-    let component: TopBarComponent;
-    let fixture: ComponentFixture<TopBarComponent>;
+describe('ProfileComponent', () => {
+    let component: ProfileComponent;
+    let fixture: ComponentFixture<ProfileComponent>;
     let mockService;
-    const router = {
-        navigate: jasmine.createSpy('navigate'),
-        routerState: jasmine.createSpy('routerState')
-    };
 
     beforeEach(async () => {
         mockService = new MockApiService();
         await TestBed.configureTestingModule({
-            declarations: [TopBarComponent],
-            providers: [{provide: ApiService, useValue: mockService}, {provide: Router, useValue: router}]
+            declarations: [ProfileComponent],
+            providers: [{provide: ApiService, useValue: mockService}]
         })
             .compileComponents();
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(TopBarComponent);
+        fixture = TestBed.createComponent(ProfileComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

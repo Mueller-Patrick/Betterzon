@@ -11,18 +11,21 @@
                 <div class="row">
                     <form [formGroup]="form" class="form-group" (ngSubmit)="onSubmit()">
                         <div class="row">
-                            <input type="text" formControlName="username" id="username" name="username" class="form__input" placeholder="Username">
+                            <input type="text" formControlName="username" id="username" name="username"
+                                   class="form__input" placeholder="Username">
                             <div *ngIf="submitted && me.username.errors" class="invalid-feedback">
                                 <div *ngIf="me.username.errors.required">Username is required</div>
                             </div>
                         </div>
                         <div class="row">
                             <!-- <span class="fa fa-lock"></span> -->
-                            <input type="email" formControlName="email" name="email" id="email" class="form__input" placeholder= "E-Mail">
+                            <input type="email" formControlName="email" name="email" id="email" class="form__input"
+                                   placeholder="E-Mail">
                         </div>
                         <div class="row">
                             <!-- <span class="fa fa-lock"></span> -->
-                            <input type="password" formControlName="password" name="password" id="password" class="form__input" placeholder="Password">
+                            <input type="password" formControlName="password" name="password" id="password"
+                                   class="form__input" placeholder="Password">
                         </div>
                         <!--
                         <div class="row">

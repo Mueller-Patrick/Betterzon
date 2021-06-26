@@ -9,10 +9,10 @@ import {ProductSearchPageComponent} from './pages/product-search-page/product-se
 import {PageNotFoundPageComponent} from './pages/page-not-found-page/page-not-found-page.component';
 import {ImprintComponent} from './pages/imprint/imprint.component';
 import {PrivacyComponent} from './pages/privacy/privacy.component';
-import {SigninComponent} from "./components/auth/signin/signin.component";
-import {RegistrationComponent} from "./components/auth/registration/registration.component";
-import {ProfileComponent} from "./components/profile/profile.component";
-import {ProfilePageComponent} from "./pages/profile-page/profile-page.component";
+import {SigninComponent} from './components/auth/signin/signin.component';
+import {RegistrationComponent} from './components/auth/registration/registration.component';
+import {ProfileComponent} from './pages/profile/profile.component';
+import {ProfilePageComponent} from './pages/profile-page/profile-page.component';
 
 const routes: Routes = [
     {path: '', component: LandingpageComponent, pathMatch: 'full'},
@@ -22,8 +22,8 @@ const routes: Routes = [
     {path: 'datenschutz', component: PrivacyComponent},
     {path: 'signin', component: SigninComponent},
     {path: 'registration', component: RegistrationComponent},
-    {path: "product-detail", component: ProductDetailPageComponent},
-    {path: "profile", component: ProfilePageComponent},
+    {path: 'product-detail', component: ProductDetailPageComponent},
+    {path: 'profile', component: ProfilePageComponent},
     {path: '**', component: PageNotFoundPageComponent}
 ];
 

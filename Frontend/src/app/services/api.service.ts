@@ -106,7 +106,7 @@ export class ApiService {
         let asin = '';
 
         // Check if the parameter is a link or an asin
-        const linkRegex: RegExp = /^http[s]{0,1}:\/\/.*\/dp\/(.[^\/]*)\/{0,1}.*$/;
+        const linkRegex: RegExp = /^http[s]?:\/\/.*\/dp\/(.[^\/]*)\/?.*$/;
         const matches = linkRegex.exec(asinOrLink);
         if (matches) {
             // param is a link, extract asin
