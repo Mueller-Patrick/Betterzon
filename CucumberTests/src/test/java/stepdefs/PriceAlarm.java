@@ -4,6 +4,12 @@ import io.cucumber.java.PendingException;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.List;
 
 public class PriceAlarm {
     @Given("^the user has at least (\\d+) price alarm set$")
@@ -12,42 +18,43 @@ public class PriceAlarm {
 
     @When("^the user clicks on the profile icon$")
     public void the_user_clicks_on_the_profile_icon() throws Exception {
-    }
-
-    @Then("^the profile details popup should open$")
-    public void the_profile_details_popup_should_open() throws Exception {
-    }
-
-    @When("^the user clicks on price alarms$")
-    public void the_user_clicks_on_price_alarms() throws Exception {
-    }
-
-    @Then("^the price alarm list should open$")
-    public void the_price_alarm_list_should_open() throws Exception {
+        WebElement profileButton = (new WebDriverWait(Preconditions.driver, Preconditions.delaySeconds))
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(),'profile')]")));
+        profileButton.click();
     }
 
     @Then("^the price alarm list should contain at least (\\d+) entry$")
     public void the_price_alarm_list_should_contain_at_least_entry(int arg1) throws Exception {
+        WebElement alarmEntry = (new WebDriverWait(Preconditions.driver, Preconditions.delaySeconds))
+                .until(ExpectedConditions.elementToBeClickable(By.cssSelector("table.table.table-hover tr:nth-child(2)")));
+
+        assert (alarmEntry != null);
     }
 
-    @Then("^the price alarm list should contain a maximum of (\\d+) entries per page$")
-    public void the_price_alarm_list_should_contain_a_maximum_of_entries_per_page(int arg1) throws Exception {
-    }
+    @Given("^the user is on the profile page$")
+    public void the_user_is_on_the_profile_page() throws Exception {
+        Preconditions.driver.get("https://www.betterzon.xyz/profile");
 
-    @Given("^the user is on the price alarm list page$")
-    public void the_user_is_on_the_price_alarm_list_page() throws Exception {
+        WebElement profile_info_text = (new WebDriverWait(Preconditions.driver, Preconditions.delaySeconds))
+                .until(ExpectedConditions.elementToBeClickable(By.cssSelector("table.table.table-user-information")));
+        assert (profile_info_text.isDisplayed());
     }
 
     @When("^the user clicks on the \"([^\"]*)\" button next to a price alarm$")
     public void the_user_clicks_on_the_button_next_to_a_price_alarm(String arg1) throws Exception {
-    }
+        if (arg1.equals("remove")) {
+            WebElement entry = (new WebDriverWait(Preconditions.driver, Preconditions.delaySeconds))
+                    .until(ExpectedConditions.elementToBeClickable(By.cssSelector("table.table.table-hover tr:nth-child(2)")));
 
-    @Then("^a popup should open asking the user to confirm the removal$")
-    public void a_popup_should_open_asking_the_user_to_confirm_the_removal() throws Exception {
-    }
+            if (entry == null) {
+                throw new Exception("Too few price alarm entries found!");
+            }
 
-    @When("^the user confirms the removal of the price alarm$")
-    public void the_user_confirms_the_removal_of_the_price_alarm() throws Exception {
+            WebElement btn = entry.findElement(By.cssSelector("img.delete[src='../assets/images/Delete_icon-icons.com_55931.png']"));
+
+            btn.click();
+        } else if (arg1.equals("edit")) {
+        }
     }
 
     @Then("^the price alarm should be removed from the database$")

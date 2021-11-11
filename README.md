@@ -1,6 +1,6 @@
 # Betterzon
-Website: https://www.betterzon.xyz<br>
-Blog: https://blog.betterzon.xyz<br>
+Website: https://betterzon.p4ddy.com<br>
+Blog: https://blog.betterzon.p4ddy.com<br>
 Wiki: https://github.com/Mueller-Patrick/Betterzon/wiki
 
 # Code Quality
@@ -8,5 +8,5 @@ Wiki: https://github.com/Mueller-Patrick/Betterzon/wiki
 [![Code Coverage](https://img.shields.io/badge/coverage-81%25-green)](https://ci.betterzon.xyz)
 
 # Project Status
-[![Website Status](https://img.shields.io/website?label=www.betterzon.xyz&style=for-the-badge&url=https%3A%2F%2Fwww.betterzon.xyz)](https://www.betterzon.xyz)
-[![Blog Status](https://img.shields.io/website?label=blog.betterzon.xyz&style=for-the-badge&url=https%3A%2F%2Fblog.betterzon.xyz)](https://blog.betterzon.xyz)
+[![Website Status](https://img.shields.io/website?label=betterzon.p4ddy.com&style=for-the-badge&url=https%3A%2F%2Fbetterzon.p4ddy.com)](https://betterzon.p4ddy.com)
+[![Blog Status](https://img.shields.io/website?label=blog.betterzon.p4ddy.com&style=for-the-badge&url=https%3A%2F%2Fblog.betterzon.p4ddy.com)](https://blog.betterzon.p4ddy.com)
